@@ -1,0 +1,16 @@
+// Selamat datang di MinangScript!
+// File ini menggunakan filosofi Minangkabau
+
+cetak "Salamat datang ka " + "test-cli-project"
+
+// Contoh variabel
+buek namo = "MinangScript"
+ambiak versi = "1.0.1"
+tagak filosofi = "Gotong Royong"
+
+// Contoh fungsi dengan nilai gotong royong
+karojo sambutan(nama) {
+    jadi "Salamat datang, " + nama + "! Mari bergotong royong."
+}
+
+cetak sambutan(namo)

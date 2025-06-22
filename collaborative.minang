@@ -1,0 +1,20 @@
+// Template Gotong Royong - Kerja Sama
+// Filosofi: Berat sama dipikul, ringan sama dijinjing
+
+karojo gotongRoyongHitung(angka1, angka2, angka3) {
+    cetak "🤝 Gotong royong menghitung bersama"
+    buek hasil = angka1 + angka2 + angka3
+    jadi hasil
+}
+
+karojo gotongRoyongBagi(total, jumlahOrang) {
+    cetak "📊 Membagi hasil secara adil"
+    jadi total / jumlahOrang
+}
+
+// Contoh penggunaan
+buek totalPekerjaan = gotongRoyongHitung(10, 20, 30)
+buek bagianPerOrang = gotongRoyongBagi(totalPekerjaan, 3)
+
+cetak "Total pekerjaan: " + totalPekerjaan
+cetak "Bagian per orang: " + bagianPerOrang
