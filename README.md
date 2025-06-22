@@ -4,6 +4,36 @@
 
 A complete programming language inspired by Minangkabau culture, featuring authentic Minangkabau keywords and cultural philosophy integration.
 
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen)
+![NPM](https://img.shields.io/npm/v/minangscript?color=red)
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Global installation
+npm install -g minangscript
+
+# Local installation
+npm install minangscript
+```
+
+### Usage
+
+```bash
+# Create a new project
+minang new myproject
+
+# Run a MinangScript file
+minang run hello.minang
+
+# Build to JavaScript
+minang build input.minang output.js
+```
+
 ## ✨ Features
 
 ### 🔤 **Authentic Minangkabau Keywords**
@@ -37,27 +67,6 @@ A complete programming language inspired by Minangkabau culture, featuring authe
 - Interactive REPL
 - Built-in testing framework
 - Code formatter and validator
-
-## 🚀 Quick Start
-
-### Installation
-```bash
-git clone <repository>
-cd minangScript
-npm install
-```
-
-### Basic Usage
-```bash
-# Run a MinangScript program
-node index.js run examples/hello.minang
-
-# Build to JavaScript
-node index.js build examples/hello.minang output.js
-
-# Create new project template
-node index.js new myproject
-```
 
 ## 📝 Example Code
 
