@@ -1,0 +1,53 @@
+// Contoh Sederhana Sistem Nagari - MinangScript
+// Filosofi: Teknologi untuk melestarikan budaya
+
+cetak "🏔️ Sistem Nagari Digital MinangScript"
+cetak "Mengelola nagari dengan kearifan lokal"
+
+// Data nagari
+buek namaKagari = "Nagari Pagaruyung"
+buek jumlahPenduduk = 1500
+buek ketuaNagari = "Dt. Rangkayo Basa"
+
+// Fungsi informasi nagari
+karojo infoNagari(nama, penduduk, ketua) {
+    cetak ""
+    cetak "📋 Informasi Nagari:"
+    cetak "🏘️ Nama: " + nama
+    cetak "👥 Penduduk: " + penduduk + " jiwa"
+    cetak "👑 Ketua: " + ketua
+    jadi penduduk
+}
+
+// Fungsi gotong royong
+karojo hitungGotongRoyong(proyek, biaya, warga) {
+    cetak ""
+    cetak "🤝 Gotong Royong: " + proyek
+    cetak "💰 Total biaya: Rp " + biaya
+    
+    buek iuranPerKK = biaya / warga
+    cetak "💵 Iuran per KK: Rp " + iuranPerKK
+    
+    kalau iuranPerKK > 500000 {
+        cetak "⚠️ Perlu musyawarah untuk solusi pembiayaan"
+    } lain {
+        cetak "✅ Iuran terjangkau, dapat dilaksanakan"
+    }
+    
+    jadi iuranPerKK
+}
+
+// Program utama
+buek totalPenduduk = infoNagari(namaKagari, jumlahPenduduk, ketuaNagari)
+
+// Contoh gotong royong pembangunan
+buek iuranJalan = hitungGotongRoyong("Jalan Nagari", 50000000, 100)
+
+// Pesan filosofi
+cetak ""
+cetak "🌟 Filosofi MinangScript:"
+cetak "🤝 Gotong Royong: Teknologi untuk kerja sama"
+cetak "🗣️ Musyawarah: Platform digital untuk berunding"
+cetak "🌿 Alam Takambang: Belajar dari alam dan budaya"
+cetak ""
+cetak "💻 MinangScript: Memadukan teknologi dengan kearifan lokal"

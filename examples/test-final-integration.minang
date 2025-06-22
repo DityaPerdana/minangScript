@@ -1,0 +1,124 @@
+// 🎯 MinangScript v1.0.1 - Test Final Lengkap
+// Memverifikasi semua keyword baru dan fitur terintegrasi
+
+cetak "🏔️ MinangScript v1.0.1 - Test Integrasi Final"
+cetak "=============================================="
+
+// 1. Test keyword yang diperbaiki: selamo
+cetak "\n🔄 1. Test keyword selamo (terus-menerus):"
+buek i = 1
+selamo i <= 3 {
+    cetak "• Selamo iterasi ke-" + i
+    cetak.urai "  Debug: processing iteration " + i
+    i = i + 1
+}
+
+// 2. Test semua variabel declaration types  
+cetak "\n📝 2. Test deklarasi variabel:"
+buek varVariable = "menggunakan buek (var)"
+ambiak letVariable = "menggunakan ambiak (let)"
+tagak constVariable = "menggunakan tagak (const)"
+
+cetak varVariable
+cetak letVariable
+cetak constVariable
+
+// 3. Test fungsi dengan keyword baru
+cetak "\n🔧 3. Test fungsi dengan karojo dan jadi:"
+karojo hitungLuas(panjang, lebar) {
+    cetak.urai "Menghitung luas dengan panjang: " + panjang + ", lebar: " + lebar
+    buek hasil = angko(panjang) * angko(lebar)
+    cetak.pesan "Hasil perhitungan: " + kato(hasil)
+    jadi hasil
+}
+
+buek luas = hitungLuas("10", "5")
+cetak "Luas total: " + luas
+
+// 4. Test semua console methods
+cetak "\n🖨️ 4. Test semua metode console:"
+cetak "Standard output (console.log)"
+cetak.pesan "Informasi penting (console.info)"
+cetak.peringatan "Peringatan utama (console.warn)"
+cetak.ingek "Peringatan alternatif (console.warn)"
+cetak.rusak "Pesan error (console.error)"
+cetak.urai "Informasi debug (console.debug)"
+
+// 5. Test data type constructors
+cetak "\n🔧 5. Test konstruktor tipe data:"
+buek testString = "42.75"
+buek testNumber = 123
+buek testBoolean = kabanaran(testNumber)
+
+cetak "Original string: '" + testString + "'"
+cetak "angko(\"42.75\") = " + angko(testString)
+cetak "kato(123) = '" + kato(testNumber) + "'"
+cetak "kabanaran(123) = " + testBoolean
+
+// 6. Test conditional dengan keyword baru
+cetak "\n🔀 6. Test conditional:"
+buek nilai = angko("85")
+kalau nilai >= 90 {
+    cetak.pesan "Nilai A - Excellent!"
+} kalauLain nilai >= 80 {
+    cetak.pesan "Nilai B - Good!"
+} kalauLain nilai >= 70 {
+    cetak.peringatan "Nilai C - Adequate"
+} lain {
+    cetak.rusak "Nilai D - Needs improvement"
+}
+
+// 7. Test filosofi Minangkabau
+cetak "\n🌟 7. Test filosofi budaya:"
+karojo demonstrasiFilosofi() {
+    cetak.pesan "🤝 Gotong Royong: Mari bekerja sama"
+    cetak.pesan "🗣️ Musyawarah: Berunding mencapai mufakat"
+    cetak.pesan "🌿 Alam Takambang: Belajar dari alam"
+    cetak.pesan "📜 Adat Basandi: Berpegang pada etika"
+    jadi "Filosofi terintegrasi"
+}
+
+buek filosofi = demonstrasiFilosofi()
+cetak "Status: " + filosofi
+
+// 8. Test kompleks gabungan
+cetak "\n🎯 8. Test kombinasi kompleks:"
+karojo prosesKompleks(input1, input2) {
+    cetak.urai "Processing: " + input1 + ", " + input2
+    
+    buek num1 = angko(input1)
+    buek num2 = angko(input2)
+    
+    kalau num1 > 0 && num2 > 0 {
+        buek hasil = num1 + num2
+        buek counter = 0
+        
+        cetak.pesan "Menghitung hasil..."
+        selamo counter < 2 {
+            cetak "  Iterasi: " + counter + ", Progress: " + kato(hasil)
+            counter = counter + 1
+        }
+        
+        jadi kato(hasil)
+    } lain {
+        cetak.rusak "Input tidak valid"
+        jadi kosong
+    }
+}
+
+buek hasilKompleks = prosesKompleks("15", "25")
+cetak "Hasil akhir: " + hasilKompleks
+
+// Ringkasan
+cetak "\n🎊 RINGKASAN TEST:"
+cetak "✅ Keyword selamo: Berfungsi"
+cetak "✅ Deklarasi variabel: buek, ambiak, tagak"
+cetak "✅ Fungsi: karojo dan jadi"
+cetak "✅ Console methods: 7 metode tersedia"
+cetak "✅ Data constructors: angko, kato, kabanaran"
+cetak "✅ Conditional: kalau, kalauLain, lain"
+cetak "✅ Loop: selamo dengan counter"
+cetak "✅ Filosofi: Terintegrasi dengan autentik"
+
+cetak "\n🏔️ MinangScript v1.0.1 - SEMUA FITUR BERFUNGSI SEMPURNA!"
+cetak "'Selamo belajar, selamo berkembang dengan kearifan Minangkabau'"

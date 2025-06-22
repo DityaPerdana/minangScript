@@ -1,0 +1,57 @@
+{
+  "name": "minangscript",
+  "version": "1.0.1",
+  "description": "Bahasa pemrograman dengan filosofi Minangkabau - Programming language with Minangkabau philosophy",
+  "keywords": [
+    "minangscript",
+    "programming-language",
+    "minangkabau",
+    "cultural-programming",
+    "gotong-royong",
+    "indonesia"
+  ],
+  "license": "MIT",
+  "author": "ditya",
+  "type": "commonjs",
+  "main": "index.js",
+  "bin": {
+    "minang": "./index.js"
+  },
+  "files": [
+    "src/",
+    "examples/",
+    "index.js",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node tests/minang-test.js",
+    "start": "node index.js",
+    "build": "node build.js",
+    "dev": "node index.js examples/hello.minang",
+    "repl": "node dev.js repl",
+    "validate": "node dev.js validate",
+    "format": "node dev.js format",
+    "example:hello": "node index.js run examples/hello.minang",
+    "example:gotong": "node index.js run examples/gotong-royong.minang",
+    "example:calc": "node index.js run examples/kalkulator.minang",
+    "example:nagari": "node index.js run examples/nagari-simple.minang",
+    "install-global": "npm install -g .",
+    "uninstall-global": "npm uninstall -g minangscript",
+    "dev:tools": "node dev.js",
+    "template:basic": "node dev.js template basic",
+    "template:gotong": "node dev.js template gotong-royong",
+    "template:musyawarah": "node dev.js template musyawarah",
+    "template:alam": "node dev.js template alam-takambang"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/minangscript.git"
+  },
+  "homepage": "https://github.com/your-username/minangscript#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/minangscript/issues"
+  }
+}

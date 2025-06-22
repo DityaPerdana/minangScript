@@ -1,0 +1,52 @@
+// Test program untuk kata kunci baru MinangScript
+// Testing new keywords: buek, ambiak, tagak, karojo, jadi, selamo, baronti, cetak
+
+cetak "🧪 Testing kata kunci baru MinangScript"
+
+// Test variable declarations
+buek nama = "MinangScript"  // var
+ambiak umur = 25           // let  
+tagak versi = "2.0.0"      // const
+
+cetak "Nama: " + nama
+cetak "Umur: " + umur
+cetak "Versi: " + versi
+
+// Test function declaration
+karojo hitungUmur(tahunLahir) {
+    ambiak tahunSekarang = 2025
+    jadi tahunSekarang - tahunLahir
+}
+
+// Test enhanced print methods
+cetak "=== Testing cetak methods ==="
+cetak "Normal: Pesan biasa"
+cetak.pesan "Info: Pesan informasi"
+cetak.ingek "Peringatan: Ada yang perlu diperhatikan"
+cetak.urai "Debug: Informasi untuk debugging"
+cetak.rusak "Error: Ini simulasi error"
+
+// Test function call
+ambiak hasilUmur = hitungUmur(1995)
+cetak "Hasil perhitungan umur: " + hasilUmur
+
+// Test conditional with new keywords
+kalau hasilUmur >= 18 {
+    cetak "Status: Dewasa"
+} lain {
+    cetak "Status: Anak-anak"
+}
+
+// Test loop dengan keyword baru
+cetak "=== Testing loop selamo ==="
+ambiak i = 0
+selamo i < 3 {
+    cetak "Iterasi ke-" + i
+    i = i + 1
+    
+    kalau i == 2 {
+        cetak.ingek "Akan baronti di iterasi berikutnya"
+    }
+}
+
+cetak "✅ Semua test kata kunci baru berhasil!"

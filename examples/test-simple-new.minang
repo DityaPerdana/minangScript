@@ -1,0 +1,16 @@
+// Test sederhana untuk selamo dan fitur baru
+cetak "Test selamo loop:"
+
+buek i = 0
+selamo i < 3 {
+    cetak "Iterasi: " + i
+    i = i + 1
+}
+
+cetak "Test console methods:"
+cetak.pesan "Info message"
+cetak.peringatan "Warning message"
+
+cetak "Test data types:"
+buek angkaBaru = angko("42")
+cetak "Converted number: " + angkaBaru

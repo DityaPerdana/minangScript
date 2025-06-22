@@ -1,0 +1,29 @@
+// Test sederhana untuk memastikan semua fitur bekerja
+cetak "=== Testing MinangScript v1.0.0 ==="
+
+// Test variabel baru
+buek nama = "MinangScript"
+ambiak versi = "1.0.0"
+tagak tanggal = "2025-06-22"
+
+cetak "Nama: " + nama
+cetak "Versi: " + versi
+cetak "Tanggal: " + tanggal
+
+// Test fungsi baru
+karojo tambah(a, b) {
+    jadi a + b
+}
+
+buek hasil = tambah(5, 3)
+cetak "5 + 3 = " + hasil
+
+// Test cetak methods
+cetak "=== Testing Print Methods ==="
+cetak "Normal print"
+cetak.pesan "Info message"
+cetak.ingek "Warning message"
+cetak.urai "Debug message"
+cetak.rusak "Error message"
+
+cetak "=== Test Selesai ==="

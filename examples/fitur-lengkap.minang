@@ -1,0 +1,125 @@
+// Contoh Lengkap MinangScript - Semua Fitur Baru
+// Menunjukkan semua kata kunci dan fitur yang telah diperbarui
+
+cetak "🏔️ MinangScript v1.0.0 - Fitur Lengkap"
+cetak "========================================="
+
+// === DEKLARASI VARIABEL ===
+cetak "\n📝 Deklarasi Variabel:"
+
+// Variabel mutable (dapat diubah)
+buek namaProyek = "MinangScript"
+ambiak versi = "1.0.0"
+
+// Konstanta (tidak dapat diubah)  
+tagak tanggalRilis = "2025-06-22"
+tagak filosofi = "Alam Takambang Jadi Guru"
+
+cetak "• buek (var): " + namaProyek
+cetak "• ambiak (let): " + versi  
+cetak "• tagak (const): " + tanggalRilis
+
+// === FUNGSI BARU ===
+cetak "\n🔧 Definisi Fungsi:"
+
+karojo hitungUmur(tahunLahir) {
+    buek tahunSekarang = 2025
+    buek umur = tahunSekarang - tahunLahir
+    jadi umur
+}
+
+karojo sapaPengguna(nama, umur) {
+    kalau umur < 17 {
+        jadi "Halo adik " + nama + "! Tetap semangat belajar!"
+    } kalauLain umur < 60 {
+        jadi "Salamat datang " + nama + "! Mari berkarya bersama!"
+    } lain {
+        jadi "Tabik pun " + nama + "! Terima kasih atas kebijaksanaannya!"
+    }
+}
+
+buek umurSaya = hitungUmur(1995)
+buek pesanSambutan = sapaPengguna("Programmer", umurSaya)
+cetak "• Hasil karojo: " + pesanSambutan
+
+// === SISTEM CETAK ENHANCED ===
+cetak "\n🖨️ Sistem Cetak Enhanced:"
+
+cetak "• cetak normal - output biasa"
+cetak.pesan "• cetak.pesan - informasi penting"
+cetak.ingek "• cetak.ingek - peringatan untuk perhatian"
+cetak.urai "• cetak.urai - informasi debug detail"
+cetak.rusak "• cetak.rusak - laporan kesalahan"
+
+// === LOOP DAN KONTROL ===
+cetak "\n🔄 Loop dan Kontrol Flow:"
+
+buek hitungan = 0
+selamo hitungan < 3 {
+    cetak "• Iterasi selamo ke-" + hitungan
+    hitungan = hitungan + 1
+    
+    kalau hitungan == 2 {
+        cetak.ingek "  → Akan baronti di iterasi berikutnya"
+        baronti
+    }
+}
+
+// === FILOSOFI MINANGKABAU ===
+cetak "\n🌟 Filosofi Minangkabau dalam Kode:"
+
+// Gotong Royong - Kerja sama
+karojo gotongRoyongHitung(angka1, angka2, angka3) {
+    cetak "🤝 Gotong Royong - Mari hitung bersama!"
+    buek hasil = angka1 + angka2 + angka3
+    cetak "• " + angka1 + " + " + angka2 + " + " + angka3 + " = " + hasil
+    jadi hasil
+}
+
+buek hasilGotong = gotongRoyongHitung(10, 20, 30)
+cetak "• Hasil gotong royong: " + hasilGotong
+
+// Musyawarah - Pengambilan keputusan
+karojo musyawarahKeputusan(opsi1, opsi2, nilai1, nilai2) {
+    cetak "\n🗣️ Musyawarah - Mari berunding!"
+    cetak "• Opsi 1: " + opsi1 + " (nilai: " + nilai1 + ")"
+    cetak "• Opsi 2: " + opsi2 + " (nilai: " + nilai2 + ")"
+    
+    kalau nilai1 > nilai2 {
+        cetak "• Keputusan: " + opsi1 + " dipilih berdasarkan mufakat"
+        jadi opsi1
+    } lain {
+        cetak "• Keputusan: " + opsi2 + " dipilih berdasarkan mufakat"  
+        jadi opsi2
+    }
+}
+
+buek keputusan = musyawarahKeputusan("Pembangunan Jalan", "Pembangunan Sekolah", 75, 85)
+
+// Alam Takambang Jadi Guru - Belajar dari pola
+cetak "\n🌿 Alam Takambang Jadi Guru - Belajar dari pola:"
+
+karojo belajarDariPola(data) {
+    cetak "• Mengamati pola dalam data: " + data
+    kalau data > 50 {
+        cetak "• Pelajaran: Nilai tinggi menunjukkan potensi baik"
+        jadi "tinggi"
+    } lain {
+        cetak "• Pelajaran: Perlu peningkatan dan pembelajaran lebih"
+        jadi "rendah"
+    }
+}
+
+buek polaPembelajaran = belajarDariPola(85)
+
+// === PENUTUP ===
+cetak "\n🎉 MinangScript v1.0.0 - Lengkap dan Siap Digunakan!"
+cetak "======================================================"
+cetak ""
+cetak "🏔️ Dengan filosofi Minangkabau:"
+cetak "• Gotong Royong - Bekerja sama dalam pengembangan"
+cetak "• Musyawarah Mufakat - Berunding dalam pengambilan keputusan"  
+cetak "• Alam Takambang Jadi Guru - Belajar dari alam dan pengalaman"
+cetak "• Adat Basandi Syarak - Mengutamakan etika dalam berkarya"
+cetak ""
+cetak "✨ Bahasa pemrograman yang memadukan teknologi modern dengan kearifan lokal!"

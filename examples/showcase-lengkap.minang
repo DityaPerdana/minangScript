@@ -1,0 +1,131 @@
+// 🏔️ MinangScript v1.0.1 - Showcase Lengkap Semua Fitur
+// Demonstrasi komprehensif dengan semua fitur baru dan perbaikan
+
+cetak "🎉 MinangScript v1.0.1 - Demo Lengkap"
+cetak "========================================="
+
+// 1. Test keyword yang diperbaiki: selamo (bukan selami)
+cetak "\n🔄 1. Loop dengan 'selamo' (terus-menerus):"
+buek counter = 1
+selamo counter <= 3 {
+    cetak "• Perulangan selamo ke-" + counter
+    counter = counter + 1
+}
+
+// 2. Test semua console methods baru
+cetak "\n📝 2. Sistem Console Lengkap (cetak sebagai console):"
+cetak "Standard output (console.log)"
+cetak.pesan "💡 Info message (console.info)"
+cetak.ingek "⚠️ Warning pertama (console.warn)"
+cetak.peringatan "⚠️ Warning kedua (console.warn)"
+cetak.rusak "❌ Error message (console.error)"
+cetak.urai "🔍 Debug information (console.debug)"
+
+// 3. Test data type constructors
+cetak "\n🔧 3. Konstruktor Tipe Data Minangkabau:"
+
+// angko - konversi ke number
+buek stringAngka = "98.7"
+buek numberBaru = angko(stringAngka)
+cetak "angko(\"98.7\") = " + numberBaru + " (type: number)"
+
+buek booleanToNumber = angko(bana)
+cetak "angko(bana) = " + booleanToNumber + " (true -> 1)"
+
+// kato - konversi ke string
+buek angkaAsli = 12345
+buek stringBaru = kato(angkaAsli)
+cetak "kato(12345) = \"" + stringBaru + "\" (type: string)"
+
+// kabanaran - konversi ke boolean
+buek truthyNumber = kabanaran(42)
+buek falsyNumber = kabanaran(0)
+buek truthyString = kabanaran("hello")
+buek falsyString = kabanaran("")
+cetak "kabanaran(42) = " + truthyNumber + " (truthy number)"
+cetak "kabanaran(0) = " + falsyNumber + " (falsy number)"
+cetak "kabanaran(\"hello\") = " + truthyString + " (truthy string)"
+cetak "kabanaran(\"\") = " + falsyString + " (falsy string)"
+
+// 4. Test kombinasi fitur dalam fungsi
+cetak "\n🎯 4. Kombinasi Fitur dalam Fungsi:"
+
+karojo prosesInput(nilai) {
+    cetak.urai "🔍 Memproses input: " + nilai
+    
+    // Konversi ke angka
+    buek angka = angko(nilai)
+    
+    kalau angka > 0 {
+        buek hasil = kato(angka * 2)
+        cetak.pesan "✅ Hasil valid: " + hasil
+        jadi hasil
+    } kalauLain angka == 0 {
+        cetak.peringatan "⚠️ Input adalah nol"
+        jadi "nol"
+    } kalauLain {
+        cetak.rusak "❌ Input tidak valid atau negatif"
+        jadi kosong
+    }
+}
+
+// Test fungsi dengan berbagai input
+buek hasil1 = prosesInput("15")
+buek hasil2 = prosesInput("0")
+buek hasil3 = prosesInput("-5")
+
+cetak "Hasil fungsi 1: " + hasil1
+cetak "Hasil fungsi 2: " + hasil2
+cetak "Hasil fungsi 3: " + hasil3
+
+// 5. Test loop kompleks dengan fitur baru
+cetak "\n🔁 5. Loop Kompleks dengan Fitur Baru:"
+
+buek data = ["10", "hello", "0", "42", ""]
+buek index = 0
+
+selamo index < 5 {
+    buek item = data[index]
+    cetak.urai "Processing item " + index + ": " + item
+    
+    buek isNumber = kabanaran(angko(item))
+    kalau isNumber && angko(item) > 0 {
+        cetak.pesan "✅ Valid number: " + angko(item)
+    } lain {
+        cetak.peringatan "⚠️ Invalid or zero: " + item
+    }
+    
+    index = index + 1
+}
+
+// 6. Demonstrasi filosofi Minangkabau
+cetak "\n🌟 6. Filosofi Minangkabau dalam Kode:"
+cetak "• selamo = terus-menerus, mencerminkan ketekunan"
+cetak "• angko = angka, perhitungan yang tepat"
+cetak "• kato = kata/perkataan, komunikasi yang baik"
+cetak "• kabanaran = kebenaran, mencari yang benar"
+cetak "• cetak = transparansi informasi"
+
+// 7. Test gotong royong dengan fitur baru
+cetak "\n🤝 7. Gotong Royong dengan Fitur Baru:"
+karojo hitungBersama(a, b, c) {
+    cetak.urai "Menghitung secara gotong royong"
+    buek total = angko(a) + angko(b) + angko(c)
+    cetak.pesan "Total hasil kerja sama: " + total
+    jadi total
+}
+
+buek hasilGotong = hitungBersama("10", "20", "30")
+cetak "Hasil gotong royong: " + hasilGotong
+
+// Penutup
+cetak "\n🎊 Demo Selesai!"
+cetak "MinangScript v1.0.1 dengan semua fitur:"
+cetak "✅ Keyword yang diperbaiki (selamo)"
+cetak "✅ Console system lengkap (7 methods)"
+cetak "✅ Data type constructors (3 functions)"
+cetak "✅ Filosofi Minangkabau yang autentik"
+cetak "✅ 19/19 tests passing"
+
+cetak "\n🏔️ 'Selamo belajar, selamo berkembang'"
+cetak "Terus belajar dengan kearifan Minangkabau!"

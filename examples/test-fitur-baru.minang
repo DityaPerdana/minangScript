@@ -1,0 +1,35 @@
+// Test untuk fitur baru MinangScript
+cetak "=== Testing Fitur Baru MinangScript ==="
+
+// Test kata kunci baru selamo
+buek hitungan = 0
+selamo hitungan < 3 {
+    cetak "Iterasi ke-" + hitungan
+    hitungan = hitungan + 1
+}
+
+// Test console methods baru
+cetak.pesan "Ini adalah pesan informasi"
+cetak.peringatan "Ini adalah peringatan"  
+cetak.rusak "Ini adalah pesan error"
+cetak.urai "Ini adalah debug info"
+
+// Test tipe data baru
+buek angkaBaru = angko("123.45")
+buek kataBaru = kato(456)
+buek kebenaranBaru = kabanaran(1)
+
+cetak "Angka dari string: " + angkaBaru
+cetak "Kata dari angka: " + kataBaru
+cetak "Kebenaran dari angka: " + kebenaranBaru
+
+// Test tabel
+buek dataContoh = [
+    {nama: "Ali", umur: 25},
+    {nama: "Siti", umur: 30}
+]
+
+cetak "Menampilkan tabel:"
+cetak.tabel dataContoh
+
+cetak "=== Test Selesai ==="

@@ -1,0 +1,65 @@
+// Contoh Lengkap dengan Fitur Baru MinangScript v1.0.1
+cetak "🏔️ MinangScript dengan Fitur Terbaru"
+cetak "======================================"
+
+// Test keyword baru: selamo (loop)
+cetak "\n🔄 Test loop selamo:"
+buek hitungan = 1
+selamo hitungan <= 3 {
+    cetak "Perulangan ke-" + hitungan
+    hitungan = hitungan + 1
+}
+
+// Test console methods baru
+cetak "\n📝 Test console methods:"
+cetak "Output normal"
+cetak.pesan "Ini pesan informasi"
+cetak.peringatan "Ini peringatan"
+cetak.rusak "Ini pesan error"
+cetak.urai "Ini debug info"
+
+// Test data type constructors
+cetak "\n🔧 Test konstruktor tipe data:"
+
+// Konversi string ke angka
+buek angkaAsli = "123.45"
+buek angkaBaru = angko(angkaAsli)
+cetak "angko(\"" + angkaAsli + "\") = " + angkaBaru + " (tipe: number)"
+
+// Konversi angka ke string
+buek kataBaru = kato(456)
+cetak "kato(456) = \"" + kataBaru + "\" (tipe: string)"
+
+// Konversi ke boolean
+buek kebenaranSatu = kabanaran(1)
+buek kebenaranNol = kabanaran(0)
+buek kebenaranString = kabanaran("hello")
+cetak "kabanaran(1) = " + kebenaranSatu
+cetak "kabanaran(0) = " + kebenaranNol
+cetak "kabanaran(\"hello\") = " + kebenaranString
+
+// Test dengan fungsi
+cetak "\n🎯 Test dengan fungsi:"
+karojo konversiData(input) {
+    cetak.urai "Memproses input: " + input
+    
+    kalau angko(input) > 0 {
+        jadi "Angka positif: " + angko(input)
+    } lain {
+        jadi "Bukan angka positif"
+    }
+}
+
+buek hasil1 = konversiData("42")
+buek hasil2 = konversiData("0")
+cetak "Hasil 1: " + hasil1
+cetak "Hasil 2: " + hasil2
+
+// Filosofi Minangkabau
+cetak "\n🌟 Dengan filosofi Minangkabau:"
+cetak "• Selamo = terus-menerus (seperti while)"
+cetak "• Angko = angka dalam bahasa Minang"
+cetak "• Kato = kata/perkataan dalam bahasa Minang"
+cetak "• Kabanaran = kebenaran dalam bahasa Minang"
+
+cetak "\n✨ MinangScript v1.0.1 - Fitur lengkap dan siap digunakan!"

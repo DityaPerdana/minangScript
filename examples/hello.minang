@@ -1,0 +1,32 @@
+// Contoh Program MinangScript - Hello World
+// Filosofi: Alam Takambang Jadi Guru
+
+cetak "Salamat datang ka MinangScript!"
+cetak "Bahasa pemrograman dengan filosofi Minangkabau"
+
+// Variabel dasar
+buek namo = "MinangScript"
+buek versi = "1.0.0"
+buek pencipta = "Radit, T-nya Typescript"
+
+// Menampilkan informasi
+cetak "Nama: " + namo
+cetak "Versi: " + versi
+cetak "Dibuat oleh: " + pencipta
+
+// Fungsi sambutan sederhana
+karojo sambutan(nama) {
+    jadi "Salamat datang, " + nama + "!"
+}
+
+// Memanggil karojo
+buek pesanSambutan = sambutan("Paduko")
+cetak pesanSambutan
+
+// Pesan penutup dengan filosofi
+cetak ""
+cetak "🏔️ Filosofi Minangkabau dalam kode:"
+cetak "• Gotong Royong - Bekerja sama"
+cetak "• Musyawarah Mufakat - Berunding bersama"  
+cetak "• Alam Takambang Jadi Guru - Belajar dari alam"
+cetak "• Adat Basandi Syarak - Beretika dalam berkarya"

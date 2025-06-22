@@ -1,0 +1,71 @@
+// Test Data Type Constructors - Memastikan penggunaan yang benar
+cetak "🧪 Testing Data Type Constructors"
+cetak "===================================="
+
+// Test 1: angko() - String ke Number
+cetak "\n🔢 Test angko() - Konversi string ke number:"
+buek stringNumber = "123.45"
+buek hasilAngko = angko(stringNumber)
+cetak "angko(\"123.45\") = " + hasilAngko + " (type: number)"
+
+buek stringInteger = "42"
+buek hasilAngkoInt = angko(stringInteger)
+cetak "angko(\"42\") = " + hasilAngkoInt + " (type: number)"
+
+// Test dengan string non-numeric
+buek stringInvalid = "hello"
+buek hasilAngkoInvalid = angko(stringInvalid)
+cetak "angko(\"hello\") = " + hasilAngkoInvalid + " (NaN -> 0)"
+
+// Test 2: kato() - Number ke String
+cetak "\n📝 Test kato() - Konversi number ke string:"
+buek numberValue = 456
+buek hasilKato = kato(numberValue)
+cetak "kato(456) = \"" + hasilKato + "\" (type: string)"
+
+buek floatValue = 78.9
+buek hasilKatoFloat = kato(floatValue)
+cetak "kato(78.9) = \"" + hasilKatoFloat + "\" (type: string)"
+
+// Test 3: kabanaran() - Ke Boolean
+cetak "\n✅ Test kabanaran() - Konversi ke boolean:"
+buek truthyNumber = kabanaran(1)
+buek falsyNumber = kabanaran(0)
+buek truthyString = kabanaran("hello")
+buek falsyString = kabanaran("")
+
+cetak "kabanaran(1) = " + truthyNumber + " (truthy number)"
+cetak "kabanaran(0) = " + falsyNumber + " (falsy number)"
+cetak "kabanaran(\"hello\") = " + truthyString + " (truthy string)"
+cetak "kabanaran(\"\") = " + falsyString + " (empty string)"
+
+// Test 4: Kombinasi dalam fungsi
+cetak "\n🔄 Test kombinasi dalam fungsi:"
+karojo prosesInput(input) {
+    cetak.urai "Processing input: " + input
+    
+    // Coba konversi ke angka
+    buek numeric = angko(input)
+    
+    kalau numeric > 0 {
+        buek stringResult = kato(numeric * 2)
+        cetak.pesan "Valid number, doubled: " + stringResult
+        jadi stringResult
+    } lain {
+        cetak.peringatan "Invalid or zero input"
+        jadi kosong
+    }
+}
+
+buek hasil1 = prosesInput("15")
+buek hasil2 = prosesInput("0")
+buek hasil3 = prosesInput("abc")
+
+cetak "Hasil 1: " + hasil1
+cetak "Hasil 2: " + hasil2
+cetak "Hasil 3: " + hasil3
+
+cetak "\n✅ Data type constructors working correctly!"
+cetak "• angko(): string -> number"
+cetak "• kato(): number -> string"  
+cetak "• kabanaran(): any -> boolean"

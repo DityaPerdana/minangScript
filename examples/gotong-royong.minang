@@ -1,0 +1,82 @@
+// Contoh Gotong Royong - Kerja Sama dalam MinangScript
+// Filosofi: Berat sama dipikul, ringan sama dijinjing
+
+cetak "🤝 Program Gotong Royong"
+cetak "Mari bekerja sama menyelesaikan tugas!"
+
+// Fungsi untuk menghitung pekerjaan bersama
+karojo hitungPekerjaanBersama(tugas1, tugas2, tugas3) {
+    cetak "📋 Menghitung total pekerjaan..."
+    buek total = tugas1 + tugas2 + tugas3
+    cetak "✅ Total pekerjaan: " + total + " unit"
+    jadi total
+}
+
+// Fungsi untuk membagi pekerjaan secara adil
+karojo bagiPekerjaanAdil(totalPekerjaan, jumlahOrang) {
+    cetak "⚖️ Membagi pekerjaan secara adil..."
+    buek bagianPerOrang = totalPekerjaan / jumlahOrang
+    cetak "👤 Bagian per orang: " + bagianPerOrang + " unit"
+    jadi bagianPerOrang
+}
+
+// Fungsi gotong royong utama
+karojo gotongRoyong(namaTugas, peserta, bebanKerja) {
+    cetak ""
+    cetak "🏔️ Memulai Gotong Royong: " + namaTugas
+    cetak "👥 Peserta: " + peserta
+    
+    // Hitung total pekerjaan
+    buek totalKerja = hitungPekerjaanBersama(bebanKerja[0], bebanKerja[1], bebanKerja[2])
+    
+    // Bagi secara adil
+    buek bagianMasing = bagiPekerjaanAdil(totalKerja, peserta)
+    
+    cetak ""
+    cetak "🎯 Hasil Gotong Royong:"
+    cetak "• Total pekerjaan: " + totalKerja + " unit"
+    cetak "• Jumlah peserta: " + peserta + " orang"
+    cetak "• Bagian masing-masing: " + bagianMasing + " unit"
+    cetak "• Status: Pekerjaan terbagi adil!"
+    
+    jadi {
+        total: totalKerja,
+        bagian: bagianMasing,
+        status: "berhasil"
+    }
+}
+
+// Contoh penggunaan
+buek tugasPembangunan = "Membangun Jembatan Nagari"
+buek jumlahWarga = 12
+buek bebanTugas = [40, 35, 25] // Tiga jenis pekerjaan
+
+// Jalankan gotong royong
+buek hasilGotongRoyong = gotongRoyong(tugasPembangunan, jumlahWarga, bebanTugas)
+
+cetak ""
+cetak "🌟 Pesan Kearifan Lokal:"
+cetak "Seperti pepatah Minang: 'Berat sama dipikul, ringan sama dijinjing'"
+cetak "Gotong royong membuat pekerjaan berat menjadi ringan!"
+
+// Contoh lain - gotong royong dalam pertanian
+cetak ""
+cetak "🌾 Contoh Gotong Royong Sawah:"
+
+karojo gotongRoyongSawah(luasSawah, hari) {
+    buek pekerjaanPerHari = luasSawah / hari
+    cetak "🚜 Luas sawah: " + luasSawah + " hektar"
+    cetak "📅 Dikerjakan dalam: " + hari + " hari"  
+    cetak "⏰ Pekerjaan per hari: " + pekerjaanPerHari + " hektar"
+    
+    kalau pekerjaanPerHari > 5 {
+        cetak "⚠️ Perlu lebih banyak bantuan warga!"
+    } lain {
+        cetak "✅ Pekerjaan dapat diselesaikan dengan baik"
+    }
+    
+    jadi pekerjaanPerHari
+}
+
+buek hasilSawah = gotongRoyongSawah(20, 4)
+cetak "🎊 Gotong royong sawah berhasil direncanakan!"

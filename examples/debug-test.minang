@@ -1,0 +1,3 @@
+cetak "Test 1: Basic print"
+buek test = angko("42")
+cetak "Test 2: angko conversion = " + test

@@ -1,0 +1,139 @@
+// Contoh Lengkap MinangScript - Sistem Nagari Digital
+// Filosofi: Integrasi teknologi dengan adat dan budaya Minangkabau
+
+cetak "🏔️ Sistem Nagari Digital - MinangScript"
+cetak "Mengelola data nagari dengan filosofi Minangkabau"
+
+// Data nagari (seperti database sederhana)
+buek namaKagari = "Nagari Pagaruyung"
+buek jumlahPenduduk = 1500
+buek luasWilayah = 25.5
+buek ketuaNagari = "Dt. Rangkayo Basa"
+
+// Fungsi untuk menampilkan informasi nagari
+karojo infoNagari(nama, penduduk, luas, ketua) {
+    cetak ""
+    cetak "📋 Informasi Nagari:"
+    cetak "🏘️ Nama: " + nama
+    cetak "👥 Jumlah Penduduk: " + penduduk + " jiwa"
+    cetak "📏 Luas Wilayah: " + luas + " km²"
+    cetak "👑 Ketua Nagari: " + ketua
+    
+    buek kepadatan = penduduk / luas
+    cetak "📊 Kepadatan: " + kepadatan + " jiwa/km²"
+    
+    jadi kepadatan
+}
+
+// Fungsi gotong royong untuk pembangunan
+karojo rencanaPembangunan(proyek, biaya, warga) {
+    cetak ""
+    cetak "🚧 Rencana Pembangunan: " + proyek
+    cetak "💰 Total Biaya: Rp " + biaya
+    cetak "👥 Jumlah KK: " + warga
+    
+    buek iuranPerKK = biaya / warga
+    cetak "💵 Iuran per KK: Rp " + iuranPerKK
+    
+    kalau iuranPerKK > 500000 {
+        cetak "⚠️ Perlu musyawarah untuk mencari solusi pembiayaan"
+        musyawarah("Pembiayaan " + proyek, "Warga nagari")
+    } lain {
+        cetak "✅ Iuran terjangkau, dapat dilaksanakan"
+        gotongRoyong("Pembangunan " + proyek, "Seluruh warga")
+    }
+    
+    jadi iuranPerKK
+}
+
+// Fungsi musyawarah digital
+karojo musyawarahDigital(topik, peserta, opsi) {
+    cetak ""
+    cetak "🗣️ Musyawarah Digital: " + topik
+    cetak "👥 Peserta: " + peserta
+    cetak "📝 Opsi yang dibahas: " + opsi
+    
+    // Simulasi proses musyawarah
+    cetak "💭 Bertukar pendapat secara virtual..."
+    cetak "🤔 Mencari titik temu..."
+    cetak "🤝 Mencapai mufakat..."
+    
+    buek keputusan = "Disepakati: " + opsi + " - pilihan pertama dengan modifikasi"
+    cetak "✅ " + keputusan
+    
+    alamTakambang("Seperti sungai yang bertemu di muara, musyawarah membawa kita pada kesepakatan")
+    
+    jadi keputusan
+}
+
+// Fungsi pengelolaan keuangan nagari
+karojo keuanganNagari(pendapatan, pengeluaran) {
+    cetak ""
+    cetak "💰 Laporan Keuangan Nagari"
+    cetak "📈 Pendapatan: Rp " + pendapatan
+    cetak "📉 Pengeluaran: Rp " + pengeluaran
+    
+    buek saldo = pendapatan - pengeluaran
+    cetak "💼 Saldo: Rp " + saldo
+    
+    kalau saldo > 0 {
+        cetak "✅ Keuangan nagari dalam kondisi sehat"
+        cetak "💡 Saran: Alokasikan surplus untuk pembangunan"
+    } lain kalau saldo == 0 {
+        cetak "⚖️ Keuangan nagari berimbang"
+        cetak "💡 Saran: Tetap hati-hati dalam pengelolaan"
+    } lain {
+        cetak "⚠️ Keuangan nagari defisit"
+        cetak "💡 Saran: Perlu musyawarah untuk mencari solusi"
+    }
+    
+    jadi saldo
+}
+
+// Program utama
+cetak ""
+cetak "=================================================="
+
+// Tampilkan info nagari
+buek kepadatanPenduduk = infoNagari(namaKagari, jumlahPenduduk, luasWilayah, ketuaNagari)
+
+// Rencana pembangunan jalan
+buek iuranJalan = rencanaPembangunan("Jalan Nagari", 75000000, 150)
+
+// Musyawarah tentang program pendidikan
+buek opsiPendidikan = "Perpustakaan Digital, Kelas Komputer, Pelatihan Bahasa"
+buek keputusanPendidikan = musyawarahDigital(
+    "Program Pendidikan 2025", 
+    "Niniak Mamak dan Cadiak Pandai",
+    opsiPendidikan
+)
+
+// Laporan keuangan
+buek saldoNagari = keuanganNagari(200000000, 180000000)
+
+// Pesan penutup dengan filosofi
+cetak ""
+cetak "=================================================="
+cetak ""
+cetak "🌟 Filosofi Sistem Nagari Digital:"
+cetak ""
+alamTakambang("Teknologi harus melestarikan, bukan menggantikan nilai budaya")
+cetak ""
+cetak "🤝 Gotong Royong: Teknologi memudahkan kerja sama"
+cetak "🗣️ Musyawarah: Platform digital untuk berunding"
+cetak "⚖️ Adat Basandi: Teknologi harus etis dan bermartabat"
+cetak "🌿 Alam Takambang: Belajar dari alam untuk hidup harmonis"
+cetak ""
+cetak "💻 MinangScript: Memadukan kearifan lokal dengan teknologi modern"
+cetak "🏔️ Nagari: Dari Minangkabau untuk Indonesia"
+
+// Fungsi penutup dengan doa
+karojo doaNagari() {
+    cetak ""
+    cetak "🤲 Doa untuk Nagari:"
+    cetak "Semoga nagari kita selalu dalam lindungan Ilahi"
+    cetak "Maju dalam pembangunan, lestari dalam budaya"
+    cetak "Aamiin Ya Rabbal Alamiin"
+}
+
+doaNagari()
