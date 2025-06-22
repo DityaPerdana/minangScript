@@ -11,7 +11,7 @@
     "indonesia"
   ],
   "license": "MIT",
-  "author": "ditya",
+  "author": "Ditya Perdana <ditya@example.com>",
   "type": "commonjs",
   "main": "index.js",
   "bin": {
@@ -21,7 +21,10 @@
     "src/",
     "examples/",
     "index.js",
-    "README.md"
+    "README.md",
+    "DICTIONARY_TABLE.md",
+    "CHANGELOG.md",
+    "package.json"
   ],
   "scripts": {
     "test": "node tests/minang-test.js",
@@ -41,17 +44,20 @@
     "template:basic": "node dev.js template basic",
     "template:gotong": "node dev.js template gotong-royong",
     "template:musyawarah": "node dev.js template musyawarah",
-    "template:alam": "node dev.js template alam-takambang"
+    "template:alam": "node dev.js template alam-takambang",
+    "prepublishOnly": "npm test",
+    "publish:beta": "npm publish --tag beta",
+    "publish:latest": "npm publish --tag latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/minangscript.git"
+    "url": "https://github.com/DityaPerdana/minangScript.git"
   },
-  "homepage": "https://github.com/your-username/minangscript#readme",
+  "homepage": "https://github.com/DityaPerdana/minangScript#readme",
   "bugs": {
-    "url": "https://github.com/your-username/minangscript/issues"
+    "url": "https://github.com/DityaPerdana/minangScript/issues"
   }
 }
