@@ -22,11 +22,53 @@ class MinangLexer {
             'salah': 'FALSE',        // false (salah means "wrong/false")
             'kosong': 'NULL',        // null/empty (kosong means "empty")
             
+            // Control flow
+            'cubo': 'TRY',           // try (cubo means "attempt")
+            'tangkok': 'CATCH',      // catch (tangkok means "catch/handle")
+            'akhianyo': 'FINALLY',   // finally (akhianyo means "in the end")
+            'lampaik': 'THROW',      // throw (lampaik means "throw")
+            'piliah': 'SWITCH',      // switch (piliah means "choose")
+            'kasus': 'CASE',         // case
+            'default': 'DEFAULT',    // default case
+            
+            // Object-oriented
+            'kelas': 'CLASS',        // class
+            'warisan': 'EXTENDS',    // extends (warisan means "inheritance")
+            'konstruktor': 'CONSTRUCTOR',
+            'ini': 'THIS',           // this (ini means "this")
+            'statik': 'STATIC',      // static
+            'privat': 'PRIVATE',     // private
+            'publik': 'PUBLIC',      // public
+            'dilindungi': 'PROTECTED', // protected
+            
+            // Modern features
+            'impor': 'IMPORT',       // import
+            'ekspor': 'EXPORT',      // export
+            'async': 'ASYNC',        // async
+            'tunggu': 'AWAIT',       // await (tunggu means "wait")
+            'yield': 'YIELD',        // yield
+            'generator': 'GENERATOR',
+            
+            // Data types
+            'array': 'ARRAY',        // array type hint
+            'objek': 'OBJECT',       // object type hint
+            'string': 'STRING_TYPE', // string type hint
+            'angka': 'NUMBER_TYPE',  // number type hint
+            'boolean': 'BOOLEAN_TYPE',
+            
             // Cultural/Philosophical keywords
             'gotongRoyong': 'COLLABORATE',  // collaborative function
             'musyawarah': 'DISCUSS',        // consensus building
             'alamTakambang': 'LEARN',       // learning from nature
-            'adatBasandi': 'ETHICAL'        // ethical practices
+            'adatBasandi': 'ETHICAL',       // ethical practices
+            'salingBantu': 'MUTUAL_AID',    // mutual assistance pattern
+            'konsensus': 'CONSENSUS',       // consensus-based decision
+            'kebersamaan': 'TOGETHERNESS',  // collective programming
+            'pantang': 'TABOO',             // forbidden operations
+            'adat': 'CUSTOM',               // custom rules/constraints
+            'bajapuik': 'COLLABORATE_FUNC', // special collaborative function
+            'rundiang': 'MEETING',          // code review/discussion block
+            'mufakat': 'AGREEMENT'          // agreed-upon constants
         };
 
         this.operators = {
@@ -44,7 +86,17 @@ class MinangLexer {
             '>=': 'GREATER_EQUAL',
             '&&': 'AND',
             '||': 'OR',
-            '!': 'NOT'
+            '!': 'NOT',
+            '++': 'INCREMENT',
+            '--': 'DECREMENT',
+            '+=': 'PLUS_ASSIGN',
+            '-=': 'MINUS_ASSIGN',
+            '*=': 'MULTIPLY_ASSIGN',
+            '/=': 'DIVIDE_ASSIGN',
+            '**': 'POWER',
+            '?.': 'OPTIONAL_CHAIN',
+            '??': 'NULLISH_COALESCING',
+            '=>': 'ARROW'
         };
 
         this.delimiters = {
@@ -56,7 +108,12 @@ class MinangLexer {
             ']': 'RBRACKET',
             ',': 'COMMA',
             ';': 'SEMICOLON',
-            '.': 'DOT'
+            '.': 'DOT',
+            ':': 'COLON',
+            '?': 'QUESTION',
+            '@': 'AT',
+            '#': 'HASH',
+            '`': 'BACKTICK'
         };
     }
 
@@ -158,16 +215,200 @@ class MinangLexer {
                 continue;
             }
 
-            // Handle numbers
+            // Handle template literals (backticks)
+            if (char === '`') {
+                let value = '';
+                current++; // Skip opening backtick
+                column++;
+                
+                while (current < input.length && input[current] !== '`') {
+                    if (input[current] === '\\') {
+                        current++; // Skip escape character
+                        if (current < input.length) {
+                            const escaped = input[current];
+                            switch (escaped) {
+                                case 'n': value += '\n'; break;
+                                case 't': value += '\t'; break;
+                                case 'r': value += '\r'; break;
+                                case '\\': value += '\\'; break;
+                                case '`': value += '`'; break;
+                                default: value += escaped; break;
+                            }
+                        }
+                    } else if (input[current] === '$' && input[current + 1] === '{') {
+                        // Handle template expression
+                        if (value) {
+                            tokens.push({
+                                type: 'TEMPLATE_STRING',
+                                value: value,
+                                line: line,
+                                column: column - value.length
+                            });
+                        }
+                        
+                        current += 2; // Skip ${
+                        column += 2;
+                        
+                        tokens.push({
+                            type: 'TEMPLATE_EXPR_START',
+                            value: '${',
+                            line: line,
+                            column: column - 2
+                        });
+                        
+                        let braceCount = 1;
+                        let exprValue = '';
+                        
+                        while (current < input.length && braceCount > 0) {
+                            if (input[current] === '{') braceCount++;
+                            if (input[current] === '}') braceCount--;
+                            
+                            if (braceCount > 0) {
+                                exprValue += input[current];
+                            }
+                            current++;
+                            column++;
+                        }
+                        
+                        // Recursively tokenize the expression
+                        if (exprValue.trim()) {
+                            const exprLexer = new MinangLexer();
+                            const exprTokens = exprLexer.tokenize(exprValue);
+                            tokens.push(...exprTokens.slice(0, -1)); // Remove EOF
+                        }
+                        
+                        tokens.push({
+                            type: 'TEMPLATE_EXPR_END',
+                            value: '}',
+                            line: line,
+                            column: column - 1
+                        });
+                        
+                        value = '';
+                        continue;
+                    } else {
+                        value += input[current];
+                    }
+                    
+                    if (input[current] === '\n') {
+                        line++;
+                        column = 1;
+                    } else {
+                        column++;
+                    }
+                    current++;
+                }
+                
+                if (current < input.length) {
+                    current++; // Skip closing backtick
+                    column++;
+                }
+                
+                // Push final template string part
+                tokens.push({
+                    type: 'TEMPLATE_STRING',
+                    value: value,
+                    line: line,
+                    column: column - value.length - 1
+                });
+                continue;
+            }
+
+            // Handle hexadecimal numbers
+            if (char === '0' && current + 1 < input.length && 
+                (input[current + 1] === 'x' || input[current + 1] === 'X')) {
+                let value = '0x';
+                current += 2; // Skip 0x
+                column += 2;
+                
+                while (current < input.length && /[0-9a-fA-F]/.test(input[current])) {
+                    value += input[current];
+                    current++;
+                    column++;
+                }
+                
+                tokens.push({
+                    type: 'NUMBER',
+                    value: parseInt(value, 16),
+                    line: line,
+                    column: column - value.length
+                });
+                continue;
+            }
+
+            // Handle binary numbers
+            if (char === '0' && current + 1 < input.length && 
+                (input[current + 1] === 'b' || input[current + 1] === 'B')) {
+                let value = '';
+                current += 2; // Skip 0b
+                column += 2;
+                
+                while (current < input.length && /[01]/.test(input[current])) {
+                    value += input[current];
+                    current++;
+                    column++;
+                }
+                
+                tokens.push({
+                    type: 'NUMBER',
+                    value: parseInt(value, 2),
+                    line: line,
+                    column: column - value.length - 2
+                });
+                continue;
+            }
+
+            // Handle octal numbers
+            if (char === '0' && current + 1 < input.length && 
+                (input[current + 1] === 'o' || input[current + 1] === 'O')) {
+                let value = '';
+                current += 2; // Skip 0o
+                column += 2;
+                
+                while (current < input.length && /[0-7]/.test(input[current])) {
+                    value += input[current];
+                    current++;
+                    column++;
+                }
+                
+                tokens.push({
+                    type: 'NUMBER',
+                    value: parseInt(value, 8),
+                    line: line,
+                    column: column - value.length - 2
+                });
+                continue;
+            }
+
+            // Handle scientific notation
             if (this.isDigit(char)) {
                 let value = '';
                 let hasDecimal = false;
+                let hasExponent = false;
 
-                while (current < input.length && (this.isDigit(input[current]) || 
-                       (input[current] === '.' && !hasDecimal))) {
+                while (current < input.length && 
+                       (this.isDigit(input[current]) || 
+                        (input[current] === '.' && !hasDecimal && !hasExponent) ||
+                        ((input[current] === 'e' || input[current] === 'E') && !hasExponent))) {
+                    
                     if (input[current] === '.') {
                         hasDecimal = true;
+                    } else if (input[current] === 'e' || input[current] === 'E') {
+                        hasExponent = true;
+                        value += input[current];
+                        current++;
+                        column++;
+                        
+                        // Handle optional + or - after e/E
+                        if (current < input.length && 
+                            (input[current] === '+' || input[current] === '-')) {
+                            value += input[current];
+                            current++;
+                            column++;
+                        }
+                        continue;
                     }
+                    
                     value += input[current];
                     current++;
                     column++;
@@ -175,7 +416,7 @@ class MinangLexer {
 
                 tokens.push({
                     type: 'NUMBER',
-                    value: hasDecimal ? parseFloat(value) : parseInt(value),
+                    value: parseFloat(value),
                     line: line,
                     column: column - value.length
                 });
@@ -193,6 +434,49 @@ class MinangLexer {
                 });
                 current += 2;
                 column += 2;
+                continue;
+            }
+
+            // Handle regex literals (before single-character operators)
+            if (char === '/' && this.canBeRegex(tokens)) {
+                let value = '';
+                current++; // Skip opening /
+                column++;
+                
+                while (current < input.length && input[current] !== '/') {
+                    if (input[current] === '\\') {
+                        value += input[current]; // Keep escape character
+                        current++;
+                        column++;
+                        if (current < input.length) {
+                            value += input[current];
+                        }
+                    } else {
+                        value += input[current];
+                    }
+                    current++;
+                    column++;
+                }
+                
+                if (current < input.length) {
+                    current++; // Skip closing /
+                    column++;
+                }
+                
+                // Handle regex flags
+                let flags = '';
+                while (current < input.length && /[gimuy]/.test(input[current])) {
+                    flags += input[current];
+                    current++;
+                    column++;
+                }
+                
+                tokens.push({
+                    type: 'REGEX',
+                    value: { pattern: value, flags: flags },
+                    line: line,
+                    column: column - value.length - flags.length - 2
+                });
                 continue;
             }
 
@@ -266,6 +550,13 @@ class MinangLexer {
 
     isLetter(char) {
         return /[a-zA-Z]/.test(char);
+    }
+
+    canBeRegex(tokens) {
+        if (tokens.length === 0) return true;
+        const lastToken = tokens[tokens.length - 1];
+        const regexContext = ['ASSIGN', 'LPAREN', 'COMMA', 'LBRACKET', 'RETURN', 'COLON', 'EQUAL', 'NOT_EQUAL'];
+        return regexContext.includes(lastToken.type);
     }
 
     // Utility method to print tokens (for debugging)

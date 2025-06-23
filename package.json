@@ -1,14 +1,17 @@
 {
   "name": "minangscript",
-  "version": "1.0.2",
-  "description": "Bahasa pemrograman dengan filosofi Minangkabau - Programming language with Minangkabau philosophy",
+  "version": "1.1.1",
+  "description": "Bahasa pemrograman dengan filosofi Minangkabau - Programming language with Minangkabau philosophy. Now with bilingual CLI support (English/Indonesian) for international accessibility.",
   "keywords": [
     "minangscript",
     "programming-language",
     "minangkabau",
     "cultural-programming",
     "gotong-royong",
-    "indonesia"
+    "indonesia",
+    "internationalization",
+    "bilingual",
+    "cli"
   ],
   "license": "MIT",
   "author": "Ditya Perdana <ditya@example.com>",
