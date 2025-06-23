@@ -4,6 +4,8 @@ const { MinangCompiler } = require('./src/compiler/MinangCompiler');
 const { MinangRuntime } = require('./src/runtime/MinangRuntime');
 const { MinangLexer } = require('./src/lexer/MinangLexer');
 const { MinangUtils } = require('./src/utils/MinangUtils');
+const { MinangI18n } = require('./src/utils/i18n');
+const { MinangConfig } = require('./src/utils/config');
 const fs = require('fs');
 const path = require('path');
 
@@ -12,15 +14,16 @@ class MinangScript {
         this.compiler = new MinangCompiler();
         this.runtime = new MinangRuntime();
         this.lexer = new MinangLexer();
+        this.i18n = new MinangI18n();
     }
 
     // Main entry point for MinangScript CLI
     run(filePath) {
         try {
-            console.log('🏔️  MinangScript - Alam Takambang Jadi Guru');
+            console.log(this.i18n.t('welcome'));
             
             if (!fs.existsSync(filePath)) {
-                console.error(`❌ File tidak ditemukan: ${filePath}`);
+                console.error(this.i18n.t('fileNotFound', filePath));
                 process.exit(1);
             }
 
@@ -29,7 +32,7 @@ class MinangScript {
             this.runtime.execute(compiled);
             
         } catch (error) {
-            console.error('❌ Kesalahan:', error.message);
+            console.error(this.i18n.t('error', error.message));
             process.exit(1);
         }
     }
@@ -37,16 +40,16 @@ class MinangScript {
     // Build MinangScript to JavaScript
     build(inputPath, outputPath) {
         try {
-            console.log('🔨 Membangun MinangScript...');
+            console.log(this.i18n.t('building'));
             
             const sourceCode = fs.readFileSync(inputPath, 'utf8');
             const jsCode = this.compiler.transpile(sourceCode);
             
             fs.writeFileSync(outputPath, jsCode);
-            console.log(`✅ Berhasil dibangun ke: ${outputPath}`);
+            console.log(this.i18n.t('buildSuccess', outputPath));
             
         } catch (error) {
-            console.error('❌ Gagal membangun:', error.message);
+            console.error(this.i18n.t('buildFailed', error.message));
             process.exit(1);
         }
     }
@@ -79,16 +82,16 @@ cetak sambutan(namo)
 `;
 
         fs.writeFileSync(path.join(projectDir, 'main.minang'), sampleCode);
-        console.log(`✅ Proyek ${projectName} telah dibuat!`);
-        console.log(`📁 Masuk ke direktori: cd ${projectName}`);
-        console.log(`🚀 Jalankan: minang run main.minang`);
+        console.log(this.i18n.t('projectCreated', projectName));
+        console.log(this.i18n.t('enterDirectory', projectName));
+        console.log(this.i18n.t('runProject'));
     }
 
     // Interactive REPL
     repl() {
-        console.log('🏔️ MinangScript REPL - Mode Interaktif');
-        console.log('Ketik kode MinangScript dan tekan Enter');
-        console.log('Ketik .help untuk bantuan, .exit untuk keluar\n');
+        console.log(this.i18n.t('replWelcome'));
+        console.log(this.i18n.t('replInstructions'));
+        console.log(this.i18n.t('replHelp'));
 
         const readline = require('readline');
         const rl = readline.createInterface({
@@ -103,7 +106,7 @@ cetak sambutan(namo)
             const trimmed = input.trim();
 
             if (trimmed === '.exit') {
-                console.log('🏔️ Salamat tinggal! (Goodbye!)');
+                console.log(this.i18n.t('goodbye'));
                 rl.close();
                 return;
             }
@@ -143,22 +146,23 @@ cetak sambutan(namo)
         });
 
         rl.on('close', () => {
-            console.log('\n🏔️ Salamat tinggal!');
+            console.log('\n' + this.i18n.t('goodbye'));
             process.exit(0);
         });
     }
 
     showReplHelp() {
+        const lang = this.i18n.getCurrentLanguage();
         console.log(`
-📖 MinangScript REPL Help:
+${this.i18n.t('replHelpTitle')}
 
-Commands:
-  .help      - Tampilkan bantuan ini
-  .exit      - Keluar dari REPL
-  .examples  - Tampilkan contoh kode
-  .analyze <code> - Analisis struktur kode
+${this.i18n.t('replCommands')}
+  .help      - ${this.i18n.t('helpCommand')}
+  .exit      - ${this.i18n.t('exitCommand')}
+  .examples  - ${this.i18n.t('examplesCommand')}
+  .analyze <code> - ${this.i18n.t('analyzeCommand')}
 
-Contoh MinangScript:
+${this.i18n.t('replExamples')}
   buek nama = "Minang"
   cetak "Hello " + nama
   
@@ -167,10 +171,10 @@ Contoh MinangScript:
   }
   
   kalau 5 > 3 {
-      cetak "Lima lebih besar"
+      cetak "${lang === 'id' ? 'Lima lebih besar' : 'Five is greater'}"
   }
 
-Fungsi Budaya:
+${this.i18n.t('replCulturalFunctions')}
   gotongRoyong("kerja", "bersama")
   musyawarah("topik", "peserta")
   alamTakambang("pelajaran")
@@ -178,24 +182,25 @@ Fungsi Budaya:
     }
 
     showExamples() {
+        const lang = this.i18n.getCurrentLanguage();
         console.log(`
 🌟 MinangScript Examples:
 
-Deklarasi Variabel:
+${lang === 'id' ? 'Deklarasi Variabel:' : 'Variable Declaration:'}
   buek nama = "Siti"           // var
   ambiak umur = 25             // let
   tagak PI = 3.14              // const
 
-Fungsi:
+${lang === 'id' ? 'Fungsi:' : 'Functions:'}
   karojo salam(nama) {
       jadi "Salamat datang " + nama
   }
 
-Kondisi:
+${lang === 'id' ? 'Kondisi:' : 'Conditionals:'}
   kalau umur >= 18 {
-      cetak "Dewasa"
+      cetak "${lang === 'id' ? 'Dewasa' : 'Adult'}"
   } lain {
-      cetak "Muda"
+      cetak "${lang === 'id' ? 'Muda' : 'Young'}"
   }
 
 Loop:
@@ -264,38 +269,44 @@ Cultural Programming:
     // Validate MinangScript file
     validate(filePath) {
         if (!fs.existsSync(filePath)) {
-            console.error(`❌ File tidak ditemukan: ${filePath}`);
+            console.error(this.i18n.t('fileNotFound', filePath));
             process.exit(1);
         }
 
-        console.log(`🔍 Memvalidasi: ${filePath}`);
+        console.log(`🔍 ${this.i18n.getCurrentLanguage() === 'id' ? 'Memvalidasi' : 'Validating'}: ${filePath}`);
         
         try {
             const code = fs.readFileSync(filePath, 'utf8');
             
             // Check syntax
             this.compiler.compile(code);
-            console.log('✅ Sintaks valid');
+            console.log(this.i18n.getCurrentLanguage() === 'id' ? '✅ Sintaks valid' : '✅ Syntax valid');
             
             // Cultural validation
             const cultural = MinangUtils.validateCulturalPrinciples(code);
             if (cultural.length > 0) {
-                console.log('🏔️ Saran budaya:');
+                console.log(this.i18n.getCurrentLanguage() === 'id' ? '🏔️ Saran budaya:' : '🏔️ Cultural suggestions:');
                 cultural.forEach(suggestion => {
                     console.log(`  • ${suggestion}`);
                 });
             } else {
-                console.log('✅ Prinsip budaya terintegrasi dengan baik');
+                console.log(this.i18n.getCurrentLanguage() === 'id' ? 
+                    '✅ Prinsip budaya terintegrasi dengan baik' : 
+                    '✅ Cultural principles well integrated');
             }
             
             // Test transpilation
             this.compiler.transpile(code);
-            console.log('✅ Transpilasi berhasil');
+            console.log(this.i18n.getCurrentLanguage() === 'id' ? 
+                '✅ Transpilasi berhasil' : 
+                '✅ Transpilation successful');
             
-            console.log('🎉 Validasi file selesai');
+            console.log(this.i18n.getCurrentLanguage() === 'id' ? 
+                '🎉 Validasi file selesai' : 
+                '🎉 File validation complete');
             
         } catch (error) {
-            console.error('❌ Validasi gagal:', error.message);
+            console.error(this.i18n.t('validationFailed', error.message));
             process.exit(1);
         }
     }
@@ -303,14 +314,16 @@ Cultural Programming:
     // Format MinangScript code
     format(filePath) {
         if (!fs.existsSync(filePath)) {
-            console.error(`❌ File tidak ditemukan: ${filePath}`);
+            console.error(this.i18n.t('fileNotFound', filePath));
             process.exit(1);
         }
 
         const code = fs.readFileSync(filePath, 'utf8');
         const formatted = MinangUtils.formatCode(code);
         
-        console.log('📝 Kode yang diformat:');
+        console.log(this.i18n.getCurrentLanguage() === 'id' ? 
+            '📝 Kode yang diformat:' : 
+            '📝 Formatted code:');
         console.log(formatted);
         
         // Option to save formatted code
@@ -435,8 +448,8 @@ Contoh:
             if (args[1] && args[2]) {
                 minang.build(args[1], args[2]);
             } else {
-                console.error('❌ Harap berikan file input dan output');
-                console.log('Contoh: minang build app.minang app.js');
+                console.error(minang.i18n.t('provideFile'));
+                console.log(minang.i18n.t('example', 'minang build app.minang app.js'));
                 process.exit(1);
             }
             break;
@@ -445,8 +458,8 @@ Contoh:
             if (args[1]) {
                 minang.createProject(args[1]);
             } else {
-                console.error('❌ Harap berikan nama proyek');
-                console.log('Contoh: minang new myproject');
+                console.error(minang.i18n.t('provideFile'));
+                console.log(minang.i18n.t('example', 'minang new myproject'));
                 process.exit(1);
             }
             break;
@@ -459,8 +472,8 @@ Contoh:
             if (args[1]) {
                 minang.validate(args[1]);
             } else {
-                console.error('❌ Harap berikan nama file untuk divalidasi');
-                console.log('Contoh: minang validate main.minang');
+                console.error(minang.i18n.t('provideFile'));
+                console.log(minang.i18n.t('example', 'minang validate main.minang'));
                 process.exit(1);
             }
             break;
@@ -469,8 +482,8 @@ Contoh:
             if (args[1]) {
                 minang.format(args[1]);
             } else {
-                console.error('❌ Harap berikan nama file untuk diformat');
-                console.log('Contoh: minang format main.minang');
+                console.error(minang.i18n.t('provideFile'));
+                console.log(minang.i18n.t('example', 'minang format main.minang'));
                 process.exit(1);
             }
             break;
@@ -479,8 +492,8 @@ Contoh:
             if (args[1]) {
                 minang.template(args[1], args[2]);
             } else {
-                console.error('❌ Harap berikan tipe template');
-                console.log('Contoh: minang template basic hello.minang');
+                console.error(minang.i18n.t('provideFile'));
+                console.log(minang.i18n.t('example', 'minang template basic hello.minang'));
                 console.log('Template: basic, gotong-royong, musyawarah, alam-takambang');
                 process.exit(1);
             }
@@ -490,41 +503,63 @@ Contoh:
             minang.version();
             break;
 
+        case 'lang':
+        case 'language':
+            if (args[1]) {
+                if (minang.i18n.setLanguage(args[1])) {
+                    console.log(minang.i18n.t('languageChanged'));
+                    if (args[1] === 'en') {
+                        console.log(minang.i18n.t('switchToIndonesian'));
+                    } else if (args[1] === 'id') {
+                        console.log(minang.i18n.t('switchToEnglish'));
+                    } else if (args[1] === 'auto') {
+                        console.log('🔄 Auto-detection enabled. Language will be detected automatically.');
+                    }
+                } else {
+                    console.error('❌ Language not supported. Available: en, id, auto');
+                }
+            } else {
+                minang.i18n.showLanguageHelp();
+            }
+            break;
+
         case 'help':
             console.log(`
-🏔️  MinangScript - Panduan Penggunaan Lengkap
+${minang.i18n.t('helpTitle')}
 
-Perintah yang tersedia:
+${minang.i18n.t('helpAvailable')}
 
-📂 Project Management:
-  new <project>       - Buat proyek baru MinangScript
-  template <type>     - Generate template kode budaya
+${minang.i18n.t('projectManagement')}
+  new <project>       - ${minang.i18n.t('newProject')}
+  template <type>     - ${minang.i18n.t('template')}
 
-🚀 Execution:
-  run <file>          - Jalankan file .minang
-  build <in> <out>    - Transpile ke JavaScript
-  repl                - Mode interaktif untuk testing
+${minang.i18n.t('execution')}
+  run <file>          - ${minang.i18n.t('runFile')}
+  build <in> <out>    - ${minang.i18n.t('buildFile')}
+  repl                - ${minang.i18n.t('repl')}
 
-🔧 Development Tools:
-  validate <file>     - Validasi sintaks dan budaya
-  format <file>       - Format kode MinangScript
-  version             - Info versi dan platform
+${minang.i18n.t('devTools')}
+  validate <file>     - ${minang.i18n.t('validate')}
+  format <file>       - ${minang.i18n.t('format')}
+  version             - ${minang.i18n.t('version')}
+  lang <en|id>        - Change language / Ganti bahasa
 
-📖 Template Types:
-  basic               - Template dasar MinangScript
-  gotong-royong       - Template kerja sama
-  musyawarah          - Template pengambilan keputusan
-  alam-takambang      - Template belajar dari alam
+${minang.i18n.t('templates')}
+  basic               - ${minang.i18n.t('templateBasic')}
+  gotong-royong       - ${minang.i18n.t('templateGotongRoyong')}
+  musyawarah          - ${minang.i18n.t('templateMusyawarah')}
+  alam-takambang      - ${minang.i18n.t('templateAlamTakambang')}
 
-💡 Contoh penggunaan:
+${minang.i18n.t('examples')}
   minang new nagari-digital
   minang template gotong-royong team.minang
   minang run team.minang
   minang repl
+  minang lang en
 
-🌟 Filosofi MinangScript:
-  "Alam Takambang Jadi Guru"
-  Belajar dari alam dan budaya Minangkabau
+${minang.i18n.t('philosophy')}
+  ${minang.i18n.t('philosophyQuote')}
+  ${minang.i18n.t('philosophyDesc')}
 
 📦 Installation: npm install -g minangscript
 🏔️ Repository: https://github.com/DityaPerdana/minangScript
@@ -532,9 +567,9 @@ Perintah yang tersedia:
             break;
 
         default:
-            console.error(`❌ Perintah tidak dikenal: ${command}`);
-            console.log('Gunakan "minang help" untuk melihat bantuan lengkap');
-            console.log('Atau "minang" tanpa argumen untuk bantuan singkat');
+            console.error(minang.i18n.t('unknownCommand', command));
+            console.log(minang.i18n.t('useHelp'));
+            console.log(minang.i18n.t('useHelpShort'));
             process.exit(1);
     }
 }

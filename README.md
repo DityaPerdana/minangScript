@@ -4,7 +4,7 @@
 
 A complete programming language inspired by Minangkabau culture, featuring authentic Minangkabau keywords and cultural philosophy integration.
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Version](https://img.shields.io/badge/version-1.0.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen)
 ![NPM](https://img.shields.io/npm/v/minangscript?color=red)
@@ -39,6 +39,10 @@ minang build input.minang output.js
 
 # Interactive REPL
 minang repl
+
+# Change language for CLI messages
+minang lang en    # English (default for international users)
+minang lang id    # Indonesian (default for Indonesian users)
 ```
 
 ### Your First MinangScript Program
@@ -100,11 +104,43 @@ MinangScript integrates four core Minangkabau principles:
 ### 🛠️ **Complete Development Environment**
 - Full lexer, parser, compiler, and runtime
 - JavaScript transpilation and interoperability  
-- Comprehensive CLI tools
-- Interactive REPL
+- Comprehensive CLI tools with internationalization (English/Indonesian)
+- Interactive REPL with bilingual support
 - Built-in testing framework (19/19 tests passing)
 - Code formatter and validator
 - Zero dependencies package
+
+## 🌍 International Accessibility
+
+MinangScript is designed to be accessible to developers worldwide while preserving Minangkabau cultural authenticity:
+
+### 🗣️ **Bilingual CLI Support**
+- **English** - Default for international users
+- **Indonesian** - Default for Indonesian users  
+- **Auto-detection** - Detects system language automatically
+- **Manual switching** - `minang lang en` or `minang lang id`
+
+### 🌐 **What's Translated**
+- ✅ CLI messages and help text
+- ✅ Error messages and warnings
+- ✅ REPL instructions and prompts
+- ✅ Build and validation output
+- ❌ MinangScript keywords (remain authentically Minangkabau)
+
+### 🎯 **Language Detection**
+```bash
+# Automatic detection based on:
+# - System environment variables (LANG, LANGUAGE)
+# - Timezone (Asia/Jakarta indicates Indonesian)
+# - Defaults to English for broader accessibility
+
+# Manual override:
+minang lang en    # Switch to English
+minang lang id    # Switch to Indonesian
+minang lang       # Show language help
+```
+
+This ensures that international developers can use MinangScript effectively while maintaining the cultural integrity of the programming language itself.
 
 ## 📚 Complete Language Dictionary
 
@@ -253,6 +289,7 @@ The project includes comprehensive examples demonstrating all features:
 - `minang new <project>` - Create new project
 - `minang repl` - Interactive development environment
 - `minang help` - Show help information
+- `minang lang <en|id>` - Switch CLI language (English/Indonesian)
 
 ## 🌍 Cultural Philosophy
 
@@ -376,6 +413,13 @@ MinangScript welcomes contributions in the spirit of **Gotong Royong**:
 - Participate in community discussions
 
 ## 📈 Changelog
+
+### **[1.0.2] - 2025-06-23**
+- 🌍 **International Accessibility** - Added bilingual CLI support (English/Indonesian)
+- ✅ **Persistent Language Settings** - Language preferences saved between sessions
+- ✅ **Auto-detection** - Automatic language detection based on system locale
+- ✅ **Enhanced UX** - Improved accessibility for international developers
+- ✅ **Cultural Preservation** - MinangScript keywords remain authentically Minangkabau
 
 ### **[1.0.1] - 2025-06-23**
 - 🎉 **NPM Publication** - Available globally via `npm install -g minangscript`
