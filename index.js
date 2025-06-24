@@ -6,6 +6,7 @@ const { MinangLexer } = require('./src/lexer/MinangLexer');
 const { MinangUtils } = require('./src/utils/MinangUtils');
 const { MinangI18n } = require('./src/utils/i18n');
 const { MinangConfig } = require('./src/utils/config');
+const { EnhancedMinangPaketCLI } = require('./src/package-manager/EnhancedMinangPaketCLI');
 const fs = require('fs');
 const path = require('path');
 
@@ -465,6 +466,69 @@ Contoh:
             }
             break;
 
+        // Package Manager Commands
+        case 'install':
+            if (args[1]) {
+                const installCLI = new EnhancedMinangPaketCLI();
+                installCLI.handleInstall([args[1]]);
+            } else {
+                console.error('❌ Please specify a package name');
+                console.log('Example: minang install minang-ui');
+                process.exit(1);
+            }
+            break;
+
+        case 'uninstall':
+        case 'remove':
+            if (args[1]) {
+                const uninstallCLI = new EnhancedMinangPaketCLI();
+                uninstallCLI.handleUninstall([args[1]]);
+            } else {
+                console.error('❌ Please specify a package name');
+                console.log('Example: minang uninstall minang-ui');
+                process.exit(1);
+            }
+            break;
+
+        case 'list':
+            const listCLI = new EnhancedMinangPaketCLI();
+            listCLI.handleList([]);
+            break;
+
+        case 'search':
+            if (args[1]) {
+                const searchCLI = new EnhancedMinangPaketCLI();
+                searchCLI.handleSearch([args[1]]);
+            } else {
+                console.error('❌ Please specify a search query');
+                console.log('Example: minang search ui');
+                process.exit(1);
+            }
+            break;
+
+        case 'update':
+            const updateCLI = new EnhancedMinangPaketCLI();
+            if (args[1]) {
+                updateCLI.handleUpdate([args[1]]);
+            } else {
+                updateCLI.handleUpdate([]);
+            }
+            break;
+
+        case 'publish':
+            const publishCLI = new EnhancedMinangPaketCLI();
+            publishCLI.handlePublish([]);
+            break;
+
+        case 'init':
+            const initCLI = new EnhancedMinangPaketCLI();
+            if (args[1]) {
+                initCLI.handleInit([args[1]]);
+            } else {
+                initCLI.handleInit([]);
+            }
+            break;
+
         case 'repl':
             minang.repl();
             break;
@@ -532,12 +596,21 @@ ${minang.i18n.t('helpAvailable')}
 
 ${minang.i18n.t('projectManagement')}
   new <project>       - ${minang.i18n.t('newProject')}
+  init <n>         - Initialize new package / Inisialisasi paket baru
   template <type>     - ${minang.i18n.t('template')}
 
 ${minang.i18n.t('execution')}
   run <file>          - ${minang.i18n.t('runFile')}
   build <in> <out>    - ${minang.i18n.t('buildFile')}
   repl                - ${minang.i18n.t('repl')}
+
+📦 Package Management:
+  install <pkg>       - Install package / Pasang paket
+  uninstall <pkg>     - Remove package / Hapus paket
+  list                - List installed packages / Daftar paket terpasang
+  search <query>      - Search packages / Cari paket
+  update [pkg]        - Update packages / Perbarui paket
+  publish             - Publish package / Terbitkan paket
 
 ${minang.i18n.t('devTools')}
   validate <file>     - ${minang.i18n.t('validate')}
@@ -553,6 +626,7 @@ ${minang.i18n.t('templates')}
 
 ${minang.i18n.t('examples')}
   minang new nagari-digital
+  minang install minang-ui
   minang template gotong-royong team.minang
   minang run team.minang
   minang repl
