@@ -1,0 +1,47 @@
+// MinangScript - Simple Web App
+// Aplikasi web sederhana dengan DOM manipulation
+
+// Tunggu halaman selesai dimuat
+dengar(dokumen(), "DOMContentLoaded", () => {
+    cetak "🌐 Halaman siap!"
+    
+    // Ambil elemen
+    buek judul = piliah("h1")
+    buek tombol = piliah("#clickMe")
+    buek output = piliah("#result")
+    
+    // Ubah judul
+    kalau judul {
+        judul.konten = "Salamat Datang ka MinangScript Web!"
+    }
+    
+    // Counter untuk klik
+    buek hitungan = 0
+    
+    // Handle klik tombol
+    kalau tombol {
+        dengar(tombol, "click", () => {
+            hitungan++
+            output.konten = `Tombol diklik ${hitungan} kali!`
+            
+            // Ubah warna background secara random
+            buek colors = ["#ff6b6b", "#4ecdc4", "#45b7d1", "#f9ca24", "#f0932b"]
+            buek randomColor = colors[Math.floor(Math.random() * colors.length)]
+            dokumen().body.style.backgroundColor = randomColor
+            
+            cetak `Klik ke-${hitungan}!`
+        })
+    }
+    
+    // Simpan hitungan di localStorage
+    buek savedCount = ambil("clickCount")
+    kalau savedCount {
+        hitungan = parseInt(savedCount)
+        output.konten = `Sebelumnya diklik ${hitungan} kali`
+    }
+    
+    // Simpan hitungan setiap kali berubah
+    dengar(tombol, "click", () => {
+        simpan("clickCount", hitungan.toString())
+    })
+})

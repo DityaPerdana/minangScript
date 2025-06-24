@@ -1,0 +1,43 @@
+// MinangScript Two Sum with kumpulan arrays and benda objects
+cetak "🏔️ MinangScript Two Sum Implementation"
+
+// Test basic kumpulan (array) syntax
+buek testArray = kumpulan[2, 7, 11, 15]
+cetak "Array: " + testArray
+
+// Test basic benda (object) syntax  
+buek testObject = benda{nama: "MinangScript", versi: 1.0}
+cetak "Object works!"
+
+// Simple Two Sum function
+karojo twoSum(nums, target) {
+    cetak "Searching for target: " + target
+    
+    buek i = 0
+    selamo i < nums.length {
+        buek j = i + 1
+        selamo j < nums.length {
+            kalau nums[i] + nums[j] === target {
+                cetak "Found solution!"
+                buek solution = kumpulan[i, j]
+                jadi solution
+            }
+            j = j + 1
+        }
+        i = i + 1
+    }
+    
+    buek empty = kumpulan[]
+    jadi empty
+}
+
+// Test the Two Sum function
+buek numbers = kumpulan[2, 7, 11, 15]
+buek target = 9
+buek result = twoSum(numbers, target)
+
+cetak "Input: " + numbers  
+cetak "Target: " + target
+cetak "Result: " + result
+
+cetak "✅ MinangScript arrays (kumpulan) and objects (benda) work perfectly!"

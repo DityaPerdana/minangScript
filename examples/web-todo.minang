@@ -1,0 +1,121 @@
+// MinangScript - Todo App
+// Aplikasi Todo List dengan localStorage
+
+buek todos = []
+buek todoInput = piliah("#todoInput")
+buek addBtn = piliah("#addTodo")
+buek todoList = piliah("#todoList")
+
+// Muat todos dari localStorage
+karojo muatTodos() {
+    buek savedTodos = ambil("todos")
+    kalau savedTodos {
+        todos = jsonDari(savedTodos)
+    }
+    tampilkanTodos()
+}
+
+// Simpan todos ke localStorage
+karojo simpanTodos() {
+    simpan("todos", jsonKe(todos))
+}
+
+// Tampilkan todos di halaman
+karojo tampilkanTodos() {
+    todoList.konten = ""
+    
+    untuak (buek i = 0; i < todos.length; i++) {
+        buek todo = todos[i]
+        buek li = buat("li")
+        li.kelas = todo.selesai ? "completed" : ""
+        
+        buek checkbox = buat("input")
+        checkbox.type = "checkbox"
+        checkbox.checked = todo.selesai
+        dengar(checkbox, "change", () => toggleTodo(i))
+        
+        buek span = buat("span")
+        span.konten = todo.teks
+        
+        buek deleteBtn = buat("button")
+        deleteBtn.konten = "Hapus"
+        deleteBtn.kelas = "delete"
+        dengar(deleteBtn, "click", () => hapusTodo(i))
+        
+        li.tambah(checkbox)
+        li.tambah(span)
+        li.tambah(deleteBtn)
+        todoList.tambah(li)
+    }
+    
+    // Update counter
+    buek total = todos.length
+    buek selesai = todos.filter(t => t.selesai).length
+    buek counter = piliah("#counter")
+    kalau counter {
+        counter.konten = `${selesai}/${total} selesai`
+    }
+}
+
+// Tambah todo baru
+karojo tambahTodo() {
+    buek teks = todoInput.nilai.trim()
+    kalau teks {
+        todos.push({
+            teks: teks,
+            selesai: salah,
+            tanggal: new Date().toISOString()
+        })
+        todoInput.nilai = ""
+        simpanTodos()
+        tampilkanTodos()
+        cetak `Todo "${teks}" ditambahkan!`
+    }
+}
+
+// Toggle status todo
+karojo toggleTodo(index) {
+    todos[index].selesai = !todos[index].selesai
+    simpanTodos()
+    tampilkanTodos()
+}
+
+// Hapus todo
+karojo hapusTodo(index) {
+    buek todoText = todos[index].teks
+    todos.splice(index, 1)
+    simpanTodos()
+    tampilkanTodos()
+    cetak `Todo "${todoText}" dihapus!`
+}
+
+// Hapus semua todo yang selesai
+karojo hapusSelesai() {
+    buek sebelum = todos.length
+    todos = todos.filter(todo => !todo.selesai)
+    buek sesudah = todos.length
+    buek dihapus = sebelum - sesudah
+    
+    kalau dihapus > 0 {
+        simpanTodos()
+        tampilkanTodos()
+        cetak `${dihapus} todo selesai dihapus!`
+    }
+}
+
+// Event listeners
+dengar(addBtn, "click", tambahTodo)
+dengar(todoInput, "keypress", (e) => {
+    kalau e.key === "Enter" {
+        tambahTodo()
+    }
+})
+
+buek clearBtn = piliah("#clearCompleted")
+kalau clearBtn {
+    dengar(clearBtn, "click", hapusSelesai)
+}
+
+// Inisialisasi
+muatTodos()
+cetak "📝 Todo App MinangScript siap digunakan!"

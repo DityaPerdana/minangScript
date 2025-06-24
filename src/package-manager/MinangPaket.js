@@ -31,8 +31,6 @@ class MinangPaket {
     // Initialize package manager in current directory
     async inisialkan(name, options = {}) {
         try {
-            console.log('🏔️  ' + this.i18n.t('initializingProject', name || 'MinangScript Project'));
-            
             const projectConfig = {
                 nama: name || path.basename(process.cwd()),
                 versi: "1.0.0",
@@ -74,13 +72,13 @@ class MinangPaket {
                 const mainContent = `// ${name || 'MinangScript Project'}
 // Dibuat dengan filosofi Minangkabau
 
-cetak "🏔️ Salamat datang ka ${name || 'proyek'} MinangScript!"
+cetak "Salamat datang ka ${name || 'proyek'} MinangScript!"
 cetak "Alam takambang jadi guru"
 
 // Contoh penggunaan gotong royong
 karojo projectSetup() {
     gotongRoyong("inisialisasi", "konfigurasi", "dokumentasi")
-    cetak "✅ Project setup selesai dengan semangat gotong royong"
+    cetak "Project setup selesai dengan semangat gotong royong"
 }
 
 projectSetup()
@@ -113,16 +111,6 @@ Thumbs.db
                 fs.writeFileSync('.gitignore', gitignoreContent);
             }
 
-            console.log('✅ ' + this.i18n.t('projectInitialized'));
-            console.log('\n📦 Struktur proyek:');
-            console.log('   📄 paket.minang     - Konfigurasi paket');
-            console.log('   📄 main.minang      - File utama');
-            console.log('   📁 src/            - Source code');
-            console.log('   📁 test/           - Test files');
-            console.log('   📁 docs/           - Dokumentasi');
-            console.log('   📁 examples/       - Contoh kode');
-            console.log('\n🏔️ Prinsip filosofi Minangkabau terintegrasi');
-
             return {
                 success: true,
                 projectName: name || path.basename(process.cwd()),
@@ -141,8 +129,6 @@ Thumbs.db
     // Install package following Gotong Royong principle
     async pasang(packageName, version = 'latest') {
         try {
-            console.log('🤝 ' + this.i18n.t('installing', packageName));
-            
             // Check if paket.minang exists
             if (!fs.existsSync(this.configFile)) {
                 throw new Error('File paket.minang tidak ditemukan. Jalankan "minang init" terlebih dahulu.');
@@ -168,12 +154,11 @@ Thumbs.db
             // Update lock file following Musyawarah Mufakat (consensus)
             await this.updateLockFile();
 
-            console.log('✅ ' + this.i18n.t('packageInstalled', packageName));
-            console.log('🤝 Gotong royong dalam pengelolaan dependencies berhasil');
-
             return {
                 success: true,
                 packageName: packageName,
+                version: packageInfo.version,
+                dependencies: dependencies,
                 message: 'Package installed successfully'
             };
 
@@ -189,8 +174,6 @@ Thumbs.db
     // Uninstall package with cultural consideration
     async lepas(packageName) {
         try {
-            console.log('🗑️  ' + this.i18n.t('uninstalling', packageName));
-            
             if (!fs.existsSync(this.configFile)) {
                 throw new Error('File paket.minang tidak ditemukan.');
             }
@@ -198,8 +181,11 @@ Thumbs.db
             const config = JSON.parse(fs.readFileSync(this.configFile, 'utf8'));
             
             if (!config.dependencies[packageName]) {
-                console.log('⚠️  Paket tidak terpasang:', packageName);
-                return;
+                return {
+                    success: false,
+                    error: 'Package not installed',
+                    packageName: packageName
+                };
             }
 
             // Remove from dependencies
@@ -216,8 +202,6 @@ Thumbs.db
             
             // Update lock file
             await this.updateLockFile();
-
-            console.log('✅ Paket berhasil dihapus:', packageName);
 
             return {
                 success: true,

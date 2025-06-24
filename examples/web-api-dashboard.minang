@@ -1,0 +1,177 @@
+// MinangScript - API Dashboard
+// Dashboard yang mengonsumsi REST API
+
+buek apiBase = "https://jsonplaceholder.typicode.com"
+buek users = []
+buek posts = []
+
+// Fungsi untuk fetch data
+async karojo ambilUsers() {
+    cubo {
+        cetak "🔄 Mengambil data users..."
+        buek response = tunggu kirim(`${apiBase}/users`)
+        users = response
+        tampilkanUsers()
+        cetak `✅ ${users.length} users berhasil dimuat`
+    } tangkok (error) {
+        cetak "❌ Error mengambil users: " + error.message
+    }
+}
+
+async karojo ambilPosts() {
+    cubo {
+        cetak "🔄 Mengambil data posts..."
+        buek response = tunggu kirim(`${apiBase}/posts`)
+        posts = response
+        tampilkanPosts()
+        cetak `✅ ${posts.length} posts berhasil dimuat`
+    } tangkok (error) {
+        cetak "❌ Error mengambil posts: " + error.message
+    }
+}
+
+// Fungsi untuk menampilkan data
+karojo tampilkanUsers() {
+    buek container = piliah("#users-container")
+    kalau !container jadi
+    
+    container.konten = "<h3>👥 Users</h3>"
+    
+    untuak (buek user dalam users) {
+        buek userCard = buat("div")
+        userCard.kelas = "user-card"
+        userCard.konten = `
+            <h4>${user.name}</h4>
+            <p>📧 ${user.email}</p>
+            <p>🏢 ${user.company.name}</p>
+            <p>🌐 ${user.website}</p>
+        `
+        
+        // Tambah click handler untuk lihat posts user
+        dengar(userCard, "click", () => {
+            tampilkanPostsUser(user.id, user.name)
+        })
+        
+        container.tambah(userCard)
+    }
+}
+
+karojo tampilkanPosts() {
+    buek container = piliah("#posts-container")
+    kalau !container jadi
+    
+    container.konten = "<h3>📝 Recent Posts</h3>"
+    
+    // Tampilkan 10 posts terbaru
+    buek recentPosts = posts.slice(0, 10)
+    
+    untuak (buek post dalam recentPosts) {
+        buek postCard = buat("div")
+        postCard.kelas = "post-card"
+        postCard.konten = `
+            <h4>${post.title}</h4>
+            <p>${post.body}</p>
+            <small>User ID: ${post.userId}</small>
+        `
+        container.tambah(postCard)
+    }
+}
+
+karojo tampilkanPostsUser(userId, userName) {
+    buek userPosts = posts.filter(post => post.userId === userId)
+    buek modal = piliah("#modal")
+    buek modalContent = piliah("#modal-content")
+    
+    kalau modal && modalContent {
+        modalContent.konten = `
+            <h3>Posts oleh ${userName}</h3>
+            <button id="close-modal">❌ Tutup</button>
+            <div id="user-posts"></div>
+        `
+        
+        buek postsContainer = piliah("#user-posts")
+        untuak (buek post dalam userPosts) {
+            buek postDiv = buat("div")
+            postDiv.kelas = "post-item"
+            postDiv.konten = `
+                <h4>${post.title}</h4>
+                <p>${post.body}</p>
+            `
+            postsContainer.tambah(postDiv)
+        }
+        
+        // Tampilkan modal
+        modal.style.display = "block"
+        
+        // Close modal handler
+        buek closeBtn = piliah("#close-modal")
+        dengar(closeBtn, "click", () => {
+            modal.style.display = "none"
+        })
+    }
+}
+
+// Search functionality
+karajo setupSearch() {
+    buek searchInput = piliah("#search")
+    kalau searchInput {
+        dengar(searchInput, "input", (e) => {
+            buek query = e.target.value.toLowerCase()
+            buek filteredUsers = users.filter(user => 
+                user.name.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query) ||
+                user.company.name.toLowerCase().includes(query)
+            )
+            tampilkanFilteredUsers(filteredUsers)
+        })
+    }
+}
+
+karojo tampilkanFilteredUsers(filteredUsers) {
+    buek container = piliah("#users-container")
+    kalau !container jadi
+    
+    container.konten = "<h3>👥 Search Results</h3>"
+    
+    kalau filteredUsers.length === 0 {
+        container.konten += "<p>Tidak ada hasil ditemukan</p>"
+        jadi
+    }
+    
+    untuak (buek user dalam filteredUsers) {
+        buek userCard = buat("div")
+        userCard.kelas = "user-card"
+        userCard.konten = `
+            <h4>${user.name}</h4>
+            <p>📧 ${user.email}</p>
+            <p>🏢 ${user.company.name}</p>
+        `
+        container.tambah(userCard)
+    }
+}
+
+// Refresh data
+karojo refreshData() {
+    cetak "🔄 Refreshing data..."
+    ambilUsers()
+    ambilPosts()
+}
+
+// Setup refresh button
+buek refreshBtn = piliah("#refresh")
+kalau refreshBtn {
+    dengar(refreshBtn, "click", refreshData)
+}
+
+// Auto refresh setiap 5 menit
+ulangi(refreshData, 300) // 300 detik = 5 menit
+
+// Inisialisasi
+dengar(dokumen(), "DOMContentLoaded", () => {
+    cetak "🚀 API Dashboard MinangScript dimulai!"
+    ambilUsers()
+    ambilPosts()
+    setupSearch()
+})
+
+cetak "📊 API Dashboard ready!"

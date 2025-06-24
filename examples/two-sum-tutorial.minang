@@ -1,0 +1,167 @@
+/**
+ * MinangScript Two Sum Tutorial & Implementation
+ * Complete guide to solving LeetCode's Two Sum problem
+ */
+
+cetak("🎯 MinangScript Two Sum Tutorial")
+cetak("=====================================")
+
+// Problem Statement
+cetak("\n📋 Problem:")
+cetak("Given an array of integers nums and an integer target,")
+cetak("return indices of two numbers that add up to target.")
+cetak("You may assume that each input has exactly one solution.")
+
+// Solution Implementation
+karojo twoSumOptimal(nums, target) {
+    // Using hash map for O(n) solution
+    buek hashMap = {}
+    
+    untuak (buek i = 0; i < nums.length; i++) {
+        buek currentNum = nums[i]
+        buek needed = target - currentNum
+        
+        // Check if the needed number exists in our map
+        kalau (hashMap[needed] !== undefined) {
+            jadi [hashMap[needed], i]
+        }
+        
+        // Store current number and its index
+        hashMap[currentNum] = i
+    }
+    
+    jadi kosong // No solution found
+}
+
+// Demonstration function
+karojo demonstrateSolution(nums, target) {
+    cetak(`\n🔍 Solving for array [${nums.join(', ')}] with target ${target}`)
+    cetak("Step-by-step process:")
+    
+    buek hashMap = {}
+    
+    untuak (buek i = 0; i < nums.length; i++) {
+        buek currentNum = nums[i]
+        buek needed = target - currentNum
+        
+        cetak(`  Step ${i + 1}: nums[${i}] = ${currentNum}`)
+        cetak(`    Need: ${target} - ${currentNum} = ${needed}`)
+        
+        kalau (hashMap[needed] !== undefined) {
+            cetak(`    ✅ Found ${needed} at index ${hashMap[needed]}!`)
+            cetak(`    Solution: [${hashMap[needed]}, ${i}]`)
+            jadi [hashMap[needed], i]
+        } lain {
+            cetak(`    ${needed} not in map, storing ${currentNum} at index ${i}`)
+            hashMap[currentNum] = i
+            cetak(`    Map now: {${Object.keys(hashMap).map(k => `${k}:${hashMap[k]}`).join(', ')}}`)
+        }
+    }
+    
+    cetak("    ❌ No solution found")
+    jadi kosong
+}
+
+// Performance comparison function
+karojo compareApproaches(nums, target) {
+    cetak(`\n⚡ Performance Comparison for size ${nums.length}:`)
+    
+    // Brute force approach
+    buek startTime = performance.now()
+    buek result1 = bruteForceApproach(nums, target)
+    buek bruteTime = performance.now() - startTime
+    
+    // Hash map approach
+    startTime = performance.now()
+    buek result2 = twoSumOptimal(nums, target)
+    buek hashTime = performance.now() - startTime
+    
+    cetak(`  Brute Force: ${bruteTime.toFixed(4)}ms - O(n²)`)
+    cetak(`  Hash Map:    ${hashTime.toFixed(4)}ms - O(n)`)
+    cetak(`  Speedup:     ${(bruteTime / hashTime).toFixed(2)}x faster`)
+}
+
+// Brute force for comparison
+karojo bruteForceApproach(nums, target) {
+    untuak (buek i = 0; i < nums.length; i++) {
+        untuak (buek j = i + 1; j < nums.length; j++) {
+            kalau (nums[i] + nums[j] === target) {
+                jadi [i, j]
+            }
+        }
+    }
+    jadi kosong
+}
+
+// Test runner
+karojo runTests() {
+    cetak("\n🧪 Running Test Cases:")
+    
+    buek testCases = [
+        { nums: [2, 7, 11, 15], target: 9, expected: [0, 1] },
+        { nums: [3, 2, 4], target: 6, expected: [1, 2] },
+        { nums: [3, 3], target: 6, expected: [0, 1] },
+        { nums: [1, 5, 3, 2], target: 7, expected: [0, 3] },
+        { nums: [-1, -2, -3, 0], target: -3, expected: [0, 1] }
+    ]
+    
+    untuak (buek i = 0; i < testCases.length; i++) {
+        buek test = testCases[i]
+        buek result = demonstrateSolution(test.nums, test.target)
+        
+        kalau (result && result[0] === test.expected[0] && result[1] === test.expected[1]) {
+            cetak(`✅ Test ${i + 1} PASSED`)
+        } lain {
+            cetak(`❌ Test ${i + 1} FAILED`)
+            cetak(`  Expected: [${test.expected.join(', ')}]`)
+            cetak(`  Got: ${result ? `[${result.join(', ')}]` : 'null'}`)
+        }
+    }
+}
+
+// Interactive solver
+karojo interactiveSolver() {
+    cetak("\n🎮 Interactive Solver:")
+    cetak("Try your own arrays and targets!")
+    
+    // Example usage (in a real web environment, you'd get user input)
+    buek userArrays = [
+        [1, 2, 3, 4, 5, 6],
+        [10, 20, 30, 40],
+        [-5, 0, 5, 10]
+    ]
+    
+    buek userTargets = [7, 50, 5]
+    
+    untuak (buek i = 0; i < userArrays.length; i++) {
+        cetak(`\nExample ${i + 1}:`)
+        demonstrateSolution(userArrays[i], userTargets[i])
+    }
+}
+
+// Main execution
+cetak("\n🚀 Starting Two Sum Tutorial...")
+
+// Run basic examples
+demonstrateSolution([2, 7, 11, 15], 9)
+demonstrateSolution([3, 2, 4], 6)
+
+// Run all tests
+runTests()
+
+// Interactive examples
+interactiveSolver()
+
+// Performance demonstration
+buek largeArray = []
+untuak (buek i = 0; i < 100; i++) {
+    largeArray.push(i)
+}
+compareApproaches(largeArray, 99)
+
+cetak("\n🎉 Tutorial completed!")
+cetak("Key takeaways:")
+cetak("• Hash map approach is O(n) time, O(n) space")
+cetak("• Brute force is O(n²) time, O(1) space")
+cetak("• Hash map is much faster for larger arrays")
+cetak("• Always consider space-time tradeoffs in algorithms")

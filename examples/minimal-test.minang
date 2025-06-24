@@ -1,0 +1,13 @@
+cetak "Testing array with variables"
+
+karojo test() {
+    buek i = 1
+    buek j = 2
+    kalau bana {
+        jadi kumpulan[i, j]
+    }
+    jadi kumpulan[3, 4]
+}
+
+buek result = test()
+cetak result

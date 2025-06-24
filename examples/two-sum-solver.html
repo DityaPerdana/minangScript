@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Sum Solver - MinangScript</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-section {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Monaco', monospace;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .solve-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .solve-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .result {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 16px;
+            border: 2px solid;
+        }
+
+        .result.success {
+            background: #f0fff4;
+            border-color: #38a169;
+            color: #22543d;
+        }
+
+        .result.error {
+            background: #fed7d7;
+            border-color: #e53e3e;
+            color: #742a2a;
+        }
+
+        .steps {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #cbd5e0;
+            font-family: 'Monaco', monospace;
+            font-size: 14px;
+        }
+
+        .step.found {
+            border-left-color: #38a169;
+            background: #f0fff4;
+        }
+
+        .examples {
+            margin: 20px 0;
+        }
+
+        .example-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .example-btn:hover {
+            background: #3182ce;
+        }
+
+        .algorithm-info {
+            background: #ebf8ff;
+            border: 2px solid #4299e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .complexity {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .complexity div {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .complexity {
+                flex-direction: column;
+            }
+
+            .complexity div {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Two Sum Solver</h1>
+        <p class="subtitle">LeetCode Problem #1 - Solved with MinangScript</p>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="arrayInput">📋 Array (format: [1,2,3,4]):</label>
+                <input type="text" id="arrayInput" placeholder="[2,7,11,15]" value="[2,7,11,15]">
+            </div>
+            <div class="input-group">
+                <label for="targetInput">🎯 Target:</label>
+                <input type="text" id="targetInput" placeholder="9" value="9">
+            </div>
+            <button id="solveBtn" class="solve-button">🚀 Solve Two Sum</button>
+        </div>
+
+        <div id="examples" class="examples"></div>
+
+        <div id="result" class="result" style="display: none;"></div>
+
+        <div id="steps" class="steps" style="display: none;"></div>
+
+        <div class="algorithm-info">
+            <h3>🧠 Algorithm Information</h3>
+            <p><strong>Hash Map Approach:</strong> We iterate through the array once, and for each element, we check if the complement (target - current) exists in our hash map. If it does, we found our answer. If not, we add the current element to the hash map.</p>
+            
+            <div class="complexity">
+                <div>
+                    <strong>⚡ Time Complexity</strong><br>
+                    O(n)
+                </div>
+                <div>
+                    <strong>💾 Space Complexity</strong><br>
+                    O(n)
+                </div>
+                <div>
+                    <strong>🎯 Optimal Solution</strong><br>
+                    Yes
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MinangScript Runtime (simplified for demo) -->
+    <script>
+        // Simplified MinangScript runtime for this demo
+        class MinangRuntime {
+            constructor() {
+                this.variables = new Map();
+                this.functions = new Map();
+                this.initializeBuiltins();
+            }
+
+            initializeBuiltins() {
+                // piliah - querySelector
+                this.functions.set('piliah', (selector) => {
+                    return document.querySelector(selector);
+                });
+
+                // dengar - addEventListener  
+                this.functions.set('dengar', (element, event, callback) => {
+                    if (element && element.addEventListener) {
+                        element.addEventListener(event, callback);
+                    }
+                });
+
+                // cetak - console.log
+                this.functions.set('cetak', (...args) => {
+                    console.log(...args);
+                });
+
+                // jsonKe - JSON.stringify
+                this.functions.set('jsonKe', (obj) => {
+                    return JSON.stringify(obj);
+                });
+            }
+        }
+
+        // Initialize runtime
+        const runtime = new MinangRuntime();
+
+        // Make MinangScript functions available globally
+        window.piliah = runtime.functions.get('piliah');
+        window.dengar = runtime.functions.get('dengar');
+        window.cetak = runtime.functions.get('cetak');
+        window.jsonKe = runtime.functions.get('jsonKe');
+
+        // DOM element shortcuts
+        const arrayInput = document.querySelector('#arrayInput');
+        const targetInput = document.querySelector('#targetInput');
+        const solveBtn = document.querySelector('#solveBtn');
+        const resultDiv = document.querySelector('#result');
+        const stepsDiv = document.querySelector('#steps');
+
+        // Two Sum algorithm (translated from MinangScript)
+        function twoSum(nums, target) {
+            const map = {};
+            const steps = [];
+            
+            for (let i = 0; i < nums.length; i++) {
+                const current = nums[i];
+                const complement = target - current;
+                
+                steps.push({
+                    step: i + 1,
+                    current: current,
+                    complement: complement,
+                    mapState: {...map},
+                    found: map[complement] !== undefined
+                });
+                
+                if (map[complement] !== undefined) {
+                    return {
+                        indices: [map[complement], i],
+                        values: [complement, current],
+                        steps: steps
+                    };
+                }
+                
+                map[current] = i;
+            }
+            
+            return {
+                indices: [],
+                values: [],
+                steps: steps
+            };
+        }
+
+        // Parse array input
+        function parseArray(str) {
+            try {
+                const cleaned = str.replace(/[\[\]]/g, '').split(',');
+                const result = [];
+                
+                for (const item of cleaned) {
+                    const num = parseInt(item.trim());
+                    if (!isNaN(num)) {
+                        result.push(num);
+                    }
+                }
+                
+                return result;
+            } catch (error) {
+                return [];
+            }
+        }
+
+        // Display solution steps
+        function displaySteps(steps, target) {
+            let stepsHtml = "<h3>📋 Solution Steps:</h3>";
+            
+            for (const step of steps) {
+                const mapStr = JSON.stringify(step.mapState);
+                stepsHtml += `
+                    <div class="step ${step.found ? 'found' : ''}">
+                        <strong>Step ${step.step}:</strong><br>
+                        Current: ${step.current}, Need: ${step.complement}<br>
+                        Map: ${mapStr}<br>
+                        ${step.found ? 
+                            `✅ Found! ${step.complement} exists in map` : 
+                            `❌ ${step.complement} not found, adding ${step.current} to map`
+                        }
+                    </div>
+                `;
+            }
+            
+            stepsDiv.innerHTML = stepsHtml;
+            stepsDiv.style.display = 'block';
+        }
+
+        // Handle solve button click
+        function handleSolve() {
+            const arrayStr = arrayInput.value;
+            const targetStr = targetInput.value;
+            
+            if (!arrayStr || !targetStr) {
+                resultDiv.innerHTML = "❌ Please enter both array and target";
+                resultDiv.className = "result error";
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const nums = parseArray(arrayStr);
+            const target = parseInt(targetStr);
+            
+            if (nums.length === 0) {
+                resultDiv.innerHTML = "❌ Invalid array format. Use: [1,2,3,4]";
+                resultDiv.className = "result error";
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            if (isNaN(target)) {
+                resultDiv.innerHTML = "❌ Invalid target number";
+                resultDiv.className = "result error";
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            console.log(`Solving Two Sum for array: ${JSON.stringify(nums)}, target: ${target}`);
+            
+            const solution = twoSum(nums, target);
+            
+            if (solution.indices.length > 0) {
+                const [i, j] = solution.indices;
+                const [val1, val2] = solution.values;
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Solution Found!</h3>
+                    <p><strong>Indices:</strong> [${i}, ${j}]</p>
+                    <p><strong>Values:</strong> ${val1} + ${val2} = ${target}</p>
+                    <p><strong>Array[${i}] + Array[${j}] = ${nums[i]} + ${nums[j]} = ${target}</strong></p>
+                `;
+                resultDiv.className = "result success";
+            } else {
+                resultDiv.innerHTML = `
+                    <h3>❌ No Solution Found</h3>
+                    <p>No two numbers in the array add up to ${target}</p>
+                `;
+                resultDiv.className = "result error";
+            }
+            
+            resultDiv.style.display = 'block';
+            displaySteps(solution.steps, target);
+        }
+
+        // Load example test case
+        function loadExample(nums, target) {
+            arrayInput.value = JSON.stringify(nums);
+            targetInput.value = target.toString();
+            handleSolve();
+        }
+
+        // Setup example buttons
+        function setupExamples() {
+            const examplesDiv = document.querySelector('#examples');
+            if (!examplesDiv) return;
+            
+            const examples = [
+                { nums: [2, 7, 11, 15], target: 9, name: "Classic" },
+                { nums: [3, 2, 4], target: 6, name: "Middle" },
+                { nums: [3, 3], target: 6, name: "Duplicates" },
+                { nums: [1, 5, 3, 8, 2], target: 10, name: "Random" },
+                { nums: [-1, -2, -3, -4, -5], target: -8, name: "Negatives" }
+            ];
+            
+            let buttonsHtml = "<h3>🎯 Example Test Cases:</h3>";
+            
+            for (const ex of examples) {
+                buttonsHtml += `
+                    <button onclick="loadExample(${JSON.stringify(ex.nums)}, ${ex.target})" class="example-btn">
+                        ${ex.name}: ${JSON.stringify(ex.nums)} → ${ex.target}
+                    </button>
+                `;
+            }
+            
+            examplesDiv.innerHTML = buttonsHtml;
+        }
+
+        // Event listeners
+        solveBtn.addEventListener('click', handleSolve);
+
+        arrayInput.addEventListener('keypress', (e) => {
+            if (e.key === "Enter") {
+                handleSolve();
+            }
+        });
+
+        targetInput.addEventListener('keypress', (e) => {
+            if (e.key === "Enter") {
+                handleSolve();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setupExamples();
+            console.log("🚀 Two Sum Interactive Solver ready!");
+            
+            // Load default example
+            handleSolve();
+        });
+
+        // Make loadExample available globally for onclick handlers
+        window.loadExample = loadExample;
+    </script>
+</body>
+</html>

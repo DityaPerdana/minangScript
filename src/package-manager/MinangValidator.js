@@ -10,28 +10,6 @@ class MinangValidator {
     constructor() {
         this.lexer = new MinangLexer();
         this.parser = new MinangParser();
-        this.culturalPrinciples = {
-            'gotong-royong': {
-                name: 'Gotong Royong',
-                description: 'Kerja sama dan saling membantu',
-                keywords: ['gotongRoyong', 'kolaborasi', 'bersama', 'tolong']
-            },
-            'musyawarah-mufakat': {
-                name: 'Musyawarah Mufakat',
-                description: 'Pengambilan keputusan bersama',
-                keywords: ['musyawarah', 'mufakat', 'keputusan', 'diskusi']
-            },
-            'alam-takambang-jadi-guru': {
-                name: 'Alam Takambang Jadi Guru',
-                description: 'Belajar dari alam dan pengalaman',
-                keywords: ['alamTakambang', 'belajar', 'adaptif', 'observasi']
-            },
-            'adat-basandi-syarak': {
-                name: 'Adat Basandi Syarak',
-                description: 'Praktik berdasarkan etika dan moral',
-                keywords: ['adatBasandi', 'etika', 'moral', 'keadilan']
-            }
-        };
     }
 
     // Validate package configuration
@@ -40,7 +18,7 @@ class MinangValidator {
             isValid: true,
             errors: [],
             warnings: [],
-            culturalScore: 0,
+            qualityScore: 0,
             recommendations: []
         };
 
@@ -62,11 +40,11 @@ class MinangValidator {
             validation.errors.push(...codeValidation.errors);
             validation.warnings.push(...codeValidation.warnings);
 
-            // Validate cultural principles
-            const culturalValidation = await this.validateCulturalPrinciples(packagePath);
-            validation.culturalScore = culturalValidation.score;
-            validation.warnings.push(...culturalValidation.warnings);
-            validation.recommendations.push(...culturalValidation.recommendations);
+            // Validate code quality
+            const qualityValidation = await this.validateCodeQuality(packagePath);
+            validation.qualityScore = qualityValidation.score;
+            validation.warnings.push(...qualityValidation.warnings);
+            validation.recommendations.push(...qualityValidation.recommendations);
 
             // Validate documentation
             const docValidation = await this.validateDocumentation(packagePath);
@@ -142,16 +120,9 @@ class MinangValidator {
                 validation.errors.push(`Format versi tidak valid: ${config.versi}`);
             }
 
-            // Cultural principles validation
+            // Quality validation
             if (!config.filosofi || config.filosofi.length === 0) {
-                validation.warnings.push('Tidak ada filosofi Minangkabau yang didefinisikan');
-            } else {
-                const invalidPhilosophies = config.filosofi.filter(p => 
-                    !this.culturalPrinciples[p]
-                );
-                if (invalidPhilosophies.length > 0) {
-                    validation.warnings.push(`Filosofi tidak dikenal: ${invalidPhilosophies.join(', ')}`);
-                }
+                validation.warnings.push('Consider defining development principles');
             }
 
             // License validation
@@ -206,9 +177,9 @@ class MinangValidator {
                     validation.errors.push(`Syntax error di ${path.relative(packagePath, file)}: ${parseError.message}`);
                 }
 
-                // Cultural function usage analysis
-                const culturalUsage = this.analyzeCulturalUsage(code);
-                if (culturalUsage.score === 0) {
+                // Code quality analysis
+                const qualityMetrics = this.analyzeCodeMetrics(code);
+                if (qualityMetrics.score === 0) {
                     validation.warnings.push(`File ${path.relative(packagePath, file)} tidak menggunakan fungsi budaya Minangkabau`);
                 }
 
@@ -220,7 +191,7 @@ class MinangValidator {
         return validation;
     }
 
-    async validateCulturalPrinciples(packagePath) {
+    async validateCodeQuality(packagePath) {
         const validation = { score: 0, warnings: [], recommendations: [] };
         
         // Read configuration
@@ -232,20 +203,20 @@ class MinangValidator {
         try {
             const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
             
-            // Check declared philosophies
-            const declaredPhilosophies = config.filosofi || [];
-            validation.score += declaredPhilosophies.length * 10;
+            // Check basic quality metrics
+            const qualityFeatures = config.features || [];
+            validation.score += qualityFeatures.length * 10;
 
-            // Analyze code for cultural implementation
+            // Analyze code for quality implementation
             const minangFiles = this.findMinangFiles(packagePath);
-            let totalCulturalUsage = 0;
+            let totalQualityScore = 0;
             let fileCount = 0;
 
             for (const file of minangFiles) {
                 try {
                     const code = fs.readFileSync(file, 'utf8');
-                    const culturalUsage = this.analyzeCulturalUsage(code);
-                    totalCulturalUsage += culturalUsage.score;
+                    const qualityMetrics = this.analyzeCodeMetrics(code);
+                    totalQualityScore += qualityMetrics.score;
                     fileCount++;
                 } catch (error) {
                     // Skip files with errors
@@ -253,40 +224,41 @@ class MinangValidator {
             }
 
             if (fileCount > 0) {
-                const avgCulturalUsage = totalCulturalUsage / fileCount;
-                validation.score += avgCulturalUsage;
+                const avgQualityScore = totalQualityScore / fileCount;
+                validation.score += avgQualityScore;
             }
 
-            // Check documentation for cultural references
+            // Check documentation quality
             const readmePath = path.join(packagePath, 'README.md');
             if (fs.existsSync(readmePath)) {
                 const readme = fs.readFileSync(readmePath, 'utf8').toLowerCase();
-                let culturalMentions = 0;
+                let qualityMentions = 0;
                 
-                Object.keys(this.culturalPrinciples).forEach(principle => {
-                    if (readme.includes(principle) || readme.includes(this.culturalPrinciples[principle].name.toLowerCase())) {
-                        culturalMentions++;
+                const qualityKeywords = ['example', 'usage', 'installation', 'api', 'documentation'];
+                qualityKeywords.forEach(keyword => {
+                    if (readme.includes(keyword)) {
+                        qualityMentions++;
                     }
                 });
                 
-                validation.score += culturalMentions * 5;
+                validation.score += qualityMentions * 5;
             }
 
             // Generate recommendations based on score
             if (validation.score < 20) {
-                validation.warnings.push('Skor budaya rendah - pertimbangkan untuk mengintegrasikan lebih banyak nilai Minangkabau');
-                validation.recommendations.push('Tambahkan fungsi gotongRoyong() untuk kolaborasi');
-                validation.recommendations.push('Gunakan musyawarah() untuk pengambilan keputusan');
-                validation.recommendations.push('Implementasikan alamTakambang() untuk pembelajaran adaptif');
+                validation.warnings.push('Low quality score - consider improving code structure');
+                validation.recommendations.push('Add proper documentation and examples');
+                validation.recommendations.push('Improve code structure and organization');
+                validation.recommendations.push('Add error handling where appropriate');
             } else if (validation.score < 40) {
-                validation.recommendations.push('Dokumentasikan implementasi filosofi Minangkabau di README');
-                validation.recommendations.push('Pertimbangkan menambahkan lebih banyak prinsip budaya');
+                validation.recommendations.push('Document implementation details in README');
+                validation.recommendations.push('Consider adding more examples and comments');
             } else {
-                validation.recommendations.push('Excellent! Paket ini mencerminkan nilai-nilai Minangkabau dengan baik');
+                validation.recommendations.push('Good code quality! Keep up the excellent work');
             }
 
         } catch (error) {
-            validation.warnings.push(`Error validasi budaya: ${error.message}`);
+            validation.warnings.push(`Error in quality validation: ${error.message}`);
         }
 
         return validation;
@@ -369,49 +341,37 @@ class MinangValidator {
         return files;
     }
 
-    analyzeCulturalUsage(code) {
+    analyzeCodeMetrics(code) {
         let score = 0;
-        const usage = {
-            gotongRoyong: 0,
-            musyawarah: 0,
-            alamTakambang: 0,
-            adatBasandi: 0
+        const metrics = {
+            functions: 0,
+            comments: 0,
+            documentation: 0,
+            errorHandling: 0
         };
 
-        // Check for cultural function calls
-        if (code.includes('gotongRoyong(')) {
-            usage.gotongRoyong++;
+        // Check for function definitions
+        const functionMatches = code.match(/karojo\s+\w+/g) || [];
+        metrics.functions = functionMatches.length;
+        score += functionMatches.length * 5;
+        
+        // Check for comments
+        const commentMatches = code.match(/\/\/.*|\/\*[\s\S]*?\*\//g) || [];
+        metrics.comments = commentMatches.length;
+        score += Math.min(commentMatches.length * 2, 20); // Cap at 20 points
+        
+        // Check for error handling
+        if (code.includes('cubo(') && code.includes('tangkok(')) {
+            metrics.errorHandling++;
             score += 10;
         }
         
-        if (code.includes('musyawarah(')) {
-            usage.musyawarah++;
-            score += 10;
-        }
-        
-        if (code.includes('alamTakambang(')) {
-            usage.alamTakambang++;
-            score += 10;
-        }
-        
-        if (code.includes('adatBasandi(')) {
-            usage.adatBasandi++;
-            score += 10;
-        }
+        // Check for documentation strings
+        const docStrings = code.match(/"""[\s\S]*?"""|'''[\s\S]*?'''/g) || [];
+        metrics.documentation = docStrings.length;
+        score += docStrings.length * 5;
 
-        // Check for cultural comments
-        const culturalComments = [
-            'gotong royong', 'musyawarah', 'mufakat', 
-            'alam takambang', 'adat basandi', 'syarak'
-        ];
-        
-        culturalComments.forEach(comment => {
-            if (code.toLowerCase().includes(comment)) {
-                score += 2;
-            }
-        });
-
-        return { score, usage };
+        return { score, metrics };
     }
 
     isValidVersion(version) {

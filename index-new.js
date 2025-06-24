@@ -85,7 +85,13 @@ cetak sambutan(namo)
 cetak "🏔️ Alam takambang jadi guru!"
 
 // Implementasi gotong royong
-gotongRoyong("belajar", "berkarya", "berbagi")
+// Mari belajar MinangScript - Bahasa pemrograman dengan nuansa Minangkabau
+
+cetak "Salamat datang ka MinangScript!"
+cetak "Program sederhana untuk demonstrasi"
+
+buek nama = "Dunia" 
+cetak "Hello " + nama
 `;
 
         fs.writeFileSync(path.join(projectDir, 'main.minang'), mainContent);
@@ -200,9 +206,10 @@ ${this.i18n.t('replExamples')}
   }
 
 ${this.i18n.t('replCulturalFunctions')}
-  gotongRoyong("kerja", "bersama")
-  musyawarah("topik", "peserta")
-  alamTakambang("pelajaran")
+  cetak "Program MinangScript sederhana"
+  
+  buek hasil = 10 + 20
+  cetak "Hasil perhitungan: " + hasil
         `);
     }
 
@@ -229,9 +236,10 @@ ${this.i18n.t('replCulturalFunctions')}
 
 4. Cultural Functions:
    gotongRoyong("task1", "task2", "task3")
-   musyawarah("discussion", ["participant1", "participant2"])
-   alamTakambang("learn from nature")
-   adatBasandi("ethical action")
+   cetak "Program dasar MinangScript"
+   buek x = 5
+   buek y = 10
+   cetak "Jumlah: " + (x + y)
         `);
     }
 

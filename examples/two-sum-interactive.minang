@@ -1,0 +1,195 @@
+// MinangScript - Interactive Two Sum Web App
+// Web-based solver untuk LeetCode Two Sum problem
+
+// DOM elements
+buek arrayInput = piliah("#arrayInput")
+buek targetInput = piliah("#targetInput")
+buek solveBtn = piliah("#solveBtn")
+buek resultDiv = piliah("#result")
+buek stepsDiv = piliah("#steps")
+
+// Two Sum algorithm
+karojo twoSum(nums, target) {
+    buek map = {}
+    buek steps = []
+    
+    untuak (buek i = 0; i < nums.length; i++) {
+        buek current = nums[i]
+        buek complement = target - current
+        
+        steps.push({
+            step: i + 1,
+            current: current,
+            complement: complement,
+            mapState: {...map},
+            found: map[complement] !== undefined
+        })
+        
+        kalau map[complement] !== undefined {
+            jadi {
+                indices: [map[complement], i],
+                values: [complement, current],
+                steps: steps
+            }
+        }
+        
+        map[current] = i
+    }
+    
+    jadi {
+        indices: [],
+        values: [],
+        steps: steps
+    }
+}
+
+// Parse array input
+karojo parseArray(str) {
+    cubo {
+        // Remove brackets and split by comma
+        buek cleaned = str.replace(/[\[\]]/g, '').split(',')
+        buek result = []
+        
+        untuak (buek item dalam cleaned) {
+            buek num = parseInt(item.trim())
+            kalau !isNaN(num) {
+                result.push(num)
+            }
+        }
+        
+        jadi result
+    } tangkok (error) {
+        jadi []
+    }
+}
+
+// Display solution steps
+karojo displaySteps(steps, target) {
+    buek stepsHtml = "<h3>📋 Solution Steps:</h3>"
+    
+    untuak (buek step dalam steps) {
+        buek mapStr = jsonKe(step.mapState)
+        stepsHtml += `
+            <div class="step ${step.found ? 'found' : ''}">
+                <strong>Step ${step.step}:</strong><br>
+                Current: ${step.current}, Need: ${step.complement}<br>
+                Map: ${mapStr}<br>
+                ${step.found ? 
+                    `✅ Found! ${step.complement} exists in map` : 
+                    `❌ ${step.complement} not found, adding ${step.current} to map`
+                }
+            </div>
+        `
+    }
+    
+    stepsDiv.konten = stepsHtml
+}
+
+// Handle solve button click
+karojo handleSolve() {
+    buek arrayStr = arrayInput.nilai
+    buek targetStr = targetInput.nilai
+    
+    kalau !arrayStr || !targetStr {
+        resultDiv.konten = "❌ Please enter both array and target"
+        resultDiv.kelas = "error"
+        jadi
+    }
+    
+    buek nums = parseArray(arrayStr)
+    buek target = parseInt(targetStr)
+    
+    kalau nums.length === 0 {
+        resultDiv.konten = "❌ Invalid array format. Use: [1,2,3,4]"
+        resultDiv.kelas = "error"
+        jadi
+    }
+    
+    kalau isNaN(target) {
+        resultDiv.konten = "❌ Invalid target number"
+        resultDiv.kelas = "error"
+        jadi
+    }
+    
+    cetak `Solving Two Sum for array: ${jsonKe(nums)}, target: ${target}`
+    
+    buek solution = twoSum(nums, target)
+    
+    kalau solution.indices.length > 0 {
+        buek [i, j] = solution.indices
+        buek [val1, val2] = solution.values
+        
+        resultDiv.konten = `
+            <h3>✅ Solution Found!</h3>
+            <p><strong>Indices:</strong> [${i}, ${j}]</p>
+            <p><strong>Values:</strong> ${val1} + ${val2} = ${target}</p>
+            <p><strong>Array[${i}] + Array[${j}] = ${nums[i]} + ${nums[j]} = ${target}</strong></p>
+        `
+        resultDiv.kelas = "success"
+    } lain {
+        resultDiv.konten = `
+            <h3>❌ No Solution Found</h3>
+            <p>No two numbers in the array add up to ${target}</p>
+        `
+        resultDiv.kelas = "error"
+    }
+    
+    displaySteps(solution.steps, target)
+}
+
+// Add example test cases
+karojo loadExample(nums, target) {
+    arrayInput.nilai = jsonKe(nums)
+    targetInput.nilai = target.toString()
+    handleSolve()
+}
+
+// Setup example buttons
+karojo setupExamples() {
+    buek examplesDiv = piliah("#examples")
+    kalau !examplesDiv jadi
+    
+    buek examples = [
+        { nums: [2, 7, 11, 15], target: 9, name: "Classic" },
+        { nums: [3, 2, 4], target: 6, name: "Middle" },
+        { nums: [3, 3], target: 6, name: "Duplicates" },
+        { nums: [1, 5, 3, 8, 2], target: 10, name: "Random" }
+    ]
+    
+    buek buttonsHtml = "<h3>🎯 Example Test Cases:</h3>"
+    
+    untuak (buek i = 0; i < examples.length; i++) {
+        buek ex = examples[i]
+        buttonsHtml += `
+            <button onclick="loadExample(${jsonKe(ex.nums)}, ${ex.target})" class="example-btn">
+                ${ex.name}: ${jsonKe(ex.nums)} → ${ex.target}
+            </button>
+        `
+    }
+    
+    examplesDiv.konten = buttonsHtml
+}
+
+// Event listeners
+dengar(solveBtn, "click", handleSolve)
+
+dengar(arrayInput, "keypress", (e) => {
+    kalau e.key === "Enter" {
+        handleSolve()
+    }
+})
+
+dengar(targetInput, "keypress", (e) => {
+    kalau e.key === "Enter" {
+        handleSolve()
+    }
+})
+
+// Initialize
+dengar(dokumen(), "DOMContentLoaded", () => {
+    setupExamples()
+    cetak "🚀 Two Sum Interactive Solver ready!"
+    
+    // Load default example
+    loadExample([2, 7, 11, 15], 9)
+})

@@ -1,0 +1,218 @@
+// Simple test with kumpulan
+cetak "Testing Two Sum with kumpulan"
+
+buek nums = kumpulan[2, 7, 11, 15]
+cetak "Array created successfully: " + nums
+
+buek result = kumpulan[0, 1]
+cetak "Result: " + result
+
+// Solusi 2: Hash Map Approach - O(n)
+karojo twoSumHashMap(nums, target) {
+    cetak "🚀 Mencari Two Sum dengan Hash Map (Optimal)..."
+    cetak "Array: " + jsonKe(nums)
+    cetak "Target: " + target
+    
+    buek map = benda{}
+    
+    untuak (buek i = 0; i < nums.length; i = i + 1) {
+        buek currentNum = nums[i]
+        buek complement = target - currentNum
+        
+        // Cek apakah complement sudah ada di map
+        kalau map.hasOwnProperty(complement.toString()) {
+            buek complementIndex = map[complement.toString()]
+            cetak `✅ Ditemukan! Index ${complementIndex} (${complement}) + Index ${i} (${currentNum}) = ${target}`
+            jadi kumpulan[complementIndex, i]
+        }
+        
+        // Simpan current number dan indexnya ke map
+        map[currentNum.toString()] = i
+    }
+    
+    cetak "❌ Tidak ada pasangan yang ditemukan"
+    jadi kumpulan[]
+}
+
+// Solusi 3: Two Pointer Approach (untuk sorted array) - O(n log n)
+karojo twoSumTwoPointer(nums, target) {
+    cetak "↔️ Mencari Two Sum dengan Two Pointer (Sorted Array)..."
+    cetak "Original Array: " + jsonKe(nums)
+    cetak "Target: " + target
+    
+    // Buat array dengan index original
+    buek numsWithIndex = kumpulan[]
+    untuak (buek i = 0; i < nums.length; i = i + 1) {
+        numsWithIndex.push(benda{
+            value: nums[i],
+            originalIndex: i
+        })
+    }
+    
+    // Sort berdasarkan value
+    numsWithIndex.sort((a, b) => a.value - b.value)
+    cetak "Sorted Array: " + jsonKe(numsWithIndex.map(item => item.value))
+    
+    buek left = 0
+    buek right = numsWithIndex.length - 1
+    
+    selamo left < right {
+        buek sum = numsWithIndex[left].value + numsWithIndex[right].value
+        
+        kalau sum === target {
+            buek leftIndex = numsWithIndex[left].originalIndex
+            buek rightIndex = numsWithIndex[right].originalIndex
+            buek result = leftIndex < rightIndex ? kumpulan[leftIndex, rightIndex] : kumpulan[rightIndex, leftIndex]
+            
+            cetak `✅ Ditemukan! Index ${result[0]} (${nums[result[0]]}) + Index ${result[1]} (${nums[result[1]]}) = ${target}`
+            jadi result
+        } lainKalau sum < target {
+            left = left + 1
+        } lain {
+            right = right - 1
+        }
+    }
+    
+    cetak "❌ Tidak ada pasangan yang ditemukan"
+    jadi kumpulan[]
+}
+
+// Fungsi untuk testing dan benchmarking
+karojo testTwoSum() {
+    cetak "🧪 Testing Two Sum Solutions"
+    cetak "=" * 50
+    
+    // Test cases
+    buek testCases = kumpulan[
+        benda{ nums: kumpulan[2, 7, 11, 15], target: 9, expected: kumpulan[0, 1] },
+        benda{ nums: kumpulan[3, 2, 4], target: 6, expected: kumpulan[1, 2] },
+        benda{ nums: kumpulan[3, 3], target: 6, expected: kumpulan[0, 1] },
+        benda{ nums: kumpulan[1, 5, 3, 8, 2], target: 10, expected: kumpulan[1, 3] },
+        benda{ nums: kumpulan[-1, -2, -3, -4, -5], target: -8, expected: kumpulan[2, 4] }
+    ]
+    
+    untuak (buek i = 0; i < testCases.length; i = i + 1) {
+        buek testCase = testCases[i]
+        cetak `\n📋 Test Case ${i + 1}:`
+        cetak `Input: nums = ${jsonKe(testCase.nums)}, target = ${testCase.target}`
+        cetak `Expected: ${jsonKe(testCase.expected)}`
+        
+        // Test semua solusi
+        cetak "\n--- Brute Force ---"
+        buek result1 = twoSumBruteForce(testCase.nums, testCase.target)
+        
+        cetak "\n--- Hash Map ---"
+        buek result2 = twoSumHashMap(testCase.nums, testCase.target)
+        
+        cetak "\n--- Two Pointer ---"
+        buek result3 = twoSumTwoPointer(testCase.nums, testCase.target)
+        
+        // Validasi results
+        cetak "\n🔍 Validation:"
+        cetak `Brute Force: ${jsonKe(result1)} - ${validateResult(result1, testCase.nums, testCase.target) ? "✅ PASS" : "❌ FAIL"}`
+        cetak `Hash Map: ${jsonKe(result2)} - ${validateResult(result2, testCase.nums, testCase.target) ? "✅ PASS" : "❌ FAIL"}`
+        cetak `Two Pointer: ${jsonKe(result3)} - ${validateResult(result3, testCase.nums, testCase.target) ? "✅ PASS" : "❌ FAIL"}`
+        
+        cetak "\n" + "=" * 50
+    }
+}
+
+// Fungsi untuk validasi hasil
+karojo validateResult(result, nums, target) {
+    kalau result.length !== 2 {
+        jadi salah
+    }
+    
+    buek [i, j] = result
+    kalau i < 0 || i >= nums.length || j < 0 || j >= nums.length {
+        jadi salah
+    }
+    
+    jadi nums[i] + nums[j] === target
+}
+
+// Benchmark performance
+karojo benchmarkTwoSum() {
+    cetak "\n⚡ Performance Benchmark"
+    cetak "=" * 50
+    
+    // Generate large test array
+    buek largeNums = kumpulan[]
+    untuak (buek i = 0; i < 1000; i = i + 1) {
+        largeNums.push(Math.floor(Math.random() * 1000))
+    }
+    buek target = largeNums[0] + largeNums[500] // Ensure solution exists
+    
+    cetak `Testing dengan array size: ${largeNums.length}`
+    cetak `Target: ${target}`
+    
+    // Benchmark Brute Force
+    buek start1 = Date.now()
+    buek result1 = twoSumBruteForce(largeNums, target)
+    buek time1 = Date.now() - start1
+    
+    // Benchmark Hash Map
+    buek start2 = Date.now()
+    buek result2 = twoSumHashMap(largeNums, target)
+    buek time2 = Date.now() - start2
+    
+    // Benchmark Two Pointer
+    buek start3 = Date.now()
+    buek result3 = twoSumTwoPointer(largeNums, target)
+    buek time3 = Date.now() - start3
+    
+    cetak "\n📊 Performance Results:"
+    cetak `Brute Force: ${time1}ms`
+    cetak `Hash Map: ${time2}ms (${Math.round((time1/time2) * 100) / 100}x faster)`
+    cetak `Two Pointer: ${time3}ms (${Math.round((time1/time3) * 100) / 100}x faster)`
+}
+
+// Fungsi interactive untuk user input
+karojo interactiveTwoSum() {
+    cetak "\n🎮 Interactive Two Sum Solver"
+    cetak "=" * 50
+    
+    // Simulasi input (dalam implementasi real, ini akan menggunakan prompt)
+    buek userArrays = kumpulan[
+        kumpulan[1, 2, 3, 4, 5],
+        kumpulan[10, 20, 30, 40],
+        kumpulan[-1, 0, 1, 2, -1, -4]
+    ]
+    buek userTargets = kumpulan[8, 50, 0]
+    
+    untuak (buek i = 0; i < userArrays.length; i = i + 1) {
+        cetak `\n🎯 Interactive Example ${i + 1}:`
+        cetak `Array: ${jsonKe(userArrays[i])}`
+        cetak `Target: ${userTargets[i]}`
+        
+        buek result = twoSumHashMap(userArrays[i], userTargets[i])
+        
+        kalau result.length > 0 {
+            cetak `🎉 Solution found at indices: ${jsonKe(result)}`
+            cetak `Values: ${userArrays[i][result[0]]} + ${userArrays[i][result[1]]} = ${userTargets[i]}`
+        } lain {
+            cetak "😔 No solution found for this input"
+        }
+    }
+}
+
+// Main execution
+karojo main() {
+    cetak "🏔️ MinangScript Two Sum Solver - LeetCode Problem #1"
+    cetak "Implementasi berbagai algoritma untuk menyelesaikan Two Sum"
+    cetak "\n"
+    
+    // Run all tests and demos
+    testTwoSum()
+    benchmarkTwoSum()
+    interactiveTwoSum()
+    
+    cetak "\n🎯 Summary:"
+    cetak "1. Brute Force: Simple but O(n²) time complexity"
+    cetak "2. Hash Map: Optimal O(n) time, O(n) space"
+    cetak "3. Two Pointer: O(n log n) time due to sorting, O(1) extra space"
+    cetak "\n✨ Hash Map approach is generally the best for this problem!"
+}
+
+// Jalankan program
+main()

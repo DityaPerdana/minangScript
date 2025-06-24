@@ -101,7 +101,7 @@ class EnhancedMinangPaketCLI {
         const projectName = args[0];
         const options = this.parseOptions(args.slice(1));
         
-        console.log(`🏔️ ${this.i18n.t('initializingProject', projectName || 'new-project')}`);
+        console.log(`Initializing project: ${projectName || 'new-project'}`);
         
         try {
             const result = await this.paket.inisialkan(projectName, {
@@ -111,50 +111,57 @@ class EnhancedMinangPaketCLI {
             });
             
             if (result.success) {
-                console.log(`✅ ${this.i18n.t('projectInitialized', result.projectName)}`);
+                console.log(`Project ${result.projectName} initialized successfully`);
+                console.log('\nProject structure:');
+                console.log('   paket.minang     - Package configuration');
+                console.log('   main.minang      - Main file');
+                console.log('   src/            - Source code');
+                console.log('   test/           - Test files');
+                console.log('   docs/           - Documentation');
+                console.log('   examples/       - Code examples');
+                console.log('\nMinangkabau philosophical principles integrated');
                 this.showNextSteps(result.projectName);
             } else {
-                console.log(`❌ ${this.i18n.t('error', result.error)}`);
+                console.log(`Initialization failed: ${result.error}`);
             }
         } catch (error) {
-            console.log(`❌ ${this.i18n.t('error', error.message)}`);
+            console.log(`Initialization failed: ${error.message}`);
         }
     }
 
     showNextSteps(projectName) {
-        console.log(`\n📚 ${this.getCurrentWord('nextSteps', 'Next Steps', 'Langkah Selanjutnya')}:`);
+        console.log(`\nNext Steps:`);
         console.log(`   cd ${projectName}`);
         console.log(`   minang run main.minang`);
-        console.log(`\n🔧 ${this.getCurrentWord('packageCommands', 'Package Commands', 'Perintah Paket')}:`);
-        console.log(`   minang ${this.getCurrentWord('install', 'install', 'pasang')} <package-name>`);
-        console.log(`   minang ${this.getCurrentWord('search', 'search', 'cari')} <query>`);
+        console.log(`\nPackage Commands:`);
+        console.log(`   minang install <package-name>`);
+        console.log(`   minang search <query>`);
     }
 
     async handleInstall(args) {
         const packageName = args[0];
         if (!packageName) {
-            console.log(`❌ ${this.getCurrentWord('packageRequired', 'Package name required', 'Nama paket diperlukan')}`);
-            console.log(`   ${this.getCurrentWord('example', 'Example', 'Contoh')}: minang ${this.getCurrentWord('install', 'install', 'pasang')} minang-ui`);
+            console.log(`Package name required`);
+            console.log(`Example: minang install minang-ui`);
             return;
         }
 
         const options = this.parseOptions(args.slice(1));
         
-        console.log(`📦 ${this.i18n.t('packageInstalled', packageName)}...`);
+        console.log(`Installing ${packageName}...`);
         
         try {
             const result = await this.paket.pasang(packageName, options);
             if (result.success) {
-                console.log(`✅ ${this.i18n.t('packageInstalled', packageName)}`);
-                if (result.dependencies && result.dependencies.length > 0) {
-                    console.log(`📋 ${this.getCurrentWord('dependencies', 'Dependencies installed', 'Dependensi terpasang')}:`);
-                    result.dependencies.forEach(dep => console.log(`   └─ ${dep}`));
+                console.log(`Package ${packageName} installed successfully`);
+                if (result.dependencies && result.dependencies.length > 1) {
+                    console.log(`Dependencies installed: ${result.dependencies.length - 1} additional packages`);
                 }
             } else {
-                console.log(`❌ ${this.i18n.t('error', result.error)}`);
+                console.log(`Installation failed: ${result.error}`);
             }
         } catch (error) {
-            console.log(`❌ ${this.i18n.t('error', error.message)}`);
+            console.log(`Installation failed: ${error.message}`);
         }
     }
 
@@ -388,19 +395,24 @@ class EnhancedMinangPaketCLI {
     async handleUninstall(args) {
         const packageName = args[0];
         if (!packageName) {
-            console.log(`❌ ${this.getCurrentWord('packageRequired', 'Package name required', 'Nama paket diperlukan')}`);
+            console.log(`Package name required`);
             return;
         }
 
+        console.log(`Removing ${packageName}...`);
         try {
             const result = await this.paket.lepas(packageName);
             if (result.success) {
-                console.log(`✅ ${this.i18n.t('packageRemoved', packageName)}`);
+                console.log(`Package ${packageName} removed successfully`);
             } else {
-                console.log(`❌ ${this.i18n.t('error', result.error)}`);
+                if (result.error === 'Package not installed') {
+                    console.log(`Package ${packageName} is not installed`);
+                } else {
+                    console.log(`Failed to remove package: ${result.error}`);
+                }
             }
         } catch (error) {
-            console.log(`❌ ${this.i18n.t('error', error.message)}`);
+            console.log(`Failed to remove package: ${error.message}`);
         }
     }
 

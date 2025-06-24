@@ -21,33 +21,21 @@ class MinangUtils {
         }
     }
 
-    // Validate Minangkabau cultural principles in code
-    static validateCulturalPrinciples(ast) {
+    // Validate code structure (removed cultural validation)
+    static validateCodeStructure(ast) {
         const violations = [];
         
-        // Check for collaborative patterns (gotongRoyong)
-        if (!this.hasCollaborativePattern(ast)) {
-            violations.push("Pertimbangkan menambahkan pola gotong royong untuk kerja sama");
-        }
-        
-        // Check for ethical considerations (adatBasandi)
-        if (!this.hasEthicalConsiderations(ast)) {
-            violations.push("Pertimbangkan aspek adat basandi syarak dalam kode");
+        // Basic code quality checks
+        if (!this.hasProperStructure(ast)) {
+            violations.push("Pertimbangkan untuk memperbaiki struktur kode");
         }
         
         return violations;
     }
 
-    static hasCollaborativePattern(ast) {
-        // Simple check for function calls that suggest collaboration
-        return JSON.stringify(ast).includes('gotongRoyong') || 
-               JSON.stringify(ast).includes('musyawarah');
-    }
-
-    static hasEthicalConsiderations(ast) {
-        // Simple check for ethical considerations
-        return JSON.stringify(ast).includes('adatBasandi') ||
-               JSON.stringify(ast).includes('ethical');
+    static hasProperStructure(ast) {
+        // Basic structure validation
+        return ast && typeof ast === 'object';
     }
 
     // Generate MinangScript code templates
@@ -55,24 +43,205 @@ class MinangUtils {
         switch (type) {
             case 'basic':
                 return `// MinangScript - Program Dasar
-// Filosofi: Alam Takambang Jadi Guru
 
 cetak "${this.getGreeting()}"
 
 // Variabel dengan makna budaya
 buek namo = "MinangScript"
 ambiak umur = 1
-tagak filosofi = "Gotong Royong"
+tagak filosofi = "Sederhana dan Efektif"
 
-// Fungsi dengan nilai kearifan lokal
+// Fungsi dasar
 karojo sambutan(nama) {
     jadi "Salamat datang ka " + nama
 }
 
 cetak sambutan(namo)
-cetak "Mari belajar dari alam dan budaya Minangkabau"
+cetak "Mari belajar pemrograman dengan MinangScript"
 `;
 
+            case 'web-app':
+                return `// MinangScript - Web Application Template
+// Modern web app dengan DOM manipulation
+
+// Ambil elemen dari halaman
+buek tombol = piliah("#myButton")
+buek output = piliah("#output")
+buek input = piliah("#userInput")
+
+// Fungsi untuk menangani klik
+karojo handleKlik() {
+    buek nilai = input.nilai
+    kalau nilai {
+        output.konten = "Hello, " + nilai + "!"
+    } lain {
+        output.konten = "Masukkan nama terlebih dahulu!"
+    }
+}
+
+// Tambah event listener
+dengar(tombol, "klik", handleKlik)
+
+// Tampilkan pesan awal
+cetak "Web app MinangScript siap digunakan!"
+`;
+
+            case 'api-client':
+                return `// MinangScript - API Client Template
+// Aplikasi yang berkomunikasi dengan REST API
+
+async karojo ambilData() {
+    cubo {
+        // Fetch data dari API
+        buek response = tunggu kirim("https://api.example.com/users")
+        buek users = tunggu response.json()
+        
+        // Tampilkan di halaman
+        buek container = piliah("#userList")
+        container.konten = ""
+        
+        untuak (buek user dalam users) {
+            buek div = buat("div")
+            div.konten = user.name + " - " + user.email
+            container.tambah(div)
+        }
+        
+    } tangkok (error) {
+        cetak "Error mengambil data: " + error.message
+    }
+}
+
+// Fungsi untuk kirim data baru
+async karojo kirimUser(userData) {
+    cubo {
+        buek response = tunggu kirimPost("https://api.example.com/users", userData)
+        cetak "User berhasil dibuat: " + response.id
+        ambilData() // Refresh data
+    } tangkok (error) {
+        cetak "Error mengirim data: " + error.message
+    }
+}
+
+// Inisialisasi
+ambilData()
+`;
+
+            case 'interactive':
+                return `// MinangScript - Interactive Web Components
+// Komponen web interaktif dengan animasi
+
+// Setup elemen utama
+buek app = piliah("#app")
+buek counter = 0
+
+// Buat komponen counter
+karojo buatCounter() {
+    buek container = buat("div")
+    container.kelas = "counter-container"
+    
+    buek display = buat("h2")
+    display.konten = counter
+    
+    buek btnPlus = buat("button")
+    btnPlus.konten = "+"
+    dengar(btnPlus, "klik", () => {
+        counter++
+        display.konten = counter
+        simpan("counter", counter)
+    })
+    
+    buek btnMinus = buat("button") 
+    btnMinus.konten = "-"
+    dengar(btnMinus, "klik", () => {
+        counter--
+        display.konten = counter
+        simpan("counter", counter)
+    })
+    
+    container.tambah(display)
+    container.tambah(btnMinus)
+    container.tambah(btnPlus)
+    
+    jadi container
+}
+
+// Load saved counter value
+buek savedCounter = ambil("counter")
+kalau savedCounter {
+    counter = parseInt(savedCounter)
+}
+
+// Render komponen
+buek counterComponent = buatCounter()
+app.tambah(counterComponent)
+
+cetak "Interactive counter ready!"
+`;
+
+            case 'form-handler':
+                return `// MinangScript - Form Handling Template
+// Aplikasi untuk menangani form dan validasi
+
+// Ambil elemen form
+buek form = piliah("#userForm")
+buek nameInput = piliah("#name")
+buek emailInput = piliah("#email")
+buek errorDiv = piliah("#errors")
+
+// Fungsi validasi
+karojo validasiEmail(email) {
+    buek pattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
+    jadi pattern.test(email)
+}
+
+karojo validasiForm() {
+    buek errors = []
+    
+    kalau !nameInput.nilai.trim() {
+        errors.push("Nama wajib diisi")
+    }
+    
+    kalau !emailInput.nilai.trim() {
+        errors.push("Email wajib diisi")
+    } lainKalau !validasiEmail(emailInput.nilai) {
+        errors.push("Format email tidak valid")
+    }
+    
+    jadi errors
+}
+
+// Handle form submission
+dengar(form, "submit", async (event) => {
+    event.preventDefault()
+    
+    buek errors = validasiForm()
+    
+    kalau errors.length > 0 {
+        errorDiv.konten = errors.join("<br>")
+        errorDiv.style.display = "block"
+        jadi
+    }
+    
+    errorDiv.style.display = "none"
+    
+    // Kirim data ke server
+    buek formData = {
+        name: nameInput.nilai,
+        email: emailInput.nilai
+    }
+    
+    cubo {
+        buek response = tunggu kirimPost("/api/users", formData)
+        cetak "Data berhasil disimpan!"
+        form.reset()
+    } tangkok (error) {
+        errorDiv.konten = "Error: " + error.message
+        errorDiv.style.display = "block"
+    }
+})
+
+cetak "Form handler siap digunakan!"
+`;
             case 'gotong-royong':
                 return `// Template Gotong Royong - Kerja Sama
 // Filosofi: Berat sama dipikul, ringan sama dijinjing

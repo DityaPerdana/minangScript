@@ -559,6 +559,64 @@ class MinangParser {
             return { type: 'Identifier', name: name };
         }
 
+        // Array literal: kumpulan[element1, element2, ...]
+        if (this.match('ARRAY_LITERAL')) {
+            this.advance();
+            this.consume('LBRACKET', 'Diharapkan "[" setelah "kumpulan"');
+            
+            const elements = [];
+            
+            if (!this.match('RBRACKET')) {
+                do {
+                    elements.push(this.expression());
+                } while (this.match('COMMA') && this.advance());
+            }
+            
+            this.consume('RBRACKET', 'Diharapkan "]" setelah elemen array');
+            return {
+                type: 'ArrayExpression',
+                elements: elements
+            };
+        }
+
+        // Object literal: benda{key1: value1, key2: value2, ...}
+        if (this.match('OBJECT_LITERAL')) {
+            this.advance();
+            this.consume('LBRACE', 'Diharapkan "{" setelah "benda"');
+            
+            const properties = [];
+            
+            if (!this.match('RBRACE')) {
+                do {
+                    let key;
+                    if (this.match('IDENTIFIER')) {
+                        key = this.getCurrentToken().value;
+                        this.advance();
+                    } else if (this.match('STRING')) {
+                        key = this.getCurrentToken().value;
+                        this.advance();
+                    } else {
+                        throw new Error('Diharapkan nama properti atau string');
+                    }
+                    
+                    this.consume('COLON', 'Diharapkan ":" setelah nama properti');
+                    const value = this.expression();
+                    
+                    properties.push({
+                        type: 'Property',
+                        key: key,
+                        value: value
+                    });
+                } while (this.match('COMMA') && this.advance());
+            }
+            
+            this.consume('RBRACE', 'Diharapkan "}" setelah properti objek');
+            return {
+                type: 'ObjectExpression',
+                properties: properties
+            };
+        }
+
         if (this.match('LPAREN')) {
             this.advance();
             const expr = this.expression();

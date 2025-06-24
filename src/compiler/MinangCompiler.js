@@ -101,6 +101,18 @@ class MinangCompiler {
                 }
                 return String(node.value);
 
+            case 'ArrayExpression':
+                const elements = node.elements.map(el => this.generateJavaScript(el)).join(', ');
+                return `[${elements}]`;
+
+            case 'ObjectExpression':
+                const properties = node.properties.map(prop => {
+                    const key = typeof prop.key === 'string' ? `"${prop.key}"` : prop.key;
+                    const value = this.generateJavaScript(prop.value);
+                    return `${key}: ${value}`;
+                }).join(', ');
+                return `{${properties}}`;
+
             default:
                 throw new Error(`Tipe node tidak dikenal: ${node.type}`);
         }

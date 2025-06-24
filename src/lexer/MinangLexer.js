@@ -56,19 +56,38 @@ class MinangLexer {
             'angka': 'NUMBER_TYPE',  // number type hint
             'boolean': 'BOOLEAN_TYPE',
             
-            // Cultural/Philosophical keywords
-            'gotongRoyong': 'COLLABORATE',  // collaborative function
-            'musyawarah': 'DISCUSS',        // consensus building
-            'alamTakambang': 'LEARN',       // learning from nature
-            'adatBasandi': 'ETHICAL',       // ethical practices
-            'salingBantu': 'MUTUAL_AID',    // mutual assistance pattern
-            'konsensus': 'CONSENSUS',       // consensus-based decision
-            'kebersamaan': 'TOGETHERNESS',  // collective programming
-            'pantang': 'TABOO',             // forbidden operations
-            'adat': 'CUSTOM',               // custom rules/constraints
-            'bajapuik': 'COLLABORATE_FUNC', // special collaborative function
-            'rundiang': 'MEETING',          // code review/discussion block
-            'mufakat': 'AGREEMENT'          // agreed-upon constants
+            // Data structures
+            'kumpulan': 'ARRAY_LITERAL',  // array literal (kumpulan means "collection")
+            'benda': 'OBJECT_LITERAL',    // object literal (benda means "object/thing")
+            
+            // Web Development Keywords
+            'dokumen': 'DOCUMENT',   // document
+            'elemen': 'ELEMENT',     // element
+            'cari': 'SELECTOR',      // querySelector (cari means "search/find")
+            'pilihSemua': 'SELECT_ALL', // querySelectorAll
+            'buat': 'CREATE',        // createElement
+            'tambah': 'APPEND',      // appendChild
+            'hapus': 'REMOVE',       // remove
+            'ganti': 'REPLACE',      // replace
+            'dengar': 'LISTEN',      // addEventListener
+            'kirim': 'FETCH',        // fetch API
+            'muat': 'LOAD',          // onload
+            'klik': 'CLICK',         // click event
+            'ubah': 'CHANGE',        // change event
+            'style': 'STYLE',        // style property
+            'kelas': 'CLASS_NAME',   // className
+            'id': 'ID',              // id property
+            'konten': 'CONTENT',     // innerHTML/textContent
+            'nilai': 'VALUE',        // value property
+            
+            // HTTP/API Keywords
+            'get': 'HTTP_GET',       // HTTP GET
+            'post': 'HTTP_POST',     // HTTP POST
+            'put': 'HTTP_PUT',       // HTTP PUT
+            'delete': 'HTTP_DELETE', // HTTP DELETE
+            'json': 'JSON',          // JSON operations
+            'form': 'FORM',          // form handling
+            'input': 'INPUT',        // input elements
         };
 
         this.operators = {

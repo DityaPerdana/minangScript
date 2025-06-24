@@ -6,6 +6,8 @@ const { MinangLexer } = require('./src/lexer/MinangLexer');
 const { MinangUtils } = require('./src/utils/MinangUtils');
 const { MinangI18n } = require('./src/utils/i18n');
 const { MinangConfig } = require('./src/utils/config');
+const { MinangTestFramework } = require('./src/testing/MinangTestFramework');
+const { MinangPaket } = require('./src/package-manager/MinangPaket');
 const { EnhancedMinangPaketCLI } = require('./src/package-manager/EnhancedMinangPaketCLI');
 const fs = require('fs');
 const path = require('path');
@@ -140,7 +142,7 @@ cetak sambutan(namo)
                 const compiled = this.compiler.compile(trimmed);
                 this.runtime.execute(compiled);
             } catch (error) {
-                console.error('❌', error.message);
+                console.error('Error:', error.message);
             }
 
             rl.prompt();
@@ -176,9 +178,11 @@ ${this.i18n.t('replExamples')}
   }
 
 ${this.i18n.t('replCulturalFunctions')}
-  gotongRoyong("kerja", "bersama")
-  musyawarah("topik", "peserta")
-  alamTakambang("pelajaran")
+  cetak "Salamat datang ka MinangScript!"
+  cetak "Program sederhana untuk demonstrasi"
+  
+  buek nama = "Dunia"
+  cetak "Hello " + nama
         `);
     }
 
@@ -217,9 +221,10 @@ Console Methods:
   cetak.rusak "Error message"
 
 Cultural Programming:
-  gotongRoyong("membangun", "bersama")
-  musyawarah("rencana", "warga")
-  alamTakambang("pelajaran dari alam")
+  cetak "Program MinangScript sederhana"
+  
+  buek hasil = 10 + 20
+  cetak "Hasil perhitungan: " + hasil
         `);
     }
 
@@ -347,13 +352,16 @@ Cultural Programming:
     template(type, outputPath) {
         const templates = {
             'basic': MinangUtils.generateTemplate('basic'),
-            'gotong-royong': MinangUtils.generateTemplate('gotong-royong'),
-            'musyawarah': MinangUtils.generateTemplate('musyawarah'),
-            'alam-takambang': MinangUtils.generateTemplate('alam-takambang')
+            'simple': MinangUtils.generateTemplate('basic'),
+            'function': MinangUtils.generateTemplate('basic'),
+            'web-app': MinangUtils.generateTemplate('web-app'),
+            'api-client': MinangUtils.generateTemplate('api-client'),
+            'interactive': MinangUtils.generateTemplate('interactive'),
+            'form-handler': MinangUtils.generateTemplate('form-handler')
         };
 
         if (!templates[type]) {
-            console.error(`❌ Tipe template tidak dikenal: ${type}`);
+            console.error(`Template type not recognized: ${type}`);
             console.log('Template yang tersedia:', Object.keys(templates).join(', '));
             process.exit(1);
         }
@@ -418,7 +426,7 @@ Penggunaan:
   minang help                     - Tampilkan bantuan
 
 Template yang tersedia:
-  basic, gotong-royong, musyawarah, alam-takambang
+  basic, simple, function, web-app, api-client, interactive, form-handler
 
 Contoh:
   minang new myproject
@@ -472,7 +480,7 @@ Contoh:
                 const installCLI = new EnhancedMinangPaketCLI();
                 installCLI.handleInstall([args[1]]);
             } else {
-                console.error('❌ Please specify a package name');
+                console.error('Please specify a package name');
                 console.log('Example: minang install minang-ui');
                 process.exit(1);
             }
@@ -484,7 +492,7 @@ Contoh:
                 const uninstallCLI = new EnhancedMinangPaketCLI();
                 uninstallCLI.handleUninstall([args[1]]);
             } else {
-                console.error('❌ Please specify a package name');
+                console.error('Please specify a package name');
                 console.log('Example: minang uninstall minang-ui');
                 process.exit(1);
             }
@@ -559,7 +567,7 @@ Contoh:
             } else {
                 console.error(minang.i18n.t('provideFile'));
                 console.log(minang.i18n.t('example', 'minang template basic hello.minang'));
-                console.log('Template: basic, gotong-royong, musyawarah, alam-takambang');
+                console.log('Template: basic, simple, function, web-app, api-client, interactive, form-handler');
                 process.exit(1);
             }
             break;
@@ -620,14 +628,18 @@ ${minang.i18n.t('devTools')}
 
 ${minang.i18n.t('templates')}
   basic               - ${minang.i18n.t('templateBasic')}
-  gotong-royong       - ${minang.i18n.t('templateGotongRoyong')}
-  musyawarah          - ${minang.i18n.t('templateMusyawarah')}
-  alam-takambang      - ${minang.i18n.t('templateAlamTakambang')}
+  basic               - ${minang.i18n.t('templateBasic')}
+  simple              - Simple MinangScript program
+  function            - Function-based program template
+  web-app             - Web application with DOM manipulation
+  api-client          - REST API client application
+  interactive         - Interactive web components
+  form-handler        - Form handling and validation
 
 ${minang.i18n.t('examples')}
   minang new nagari-digital
   minang install minang-ui
-  minang template gotong-royong team.minang
+  minang template web-app my-app.minang
   minang run team.minang
   minang repl
   minang lang en

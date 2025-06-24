@@ -66,12 +66,12 @@ class MinangPaketCLI {
                     break;
 
                 default:
-                    console.error(`❌ Perintah tidak dikenal: ${command}`);
+                    console.error(`Unknown command: ${command}`);
                     this.showHelp();
                     break;
             }
         } catch (error) {
-            console.error('❌ Error:', error.message);
+            console.error('Error:', error.message);
             process.exit(1);
         }
     }
@@ -80,34 +80,55 @@ class MinangPaketCLI {
         const options = this.parseOptions(args);
         const name = args.find(arg => !arg.startsWith('--'));
         
-        await this.paket.inisialkan(name, {
+        console.log(`Initializing project: ${name || 'MinangScript Project'}`);
+        const result = await this.paket.inisialkan(name, {
             description: options.description || options.desc,
             author: options.author,
             license: options.license || 'MIT'
         });
+        
+        if (result.success) {
+            console.log(`Project ${result.projectName} initialized successfully`);
+        } else {
+            console.log(`Initialization failed: ${result.error}`);
+        }
     }
 
     async handleInstall(args) {
         if (args.length === 0) {
-            console.error('❌ Nama paket diperlukan');
-            console.log('Contoh: minang paket pasang nama-paket');
+            console.error('Package name required');
+            console.log('Example: minang paket pasang nama-paket');
             return;
         }
 
         const packageName = args[0];
         const version = args[1] || 'latest';
         
-        await this.paket.pasang(packageName, version);
+        console.log(`Installing ${packageName}...`);
+        const result = await this.paket.pasang(packageName, version);
+        
+        if (result.success) {
+            console.log(`Package ${packageName} installed successfully`);
+        } else {
+            console.log(`Installation failed: ${result.error}`);
+        }
     }
 
     async handleUninstall(args) {
         if (args.length === 0) {
-            console.error('❌ Nama paket diperlukan');
-            console.log('Contoh: minang paket lepas nama-paket');
+            console.error('Package name required');
+            console.log('Example: minang paket lepas nama-paket');
             return;
         }
 
-        await this.paket.lepas(args[0]);
+        console.log(`Uninstalling ${args[0]}...`);
+        const result = await this.paket.lepas(args[0]);
+        
+        if (result.success) {
+            console.log(`Package ${args[0]} uninstalled successfully`);
+        } else {
+            console.log(`Uninstallation failed: ${result.error}`);
+        }
     }
 
     async handleList(args) {
@@ -159,18 +180,18 @@ class MinangPaketCLI {
 
     showHelp() {
         console.log(`
-🏔️ MinangPaket - Package Manager MinangScript
+MinangPaket - Package Manager MinangScript
 
 ${this.i18n.t('usage')}:
   minang paket <command> [options]
 
 ${this.i18n.t('commands')}:
 
-📦 ${this.i18n.t('projectManagement')}:
+${this.i18n.t('projectManagement')}:
   init [nama]             - Inisialisasi proyek baru
   inisialkan [nama]       - Alias untuk init
 
-🔧 ${this.i18n.t('packageManagement')}:
+${this.i18n.t('packageManagement')}:
   pasang <paket> [versi]  - Pasang paket
   install <paket> [versi] - Alias untuk pasang
   lepas <paket>           - Hapus paket
@@ -178,18 +199,18 @@ ${this.i18n.t('commands')}:
   perbarui [paket]        - Perbarui paket
   update [paket]          - Alias untuk perbarui
 
-📋 ${this.i18n.t('information')}:
+${this.i18n.t('information')}:
   daftar                  - Tampilkan daftar paket terpasang
   list                    - Alias untuk daftar
   cari <query>            - Cari paket di registry
   search <query>          - Alias untuk cari
   info                    - Informasi package manager
 
-📢 ${this.i18n.t('publishing')}:
+${this.i18n.t('publishing')}:
   terbitkan [options]     - Terbitkan paket ke registry
   publish [options]       - Alias untuk terbitkan
 
-🤝 ${this.i18n.t('help')}:
+${this.i18n.t('help')}:
   bantuan                 - Tampilkan bantuan ini
   help                    - Alias untuk bantuan
   versi                   - Tampilkan versi
@@ -208,18 +229,18 @@ ${this.i18n.t('examples')}:
   minang paket daftar
   minang paket terbitkan --force
 
-🏔️ ${this.i18n.t('philosophy')}:
-  🤝 Gotong Royong - Berbagi dan bekerja sama
-  🗣️ Musyawarah Mufakat - Pengambilan keputusan bersama
-  🌿 Alam Takambang Jadi Guru - Belajar dari komunitas
-  ⚖️ Adat Basandi Syarak - Praktik yang etis dan bertanggung jawab
+${this.i18n.t('philosophy')}:
+  Gotong Royong - Berbagi dan bekerja sama
+  Musyawarah Mufakat - Pengambilan keputusan bersama
+  Alam Takambang Jadi Guru - Belajar dari komunitas
+  Adat Basandi Syarak - Praktik yang etis dan bertanggung jawab
         `);
     }
 
     showVersion() {
         const packageJson = require('../../package.json');
         console.log(`
-🏔️ MinangPaket v1.0.0
+MinangPaket v1.0.0
     Package Manager untuk MinangScript ${packageJson.version}
     
     Dikembangkan dengan filosofi Minangkabau

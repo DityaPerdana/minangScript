@@ -15,19 +15,12 @@ class MinangTestFramework {
             skipped: 0,
             suites: []
         };
-        this.culturalPrinciples = {
-            gotongRoyong: false, // Collaborative testing
-            musyawarah: false,   // Consensus on test results
-            alamTakambang: false, // Learning from test failures
-            adatBasandi: false   // Ethical testing practices
-        };
     }
 
-    // Gotong Royong - Collaborative testing suite
-    suite(name, culturalPrinciple, callback) {
+    // Test suite creation
+    suite(name, callback) {
         this.currentSuite = {
             name: name,
-            culturalPrinciple: culturalPrinciple || 'general',
             tests: [],
             setup: null,
             teardown: null,
@@ -35,15 +28,7 @@ class MinangTestFramework {
             afterEach: null
         };
 
-        // Enable cultural principle
-        if (this.culturalPrinciples.hasOwnProperty(culturalPrinciple)) {
-            this.culturalPrinciples[culturalPrinciple] = true;
-        }
-
         console.log(`\n🏔️ Test Suite: ${name}`);
-        if (culturalPrinciple && culturalPrinciple !== 'general') {
-            console.log(`📿 Cultural Principle: ${this.getCulturalDescription(culturalPrinciple)}`);
-        }
         console.log(''.padEnd(50, '='));
 
         callback();
@@ -94,7 +79,7 @@ class MinangTestFramework {
         this.currentSuite.tests.push(testCase);
     }
 
-    // Musyawarah - Consensus-based test validation
+    // Test validation and reporting
     consensus(description, validators, expectedOutcome) {
         this.test(description, async () => {
             const results = [];
@@ -440,16 +425,6 @@ class MinangTestFramework {
         fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
         
         console.log(`\n📄 Test report saved to: ${reportPath}`);
-    }
-
-    getCulturalDescription(principle) {
-        const descriptions = {
-            gotongRoyong: 'Collaborative testing and shared responsibility',
-            musyawarah: 'Consensus-based test validation and decisions',
-            alamTakambang: 'Learning and adaptation from test results',
-            adatBasandi: 'Ethical testing practices and moral validation'
-        };
-        return descriptions[principle] || 'General testing principle';
     }
 }
 

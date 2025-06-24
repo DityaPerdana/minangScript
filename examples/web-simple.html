@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinangScript Web App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(255, 107, 107, 0.3);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(255, 107, 107, 0.4);
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selamat Datang!</h1>
+        <button id="clickMe">Klik Saya!</button>
+        <div id="result">Klik tombol di atas untuk memulai</div>
+    </div>
+
+    <!-- Load MinangScript Runtime -->
+    <script src="../src/runtime/MinangRuntime.js"></script>
+    <script src="../src/lexer/MinangLexer.js"></script>
+    <script src="../src/parser/MinangParser.js"></script>
+    <script src="../src/compiler/MinangCompiler.js"></script>
+    
+    <!-- Load MinangScript Code -->
+    <script>
+        // Simple MinangScript loader for browser
+        async function loadMinangScript(url) {
+            const response = await fetch(url);
+            const code = await response.text();
+            
+            const lexer = new MinangLexer();
+            const parser = new MinangParser();
+            const runtime = new MinangRuntime();
+            
+            try {
+                const tokens = lexer.tokenize(code);
+                const ast = parser.parse(tokens);
+                runtime.execute(ast);
+            } catch (error) {
+                console.error('MinangScript Error:', error);
+            }
+        }
+        
+        // Load the web-simple.minang file
+        loadMinangScript('web-simple.minang');
+    </script>
+</body>
+</html>
