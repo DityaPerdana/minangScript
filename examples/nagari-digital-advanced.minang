@@ -1,0 +1,466 @@
+// MinangScript Digital Nagari Management System
+// Sistem Pengelolaan Nagari Digital dengan Filosofi Minangkabau
+// Demonstrasi fitur-fitur canggih MinangScript
+
+impor { MinangPaket } dari "minang-core";
+impor { WebServer } dari "minang-web";
+impor { Database } dari "minang-db";
+
+// Kelas utama untuk sistem nagari digital
+kelas NagariDigital extends MinangSystem {
+    karojo __init__(namaNagari, kodeNagari) {
+        super().__init__();
+        this.nama = namaNagari;
+        this.kode = kodeNagari;
+        this.warga = Daftar([]);
+        this.kegiatan = Daftar([]);
+        this.musyawarahAktif = Kabanaran(salah);
+        this.database = Database baru("nagari_" + kodeNagari);
+        
+        // Filosofi Minangkabau terintegrasi
+        this.filosofi = {
+            gotongRoyong: this.initGotongRoyong(),
+            musyawarah: this.initMusyawarah(),
+            alamTakambang: this.initAlamTakambang(),
+            adatBasandi: this.initAdatBasandi()
+        };
+        
+        cetak.info(`🏔️ Nagari Digital "${namaNagari}" telah diinisialisasi`);
+    }
+    
+    // Implementasi Gotong Royong - Kerja sama komunitas
+    karojo initGotongRoyong() {
+        jadi gotongRoyong({
+            koordinator: this.pilihKoordinator.bind(this),
+            distribusiTugas: this.distribusiTugas.bind(this),
+            monitoring: this.monitoringKerja.bind(this),
+            evaluasi: this.evaluasiGotong.bind(this)
+        });
+    }
+    
+    // Implementasi Musyawarah Mufakat - Pengambilan keputusan bersama
+    karojo initMusyawarah() {
+        jadi musyawarah({
+            mulaiMusyawarah: this.mulaiMusyawarah.bind(this),
+            diskusi: this.fasilitasiDiskusi.bind(this),
+            votingDemokrasi: this.prosesVoting.bind(this),
+            kesimpulan: this.buatKesimpulan.bind(this)
+        });
+    }
+    
+    // Implementasi Alam Takambang Jadi Guru - Pembelajaran adaptif
+    karojo initAlamTakambang() {
+        jadi alamTakambang({
+            observasi: this.observasiPola.bind(this),
+            analisis: this.analisisTrend.bind(this),
+            pembelajaran: this.ambilPelajaran.bind(this),
+            adaptasi: this.adaptasiSistem.bind(this)
+        });
+    }
+    
+    // Implementasi Adat Basandi Syarak - Prinsip etika
+    karojo initAdatBasandi() {
+        jadi adatBasandi({
+            validasiEtika: this.cekEtika.bind(this),
+            penegakanNorma: this.tegakkanNorma.bind(this),
+            bimbinganMoral: this.beriPanduan.bind(this),
+            evaluasiKarakter: this.nilaiKarakter.bind(this)
+        });
+    }
+    
+    // Sistem pendaftaran warga dengan validasi budaya
+    async karajo daftarWarga(dataWarga) {
+        cobak {
+            // Validasi data dengan prinsip adat
+            buek validasi = await this.filosofi.adatBasandi.validasiEtika(dataWarga);
+            
+            kalau (!validasi.valid) {
+                cetak.rusak(`❌ Pendaftaran ditolak: ${validasi.alasan}`);
+                jadi { berhasil: salah, pesan: validasi.alasan };
+            }
+            
+            // Proses pendaftaran dengan gotong royong
+            buek wargaBaru = {
+                id: this.generateWargaId(),
+                nama: dataWarga.nama,
+                alamat: dataWarga.alamat,
+                tanggalDaftar: Date baru(),
+                status: "aktif",
+                kontribusi: {
+                    gotongRoyong: Daftar([]),
+                    musyawarah: Daftar([]),
+                    pembelajaran: Daftar([])
+                }
+            };
+            
+            // Simpan ke database
+            await this.database.simpan("warga", wargaBaru);
+            this.warga.tambah(wargaBaru);
+            
+            // Notifikasi komunitas
+            await this.filosofi.gotongRoyong.koordinator({
+                jenis: "warga_baru",
+                data: wargaBaru,
+                aksi: "sambut_warga_baru"
+            });
+            
+            cetak.hijau(`✅ Warga ${dataWarga.nama} berhasil terdaftar di Nagari ${this.nama}`);
+            jadi { berhasil: bana, data: wargaBaru };
+            
+        } tangkap (error) {
+            cetak.rusak(`💥 Error pendaftaran warga: ${error.message}`);
+            jadi { berhasil: salah, error: error.message };
+        }
+    }
+    
+    // Sistem musyawarah digital dengan konsensus
+    async karajo mulaiMusyawarah(topik, agenda, peserta) {
+        cobak {
+            kalau (this.musyawarahAktif) {
+                cetak.ameh("⚠️ Musyawarah sedang berlangsung, tunggu hingga selesai");
+                jadi { berhasil: salah, pesan: "Musyawarah sedang berlangsung" };
+            }
+            
+            this.musyawarahAktif = bana;
+            
+            buek sesiMusyawarah = {
+                id: this.generateMusyawarahId(),
+                topik: topik,
+                agenda: agenda,
+                peserta: peserta,
+                moderator: this.pilihModerator(peserta),
+                tanggalMulai: Date baru(),
+                status: "berlangsung",
+                diskusi: Daftar([]),
+                usulan: Daftar([]),
+                keputusan: kosong
+            };
+            
+            // Notifikasi semua peserta
+            await this.notifikasiPeserta(peserta, {
+                jenis: "musyawarah_dimulai",
+                topik: topik,
+                moderator: sesiMusyawarah.moderator
+            });
+            
+            // Simpan sesi musyawarah
+            await this.database.simpan("musyawarah", sesiMusyawarah);
+            
+            cetak.biru(`🗣️ Musyawarah "${topik}" telah dimulai`);
+            cetak.info(`👤 Moderator: ${sesiMusyawarah.moderator.nama}`);
+            cetak.info(`👥 Peserta: ${peserta.panjang} orang`);
+            
+            jadi { berhasil: bana, sesi: sesiMusyawarah };
+            
+        } tangkap (error) {
+            this.musyawarahAktif = salah;
+            cetak.rusak(`💥 Error memulai musyawarah: ${error.message}`);
+            jadi { berhasil: salah, error: error.message };
+        }
+    }
+    
+    // Sistem gotong royong untuk proyek komunitas
+    async karajo organsirGotongRoyong(proyek) {
+        cobak {
+            // Analisis kebutuhan dengan alam takambang
+            buek analisis = await this.filosofi.alamTakambang.analisisTrend({
+                jenisProyek: proyek.jenis,
+                skalaProyek: proyek.skala,
+                sumberDayaDibutuhkan: proyek.sumberDaya,
+                timeline: proyek.timeline
+            });
+            
+            // Distribusi tugas berdasarkan kemampuan dan availabilitas
+            buek distribusi = await this.filosofi.gotongRoyong.distribusiTugas({
+                proyek: proyek,
+                analisis: analisis,
+                wargaTersedia: this.warga.filter(w => w.status === "aktif"),
+                prinsipKeadilan: bana
+            });
+            
+            // Buat jadwal gotong royong
+            buek jadwalGotong = {
+                id: this.generateGotongId(),
+                proyek: proyek,
+                koordinator: distribusi.koordinator,
+                tim: distribusi.tim,
+                timeline: distribusi.timeline,
+                targetPencapaian: distribusi.target,
+                status: "direncanakan",
+                progress: 0
+            };
+            
+            // Simpan dan notifikasi
+            await this.database.simpan("gotong_royong", jadwalGotong);
+            await this.notifikasiTim(distribusi.tim, jadwalGotong);
+            
+            cetak.hijau(`🤝 Gotong royong "${proyek.nama}" telah diorganisir`);
+            cetak.info(`👤 Koordinator: ${distribusi.koordinator.nama}`);
+            cetak.info(`👥 Tim: ${distribusi.tim.panjang} orang`);
+            
+            jadi { berhasil: bana, gotong: jadwalGotong };
+            
+        } tangkap (error) {
+            cetak.rusak(`💥 Error mengorganisir gotong royong: ${error.message}`);
+            jadi { berhasil: salah, error: error.message };
+        }
+    }
+    
+    // Sistem pembelajaran adaptif dari pengalaman
+    async karajo prosesLearning(kejadian, tipeKejadian) {
+        cobak {
+            // Observasi pola dari kejadian
+            buek observasi = await this.filosofi.alamTakambang.observasi({
+                kejadian: kejadian,
+                tipe: tipeKejadian,
+                konteks: this.getKonteksNagari(),
+                waktu: Date baru()
+            });
+            
+            // Analisis untuk pembelajaran
+            buek pembelajaran = await this.filosofi.alamTakambang.pembelajaran({
+                observasi: observasi,
+                riwayatKejadian: await this.database.ambil("pembelajaran_history"),
+                polaTerkait: await this.cariPolaSerupa(tipeKejadian)
+            });
+            
+            // Adaptasi sistem berdasarkan pembelajaran
+            kalau (pembelajaran.rekomendasi && pembelajaran.rekomendasi.panjang > 0) {
+                buek adaptasi = await this.filosofi.alamTakambang.adaptasi({
+                    rekomendasi: pembelajaran.rekomendasi,
+                    sistemSaatIni: this.getKonfigurasiSistem(),
+                    dampakPrediksi: pembelajaran.dampakPrediksi
+                });
+                
+                // Terapkan adaptasi
+                await this.terapkanAdaptasi(adaptasi);
+                
+                cetak.biru(`🌿 Sistem telah beradaptasi berdasarkan pembelajaran`);
+                cetak.info(`📚 Pelajaran: ${pembelajaran.insight}`);
+                cetak.info(`🔄 Adaptasi: ${adaptasi.perubahan.join(", ")}`);
+            }
+            
+            // Simpan pembelajaran
+            await this.database.simpan("pembelajaran_history", {
+                kejadian: kejadian,
+                pembelajaran: pembelajaran,
+                tanggal: Date baru()
+            });
+            
+            jadi { berhasil: bana, pembelajaran: pembelajaran };
+            
+        } tangkap (error) {
+            cetak.rusak(`💥 Error proses pembelajaran: ${error.message}`);
+            jadi { berhasil: salah, error: error.message };
+        }
+    }
+    
+    // Monitoring dan evaluasi sistem berdasarkan nilai budaya
+    async karajo evaluasiSistem() {
+        cobak {
+            buek metrik = {
+                partisipasiWarga: await this.hitungPartisipasi(),
+                efektivitasGotong: await this.evaluasiGotongRoyong(),
+                kualitasMusyawarah: await this.evaluasiMusyawarah(),
+                pembelajaranSistem: await this.evaluasiPembelajaran(),
+                integritasEtika: await this.evaluasiEtika()
+            };
+            
+            // Evaluasi berdasarkan filosofi Minangkabau
+            buek evaluasi = {
+                skorGotongRoyong: this.hitungSkorFilosofi(metrik, "gotongRoyong"),
+                skorMusyawarah: this.hitungSkorFilosofi(metrik, "musyawarah"),
+                skorAlamTakambang: this.hitungSkorFilosofi(metrik, "alamTakambang"),
+                skorAdatBasandi: this.hitungSkorFilosofi(metrik, "adatBasandi"),
+                skorKeseluruhan: 0
+            };
+            
+            evaluasi.skorKeseluruhan = (
+                evaluasi.skorGotongRoyong + 
+                evaluasi.skorMusyawarah + 
+                evaluasi.skorAlamTakambang + 
+                evaluasi.skorAdatBasandi
+            ) / 4;
+            
+            // Laporan evaluasi
+            cetak.info("📊 EVALUASI SISTEM NAGARI DIGITAL");
+            cetak.info("================================");
+            cetak.info(`🤝 Gotong Royong: ${evaluasi.skorGotongRoyong}/100`);
+            cetak.info(`🗣️ Musyawarah: ${evaluasi.skorMusyawarah}/100`);
+            cetak.info(`🌿 Alam Takambang: ${evaluasi.skorAlamTakambang}/100`);
+            cetak.info(`⚖️ Adat Basandi: ${evaluasi.skorAdatBasandi}/100`);
+            cetak.info(`🏆 Skor Keseluruhan: ${evaluasi.skorKeseluruhan}/100`);
+            
+            // Rekomendasi perbaikan
+            buek rekomendasi = await this.generateRekomendasi(evaluasi, metrik);
+            
+            kalau (rekomendasi.panjang > 0) {
+                cetak.info("\n💡 REKOMENDASI PERBAIKAN:");
+                rekomendasi.forEach((rec, index) => {
+                    cetak.info(`${index + 1}. ${rec}`);
+                });
+            }
+            
+            jadi { berhasil: bana, evaluasi: evaluasi, rekomendasi: rekomendasi };
+            
+        } tangkap (error) {
+            cetak.rusak(`💥 Error evaluasi sistem: ${error.message}`);
+            jadi { berhasil: salah, error: error.message };
+        }
+    }
+    
+    // Helper methods
+    karojo generateWargaId() {
+        jadi "WARGA_" + this.kode + "_" + Date.now();
+    }
+    
+    karojo generateMusyawarahId() {
+        jadi "MUSYAWARAH_" + this.kode + "_" + Date.now();
+    }
+    
+    karojo generateGotongId() {
+        jadi "GOTONG_" + this.kode + "_" + Date.now();
+    }
+    
+    async karajo hitungPartisipasi() {
+        buek totalWarga = this.warga.panjang;
+        buek wargaAktif = this.warga.filter(w => w.status === "aktif").panjang;
+        jadi (wargaAktif / totalWarga) * 100;
+    }
+    
+    karajo hitungSkorFilosofi(metrik, filosofi) {
+        // Implementasi perhitungan skor berdasarkan filosofi
+        switch (filosofi) {
+            case "gotongRoyong":
+                jadi Math.min(100, metrik.partisipasiWarga + metrik.efektivitasGotong);
+            case "musyawarah":
+                jadi Math.min(100, metrik.kualitasMusyawarah * 2);
+            case "alamTakambang":
+                jadi Math.min(100, metrik.pembelajaranSistem * 2);
+            case "adatBasandi":
+                jadi Math.min(100, metrik.integritasEtika * 2);
+            default:
+                jadi 0;
+        }
+    }
+}
+
+// Implementasi Web API untuk sistem nagari
+kelas NagariWebAPI extends WebServer {
+    karojo __init__(nagari) {
+        super().__init__();
+        this.nagari = nagari;
+        this.setupRoutes();
+    }
+    
+    karojo setupRoutes() {
+        // Endpoint untuk pendaftaran warga
+        this.post("/api/warga/daftar", async (req, res) => {
+            buek hasil = await this.nagari.daftarWarga(req.body);
+            res.json(hasil);
+        });
+        
+        // Endpoint untuk memulai musyawarah
+        this.post("/api/musyawarah/mulai", async (req, res) => {
+            buek { topik, agenda, peserta } = req.body;
+            buek hasil = await this.nagari.mulaiMusyawarah(topik, agenda, peserta);
+            res.json(hasil);
+        });
+        
+        // Endpoint untuk gotong royong
+        this.post("/api/gotong-royong/organisir", async (req, res) => {
+            buek hasil = await this.nagari.organsirGotongRoyong(req.body);
+            res.json(hasil);
+        });
+        
+        // Endpoint untuk evaluasi sistem
+        this.get("/api/evaluasi", async (req, res) => {
+            buek hasil = await this.nagari.evaluasiSistem();
+            res.json(hasil);
+        });
+        
+        // Dashboard nagari
+        this.get("/dashboard", (req, res) => {
+            res.render("nagari-dashboard", {
+                nagari: this.nagari.nama,
+                totalWarga: this.nagari.warga.panjang,
+                musyawarahAktif: this.nagari.musyawarahAktif
+            });
+        });
+    }
+}
+
+// Fungsi utama untuk menjalankan sistem
+async karajo main() {
+    cobak {
+        cetak.hijau("🏔️ Memulai Sistem Nagari Digital MinangScript");
+        cetak.info("=============================================");
+        
+        // Inisialisasi nagari digital
+        buek nagari = NagariDigital baru("Nagari Padang Panjang", "NPP001");
+        
+        // Setup web API
+        buek webAPI = NagariWebAPI baru(nagari);
+        
+        // Contoh penggunaan sistem
+        cetak.info("\n📝 Demo Sistem Nagari Digital:");
+        
+        // 1. Daftarkan beberapa warga
+        buek wargaDemo = [
+            { nama: "Siti Nurhaliza", alamat: "Jorong Koto Baru" },
+            { nama: "Ahmad Basyir", alamat: "Jorong Koto Lama" },
+            { nama: "Fatimah Zahra", alamat: "Jorong Pasar" }
+        ];
+        
+        untuak (buek warga dari wargaDemo) {
+            await nagari.daftarWarga(warga);
+        }
+        
+        // 2. Mulai musyawarah untuk pembangunan
+        buek hasilMusyawarah = await nagari.mulaiMusyawarah(
+            "Pembangunan Jalan Nagari",
+            ["Survei lokasi", "Perencanaan anggaran", "Pembagian tugas"],
+            nagari.warga.slice(0, 3)
+        );
+        
+        // 3. Organisir gotong royong
+        buek proyekGotong = {
+            nama: "Pembersihan Saluran Air",
+            jenis: "lingkungan",
+            skala: "nagari",
+            timeline: "1 minggu",
+            sumberDaya: ["tenaga_kerja", "peralatan", "material"]
+        };
+        
+        buek hasilGotong = await nagari.organsirGotongRoyong(proyekGotong);
+        
+        // 4. Proses pembelajaran dari kejadian
+        await nagari.prosesLearning({
+            jenis: "musyawarah_selesai",
+            hasil: "konsensus_tercapai",
+            partisipasi: "tinggi"
+        }, "musyawarah");
+        
+        // 5. Evaluasi sistem
+        buek evaluasi = await nagari.evaluasiSistem();
+        
+        // 6. Mulai web server
+        cetak.info("\n🌐 Memulai Web Server...");
+        await webAPI.mulai(3000);
+        cetak.hijau("✅ Web server berjalan di http://localhost:3000");
+        
+        cetak.info("\n🎉 Sistem Nagari Digital siap digunakan!");
+        cetak.info("Dashboard: http://localhost:3000/dashboard");
+        
+    } tangkap (error) {
+        cetak.rusak(`💥 Error sistem: ${error.message}`);
+        process.exit(1);
+    }
+}
+
+// Jalankan sistem jika file dieksekusi langsung
+kalau (require.main === module) {
+    main();
+}
+
+ekspor { NagariDigital, NagariWebAPI };

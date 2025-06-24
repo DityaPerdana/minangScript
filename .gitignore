@@ -8,6 +8,22 @@ yarn-error.log*
 *.js.map
 build/
 dist/
+minang_output.txt
+
+# Development and build scripts
+dev.js
+build.js
+update-examples.js
+collaborative.js
+
+# Test files and directories
+test-cli-project/
+test-project/
+test-*/
+test-*.js
+test-*.sh
+test-*.json
+comprehensive-test.js
 
 # IDE files
 .vscode/
@@ -75,3 +91,25 @@ jspm_packages/
 
 # VS Code Extension Development
 minangscript-intellisense/
+
+# Documentation files (will be merged into README.md)
+PACKAGE_MANAGER.md
+INTERNATIONAL_GUIDE.md
+CHANGELOG_v1.3.0.md
+DIRECT_COMMANDS_IMPLEMENTATION.md
+REGISTRY_ERROR_FIX.md
+DOUBLE_PREFIX_FIX.md
+ERROR_FIX_REPORT.md
+INTERNATIONAL_ACCESSIBILITY_REPORT.md
+PROJECT_COMPLETION_SUMMARY.md
+LEXER_ENHANCEMENTS.md
+
+# Development output files
+index-integrated.js
+index-old.js
+index-backup.js
+index-broken.js
+collaborative.minang
+main.minang
+paket.lock
+paket.minang

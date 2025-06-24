@@ -2,6 +2,7 @@
 
 # Development files
 .git/
+.gitignore
 .vscode/
 .idea/
 *.log
@@ -9,30 +10,44 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Test files
+# Test files and directories
 tests/
+test-*/
 coverage/
 .nyc_output/
+test-*.js
+test-*.sh
+test-*.json
+comprehensive-test.js
 
-# Documentation (keeping only essential ones)
-COMPLETION_SUMMARY.md
-FINAL_COMPLETION_REPORT.md
-FINAL_CORRECTIONS_REPORT.md
-UPDATE_SUMMARY_v1.0.1.md
+# Documentation files (merged into README.md)
+PACKAGE_MANAGER.md
+INTERNATIONAL_GUIDE.md
+CHANGELOG_v1.3.0.md
+DIRECT_COMMANDS_IMPLEMENTATION.md
+REGISTRY_ERROR_FIX.md
+DOUBLE_PREFIX_FIX.md
+ERROR_FIX_REPORT.md
+INTERNATIONAL_ACCESSIBILITY_REPORT.md
+PROJECT_COMPLETION_SUMMARY.md
+LEXER_ENHANCEMENTS.md
 
-# Build files
+# Build and development files
 build/
 dist/
 node_modules/
+dev.js
+build.js
+update-examples.js
+collaborative.js
+minang_output.txt
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Development tools
-dev.js
-build.js
-update-examples.js
+# VS Code Extension (separate package)
+minangscript-intellisense/
 
 # IDE files
 *.swp
@@ -42,6 +57,16 @@ update-examples.js
 # Temporary files
 *.tmp
 *.temp
+
+# Development output files
+index-integrated.js
+index-old.js
+index-backup.js
+index-broken.js
+collaborative.minang
+main.minang
+paket.lock
+paket.minang
 
 # Lock files (optional, uncomment if needed)
 # package-lock.json

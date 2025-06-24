@@ -421,6 +421,7 @@ Template yang tersedia:
 
 Contoh:
   minang new myproject
+  minang install minang-ui
   minang run main.minang
   minang repl
   minang template basic hello.minang

@@ -80,9 +80,62 @@ class MinangI18n {
                 formatSuccess: '✅ Code formatted successfully',
                 formatFailed: '❌ Format failed: {0}',
                 
-                // Language
-                languageChanged: '🌍 Language changed to English',
-                switchToIndonesian: 'Switch to Indonesian with: minang lang id'
+                // Package Manager
+                packageManager: 'Package Manager',
+                initializingProject: 'Initializing MinangScript project: {0}',
+                projectInitialized: 'Project {0} initialized successfully',
+                packageInstalled: 'Package {0} installed successfully',
+                packageRemoved: 'Package {0} removed successfully',
+                packageUpdated: 'Package {0} updated successfully',
+                searchingPackages: 'Searching packages for: {0}',
+                packagesFound: 'Found {0} packages',
+                noPackagesFound: 'No packages found for: {0}',
+                packageInfo: 'Package Information',
+                packageNotFound: 'Package not found: {0}',
+                publishingPackage: 'Publishing package to registry...',
+                packagePublished: 'Package published successfully',
+                publishFailed: 'Package publishing failed: {0}',
+                invalidPackage: 'Invalid package configuration',
+                dependencyResolved: 'Dependency {0} resolved',
+                dependencyConflict: 'Dependency conflict detected: {0}',
+                cacheUpdated: 'Package cache updated',
+                registryError: 'Registry error: {0}',
+                
+                // Cultural Principles (English explanations)
+                gotongRoyong: 'Gotong Royong - Collaborative work and mutual assistance',
+                musyawarah: 'Musyawarah Mufakat - Consensus through deliberation',
+                alamTakambang: 'Alam Takambang Jadi Guru - Learning from nature and experience',
+                adatBasandi: 'Adat Basandi Syarak - Ethics based on traditional and religious values',
+                
+                // Package Manager Commands
+                cmdInit: 'Initialize new project',
+                cmdInstall: 'Install package',
+                cmdUninstall: 'Remove package',
+                cmdList: 'List installed packages',
+                cmdSearch: 'Search packages in registry',
+                cmdUpdate: 'Update packages',
+                cmdPublish: 'Publish package to registry',
+                cmdInfo: 'Show package manager information',
+                cmdHelp: 'Show help information',
+                cmdVersion: 'Show version information',
+                
+                // Options
+                optDescription: 'Project description',
+                optAuthor: 'Author name',
+                optLicense: 'Project license',
+                optForce: 'Force operation',
+                optDev: 'Install as development dependency',
+                optGlobal: 'Install globally',
+                
+                // Package Validation
+                validatingPackage: 'Validating package structure...',
+                packageValid: 'Package validation successful',
+                packageInvalid: 'Package validation failed: {0}',
+                missingField: 'Missing required field: {0}',
+                invalidVersion: 'Invalid version format: {0}',
+                culturalValidation: 'Cultural principle validation',
+                culturalValidationPassed: 'Cultural principles validated successfully',
+                culturalValidationFailed: 'Cultural validation failed: {0}',
             },
             
             id: {
@@ -160,7 +213,64 @@ class MinangI18n {
                 
                 // Language
                 languageChanged: '🌍 Bahasa diubah ke Bahasa Indonesia',
-                switchToEnglish: 'Beralih ke Bahasa Inggris dengan: minang lang en'
+                switchToEnglish: 'Beralih ke Bahasa Inggris dengan: minang lang en',
+                
+                // Package Manager
+                packageManager: 'Pengelola Paket',
+                initializingProject: 'Menginisialisasi proyek MinangScript: {0}',
+                projectInitialized: 'Proyek {0} telah diinisialisasi',
+                packageInstalled: 'Paket {0} berhasil dipasang',
+                packageRemoved: 'Paket {0} berhasil dihapus',
+                packageUpdated: 'Paket {0} berhasil diperbarui',
+                searchingPackages: 'Mencari paket untuk: {0}',
+                packagesFound: 'Ditemukan {0} paket',
+                noPackagesFound: 'Tidak ada paket ditemukan untuk: {0}',
+                packageInfo: 'Informasi Paket',
+                packageNotFound: 'Paket tidak ditemukan: {0}',
+                publishingPackage: 'Menerbitkan paket ke registry...',
+                packagePublished: 'Paket berhasil diterbitkan',
+                publishFailed: 'Gagal menerbitkan paket: {0}',
+                invalidPackage: 'Konfigurasi paket tidak valid',
+                dependencyResolved: 'Dependensi {0} berhasil diselesaikan',
+                dependencyConflict: 'Konflik dependensi terdeteksi: {0}',
+                cacheUpdated: 'Cache paket diperbarui',
+                registryError: 'Kesalahan registry: {0}',
+                
+                // Cultural Principles (Indonesian explanations)
+                gotongRoyong: 'Gotong Royong - Kerja sama dan saling membantu',
+                musyawarah: 'Musyawarah Mufakat - Kesepakatan melalui diskusi',
+                alamTakambang: 'Alam Takambang Jadi Guru - Belajar dari alam dan pengalaman',
+                adatBasandi: 'Adat Basandi Syarak - Etika berdasarkan nilai adat dan agama',
+                
+                // Package Manager Commands
+                cmdInit: 'Inisialisasi proyek baru',
+                cmdInstall: 'Pasang paket',
+                cmdUninstall: 'Hapus paket',
+                cmdList: 'Daftar paket terpasang',
+                cmdSearch: 'Cari paket di registry',
+                cmdUpdate: 'Perbarui paket',
+                cmdPublish: 'Terbitkan paket ke registry',
+                cmdInfo: 'Tampilkan informasi package manager',
+                cmdHelp: 'Tampilkan bantuan',
+                cmdVersion: 'Tampilkan informasi versi',
+                
+                // Options
+                optDescription: 'Deskripsi proyek',
+                optAuthor: 'Nama pengarang',
+                optLicense: 'Lisensi proyek',
+                optForce: 'Paksa operasi',
+                optDev: 'Pasang sebagai development dependency',
+                optGlobal: 'Pasang secara global',
+                
+                // Package Validation
+                validatingPackage: 'Memvalidasi struktur paket...',
+                packageValid: 'Validasi paket berhasil',
+                packageInvalid: 'Validasi paket gagal: {0}',
+                missingField: 'Field yang diperlukan tidak ada: {0}',
+                invalidVersion: 'Format versi tidak valid: {0}',
+                culturalValidation: 'Validasi prinsip budaya',
+                culturalValidationPassed: 'Prinsip budaya berhasil divalidasi',
+                culturalValidationFailed: 'Validasi budaya gagal: {0}'
             }
         };
         this.currentLang = this.detectLanguage();

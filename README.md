@@ -15,9 +15,10 @@ MinangScript is a revolutionary programming language that bridges traditional Mi
 
 **Key Highlights:**
 - 🏔️ **Authentic Minangkabau Keywords** - Programming in your native language
-- 🌍 **International Ready** - Bilingual CLI support (English/Indonesian)
+- 🌍 **International Ready** - Fully bilingual CLI and package manager (English/Indonesian)
 - 🚀 **Zero Dependencies** - Lightweight and fast
 - 🎯 **Production Ready** - v1.1.1 stable release with comprehensive testing
+- 📦 **Accessible Package Manager** - Easy-to-use for both Indonesian and international developers
 - 🔧 **Complete Ecosystem** - CLI tools, VS Code extension, and NPM package
 
 ---
@@ -153,6 +154,58 @@ minang repl            # Interactive environment in your language
 - ✅ Build output
 - ❌ MinangScript keywords (remain authentically Minangkabau)
 
+### 🌍 For International Developers
+
+MinangScript is fully accessible for non-Indonesian developers while preserving its rich Minangkabau cultural heritage.
+
+#### Quick Start for International Users
+```bash
+# 1. Set language to English
+minang lang en
+
+# 2. Create your first project
+minang init my-first-project --author "Your Name"
+
+# 3. Use package management (all commands support both languages)
+minang search ui              # English command
+minang cari ui               # Indonesian command (both work identically)
+```
+
+#### Command Reference for International Developers
+
+| Operation | English Command | Indonesian Alias | Description |
+|-----------|----------------|------------------|-------------|
+| Initialize project | `minang init <name>` | `minang inisialkan <name>` | Create new package |
+| Install package | `minang install <pkg>` | `minang pasang <pkg>` | Add dependency |
+| Search packages | `minang search <query>` | `minang cari <query>` | Find packages |
+| List packages | `minang list` | `minang daftar` | Show installed |
+| Remove package | `minang uninstall <pkg>` | `minang lepas <pkg>` | Remove dependency |
+| Update packages | `minang update` | `minang perbarui` | Update all packages |
+| Publish package | `minang publish` | `minang terbitkan` | Publish to registry |
+
+#### Understanding Cultural Integration
+
+While the CLI supports English, MinangScript integrates four core Minangkabau cultural principles:
+
+- **🤝 Gotong Royong** (Mutual Assistance) - Collaborative functions and shared development
+- **🗣️ Musyawarah Mufakat** (Consensus Building) - Democratic decision-making in code logic  
+- **🌿 Alam Takambang Jadi Guru** (Nature as Teacher) - Adaptive programming patterns
+- **⚖️ Adat Basandi Syarak** (Ethics-Based Customs) - Ethical programming practices
+
+Example for international developers:
+```minang
+// Variables use Minangkabau keywords for cultural authenticity
+buek name = "International Developer"
+ambiak message = "Welcome to MinangScript!"
+
+// Functions follow cultural patterns
+karajo greet(person) {
+    jadi "Hello, " + person + "! Enjoy coding with cultural wisdom."
+}
+
+cetak greet(name)  // Output with cultural function
+```
+
 ---
 
 ## 📚 Complete Language Reference
@@ -202,6 +255,17 @@ minang run file.minang    # Execute MinangScript file
 minang build in.minang out.js  # Transpile to JavaScript
 ```
 
+### 📦 Package Manager (Direct Commands)
+```bash
+minang init mypackage         # Initialize new package
+minang install minang-ui      # Install package
+minang search ui              # Search packages
+minang list                   # List installed packages
+minang update                 # Update packages
+minang publish                # Publish package
+minang uninstall package      # Remove package
+```
+
 ### Development Tools
 ```bash
 minang repl              # Interactive REPL
@@ -214,6 +278,11 @@ minang lang <en|id>      # Switch CLI language
 # Project scaffolding
 minang new --template basic myproject
 minang new --template web mywebapp
+
+# Package management with cultural validation
+minang init --philosophy gotong-royong mypackage
+minang install ui-library --save
+minang search mathematical --category tools
 
 # Build with options
 minang build --minify input.minang output.js
@@ -369,6 +438,86 @@ npm info minangscript --json
 
 ---
 
+## 📦 MinangPaket - Package Manager
+
+MinangScript includes **MinangPaket**, a comprehensive package manager designed with Minangkabau cultural principles for collaborative, ethical, and sustainable package management. 
+
+**🌍 International Support**: Full bilingual support (English/Indonesian) making it accessible for both local and international developers.
+
+### 🏔️ Cultural Package Management
+
+**🤝 Gotong Royong** - Collaborative package development and sharing  
+**🗣️ Musyawarah Mufakat** - Community-driven package decisions  
+**🌿 Alam Takambang Jadi Guru** - Learning from the open source ecosystem  
+**⚖️ Adat Basandi Syarak** - Ethical package distribution and validation  
+
+### Quick Start Guide
+
+```bash
+# Language support - Switch between English and Indonesian
+minang lang en        # Switch to English
+minang lang id        # Beralih ke Indonesia
+
+# Direct command structure (no more "paket" prefix)
+minang init mypackage --author "Your Name"
+minang install ui-library
+minang search mathematical
+minang list
+minang publish
+
+# Indonesian aliases (same functionality)
+minang inisialkan paketku --author "Nama Anda" 
+minang pasang pustaka-ui
+minang cari matematika
+minang daftar
+minang terbitkan
+```
+
+### Package Configuration (paket.minang)
+
+```json
+{
+  "nama": "my-minang-package",
+  "versi": "1.0.0",
+  "deskripsi": "Package with Minangkabau philosophy",
+  "pengarang": "Developer Name",
+  "filosofi": [
+    "gotong-royong",
+    "musyawarah-mufakat",
+    "alam-takambang-jadi-guru",
+    "adat-basandi-syarak"
+  ],
+  "dependencies": {
+    "minang-ui": "^1.0.0"
+  },
+  "scripts": {
+    "main": "main.minang",
+    "test": "test/*.minang"
+  }
+}
+```
+
+### Advanced Package Management
+
+```bash
+# Initialize with cultural philosophy
+minang init --philosophy gotong-royong myproject
+
+# Install with dependency tracking
+minang install package-name --save-dev
+
+# Search with category filtering
+minang search ui --category components
+
+# Update with version control
+minang update --check-compatibility
+
+# Publish with cultural validation
+minang publish --validate-philosophy
+```
+
+---
+
 ## 🏗️ Architecture
 
 ### Core Components
@@ -457,6 +606,14 @@ karojo ethicalProcess(input) {
 ---
 
 ## 📈 Changelog
+
+### **[1.2.0] - 2025-01-15** *(Latest)*
+- 🚀 **Direct Commands** - Removed "paket" prefix for streamlined CLI (`minang install` vs `minang paket install`)
+- 🌍 **Enhanced International Support** - Improved bilingual command structure
+- 🔧 **CLI Improvements** - Cleaner help output and error messages
+- 📦 **Package Manager Refinements** - Better error handling and consistent result objects
+- 🧹 **Project Cleanup** - Updated .gitignore/.npmignore, consolidated documentation
+- ✅ **Quality Assurance** - All tests updated and passing with new command structure
 
 ### **[1.1.1] - 2025-06-23**
 - 🌍 **International Accessibility** - Bilingual CLI support (English/Indonesian)
@@ -576,7 +733,7 @@ We extend our gratitude to:
 
 ## 🎉 Project Status
 
-**MinangScript v1.1.1** is a **production-ready** programming language with:
+**MinangScript v1.2.0** is a **production-ready** programming language with:
 
 ✅ **Complete Implementation** - 41 language elements fully operational  
 ✅ **Global Distribution** - Available via NPM worldwide  
@@ -585,6 +742,8 @@ We extend our gratitude to:
 ✅ **International Support** - Bilingual CLI for global developers  
 ✅ **Cultural Authenticity** - Genuine Minangkabau philosophy integration  
 ✅ **Zero Dependencies** - Lightweight and efficient architecture  
+✅ **Streamlined CLI** - Direct commands without unnecessary prefixes  
+✅ **Clean Documentation** - Consolidated, professional documentation  
 ✅ **Active Development** - Regular updates and community engagement  
 
 ---
