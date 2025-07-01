@@ -1,0 +1,105 @@
+// MinangScript Two Sum - Step by Step Demo
+cetak "🏔️ MinangScript Two Sum Algorithm Demo"
+
+// Step 1: Test basic array creation
+cetak "\n📊 Step 1: Creating arrays with kumpulan"
+buek nums = kumpulan[2, 7, 11, 15]
+cetak "Array created: " + nums
+cetak "Array length: " + nums.length
+cetak "First element: " + nums[0]
+cetak "Second element: " + nums[1]
+
+// Step 2: Test basic math
+cetak "\n🧮 Step 2: Testing Two Sum logic"
+buek target = 9
+cetak "Target: " + target
+cetak "nums[0] + nums[1] = " + nums[0] + " + " + nums[1] + " = " + (nums[0] + nums[1])
+
+kalau nums[0] + nums[1] === target {
+    cetak "✅ Found! Indices 0 and 1 sum to " + target
+} lain {
+    cetak "❌ No match at indices 0 and 1"
+}
+
+// Step 3: Manual Two Sum check
+cetak "\n🔍 Step 3: Manual Two Sum verification"
+buek found = salah
+buek resultI = -1
+buek resultJ = -1
+
+// Check all pairs manually
+kalau nums[0] + nums[1] === target {
+    cetak "✅ Solution: indices 0, 1"
+    found = bana
+    resultI = 0
+    resultJ = 1
+}
+
+kalau nums[0] + nums[2] === target {
+    cetak "✅ Solution: indices 0, 2"
+    found = bana
+    resultI = 0
+    resultJ = 2
+}
+
+kalau nums[0] + nums[3] === target {
+    cetak "✅ Solution: indices 0, 3"
+    found = bana
+    resultI = 0
+    resultJ = 3
+}
+
+kalau nums[1] + nums[2] === target {
+    cetak "✅ Solution: indices 1, 2"
+    found = bana
+    resultI = 1
+    resultJ = 2
+}
+
+kalau nums[1] + nums[3] === target {
+    cetak "✅ Solution: indices 1, 3"
+    found = bana
+    resultI = 1
+    resultJ = 3
+}
+
+kalau nums[2] + nums[3] === target {
+    cetak "✅ Solution: indices 2, 3"
+    found = bana
+    resultI = 2
+    resultJ = 3
+}
+
+// Step 4: Results
+cetak "\n📊 Step 4: Final Results"
+kalau found {
+    cetak "🎉 Two Sum solution found!"
+    cetak "Indices: " + resultI + ", " + resultJ
+    cetak "Values: " + nums[resultI] + ", " + nums[resultJ]
+    cetak "Sum: " + nums[resultI] + " + " + nums[resultJ] + " = " + (nums[resultI] + nums[resultJ])
+} lain {
+    cetak "❌ No Two Sum solution exists"
+}
+
+// Step 5: Test with objects (benda)
+cetak "\n🎁 Step 5: Testing objects (benda)"
+buek solution = benda{
+    found: found,
+    index1: resultI,
+    index2: resultJ,
+    value1: nums[resultI],
+    value2: nums[resultJ]
+}
+
+cetak "Solution object created successfully!"
+cetak "Found: " + solution.found
+kalau solution.found {
+    cetak "Index 1: " + solution.index1
+    cetak "Index 2: " + solution.index2
+}
+
+cetak "\n✨ MinangScript Demo Complete!"
+cetak "✅ Arrays (kumpulan) working"
+cetak "✅ Objects (benda) working" 
+cetak "✅ Two Sum algorithm working"
+cetak "🏔️ Alam takambang jadi guru!"

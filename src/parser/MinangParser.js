@@ -376,7 +376,8 @@ class MinangParser {
     equality() {
         let expr = this.comparison();
 
-        while (this.match('EQUAL') || this.match('NOT_EQUAL')) {
+        while (this.match('EQUAL') || this.match('NOT_EQUAL') || 
+               this.match('STRICT_EQUAL') || this.match('STRICT_NOT_EQUAL')) {
             const operator = this.getCurrentToken().value;
             this.advance();
             const right = this.comparison();
@@ -500,6 +501,17 @@ class MinangParser {
                     type: 'MemberExpression',
                     object: expr,
                     property: property
+                };
+            } else if (this.match('LBRACKET')) {
+                // Handle array access like nums[0]
+                this.advance();
+                const index = this.expression();
+                this.consume('RBRACKET', 'Diharapkan "]" setelah indeks array');
+                expr = {
+                    type: 'MemberExpression',
+                    object: expr,
+                    property: index,
+                    computed: true
                 };
             } else {
                 break;

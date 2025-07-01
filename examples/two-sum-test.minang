@@ -1,0 +1,36 @@
+// MinangScript Two Sum Test
+cetak "🎯 Testing Two Sum Implementation"
+
+// Create test array and target
+buek nums = kumpulan[2, 7, 11, 15]
+buek target = 9
+
+cetak "Array: " + nums
+cetak "Target: " + target
+
+// Simple brute force approach
+karojo twoSum(nums, target) {
+    untuak (buek i = 0; i < nums.length; i = i + 1) {
+        untuak (buek j = i + 1; j < nums.length; j = j + 1) {
+            kalau nums[i] + nums[j] === target {
+                buek resultArray = kumpulan[i, j]
+                jadi resultArray
+            }
+        }
+    }
+    buek emptyArray = kumpulan[]
+    jadi emptyArray
+}
+
+// Test the function
+buek result = twoSum(nums, target)
+cetak "Result indices: " + result
+
+kalau result.length > 0 {
+    cetak "Found solution!"
+    cetak "Index " + result[0] + ": " + nums[result[0]]
+    cetak "Index " + result[1] + ": " + nums[result[1]]
+    cetak "Sum: " + (nums[result[0]] + nums[result[1]])
+} lain {
+    cetak "No solution found"
+}

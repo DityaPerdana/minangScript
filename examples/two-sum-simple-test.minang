@@ -1,0 +1,72 @@
+// MinangScript Two Sum Simple Test
+cetak "🎯 Testing Two Sum Implementation"
+
+// Create test array and target
+buek nums = kumpulan[2, 7, 11, 15]
+buek target = 9
+
+cetak "Array: " + nums
+cetak "Target: " + target
+
+// Manual Two Sum test (not using nested arrays in conditionals)
+buek found = salah
+buek index1 = -1
+buek index2 = -1
+
+// Check indices 0,1
+kalau nums[0] + nums[1] === target {
+    found = bana
+    index1 = 0
+    index2 = 1
+}
+
+// Check indices 0,2
+kalau nums[0] + nums[2] === target {
+    found = bana
+    index1 = 0
+    index2 = 2
+}
+
+// Check indices 0,3
+kalau nums[0] + nums[3] === target {
+    found = bana
+    index1 = 0
+    index2 = 3
+}
+
+// Check indices 1,2
+kalau nums[1] + nums[2] === target {
+    found = bana
+    index1 = 1
+    index2 = 2
+}
+
+// Check indices 1,3
+kalau nums[1] + nums[3] === target {
+    found = bana
+    index1 = 1
+    index2 = 3
+}
+
+// Check indices 2,3
+kalau nums[2] + nums[3] === target {
+    found = bana
+    index1 = 2
+    index2 = 3
+}
+
+// Display results
+kalau found {
+    cetak "✅ Found solution!"
+    cetak "Index " + index1 + ": " + nums[index1]
+    cetak "Index " + index2 + ": " + nums[index2]
+    cetak "Sum: " + (nums[index1] + nums[index2])
+    
+    // Create result array outside conditional
+    buek result = kumpulan[index1, index2]
+    cetak "Result array: " + result
+} lain {
+    cetak "❌ No solution found"
+}
+
+cetak "✨ Two Sum test complete!"

@@ -1,0 +1,10 @@
+// Test assignment in conditional
+cetak "Testing assignment in conditional"
+
+buek test = 5
+cetak test
+
+kalau bana {
+    test = 10
+    cetak test
+}

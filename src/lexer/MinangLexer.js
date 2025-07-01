@@ -97,6 +97,8 @@ class MinangLexer {
             '/': 'DIVIDE',
             '%': 'MODULO',
             '=': 'ASSIGN',
+            '===': 'STRICT_EQUAL',
+            '!==': 'STRICT_NOT_EQUAL',
             '==': 'EQUAL',
             '!=': 'NOT_EQUAL',
             '<': 'LESS_THAN',
@@ -442,7 +444,20 @@ class MinangLexer {
                 continue;
             }
 
-            // Handle operators (check two-character operators first)
+            // Handle operators (check three-character operators first, then two-character)
+            const threeChar = input.substr(current, 3);
+            if (this.operators[threeChar]) {
+                tokens.push({
+                    type: this.operators[threeChar],
+                    value: threeChar,
+                    line: line,
+                    column: column
+                });
+                current += 3;
+                column += 3;
+                continue;
+            }
+            
             const twoChar = input.substr(current, 2);
             if (this.operators[twoChar]) {
                 tokens.push({

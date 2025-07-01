@@ -72,8 +72,14 @@ class MinangCompiler {
                 return `${this.generateJavaScript(node.expression)};`;
 
             case 'MemberExpression':
-                // Handle member expressions like cetak.rusak
-                return `${this.generateJavaScript(node.object)}.${node.property}`;
+                // Handle member expressions like cetak.rusak or nums[0]
+                if (node.computed) {
+                    // Array access: nums[0]
+                    return `${this.generateJavaScript(node.object)}[${this.generateJavaScript(node.property)}]`;
+                } else {
+                    // Property access: object.property
+                    return `${this.generateJavaScript(node.object)}.${node.property}`;
+                }
 
             case 'AssignmentExpression':
                 return `${this.generateJavaScript(node.left)} = ${this.generateJavaScript(node.right)}`;
@@ -124,6 +130,8 @@ class MinangCompiler {
             '&&': '&&',
             '||': '||',
             '!': '!',
+            '===': '===',
+            '!==': '!==',
             '==': '===',
             '!=': '!==',
             '<': '<',

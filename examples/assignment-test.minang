@@ -1,0 +1,8 @@
+// Test simple assignment
+cetak "Testing assignment"
+
+buek test = 5
+cetak test
+
+test = 10
+cetak test
