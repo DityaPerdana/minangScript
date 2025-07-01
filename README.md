@@ -345,8 +345,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - **NPM Package**: [minangscript](https://www.npmjs.com/package/minangscript)
 - **GitHub**: [DityaPerdana/minangScript](https://github.com/DityaPerdana/minangScript)
-- **Documentation**: [GitHub Wiki](https://github.com/DityaPerdana/minangScript/wiki)
-- **VS Code Extension**: [MinangScript IntelliSense](https://marketplace.visualstudio.com/items?itemName=minangscript.intellisense)
+- **VS Code Extension**: [MinangScript IntelliSense](https://marketplace.visualstudio.com/items?itemName=dtyminang.minangscript-intellisense)
 
 ---
 
